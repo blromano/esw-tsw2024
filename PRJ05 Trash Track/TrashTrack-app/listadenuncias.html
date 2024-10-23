@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrashTrack</title>
+
+    <!-- Link do CSS Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style-listadenuncias.css" />
+  </head>
+
+  <body>
+    <!-- NAV BAR -->
+    <nav class="navbar navbar-expand-lg navbar-light py-3" style="margin-left: 12rem; margin-right: 12rem;">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">
+              <img src="img/Logo.png" alt="TrashTrack Logo" width="160" height="45" class="d-inline-block">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  </li>
+              </ul>
+              <div class="d-flex align-items-center gap-3">
+                  <ul class="navbar-nav mb-2 mb-lg-0">
+                      <li class="nav-item">
+                          <img src="img/Sino.png" alt="Notification logo" width="20" height="20" class="logo" onclick="abrirNotificacao()">
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" aria-current="page" href="cadastro.html">Cadastro</a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="login.html"> <button class="btn btn-outline-success" type="submit">Entrar</button> </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </nav>
+
+    <!-- DIV GERAL -->
+    <div class="default-size">
+      <!-- Colocar a mesma margem que vai ter no header -->
+
+      <!-- LINHA 1 - Título -->
+      <div class="row align-items-center my-5">
+        <div class="col-md-12">
+          <h3>#Denuncias Realizadas</h3>
+        </div>
+      </div>
+
+      <!-- LINHA 2 - Barra de Pesquisa -->
+      <div class="row align-items-center my-5">
+        <div class="col-md-4">
+          <form class="form-inline">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Pesquisar..."
+              />
+              <div class="input-group-append" style="margin-left: 10px">
+                <button
+                  type="submit"
+                  class="btn btn-outline-secondary"
+                  style="background-color: #3acc97"
+                >
+                  <img src="img/lupa.png" alt="botaopesquisa" />
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- LINHA 3 - Tabela de Denúncias -->
+
+      <div class="container my-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Categoria da Denúncia</th>
+                    <th scope="col">Usuário Denunciado</th>
+                    <th scope="col">Data da Denúncia</th>
+                    <th scope="col" colspan="3" style="text-align: center;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Falso Ponto</td>
+                    <td>Maria Julia Fantagussi</td>
+                    <td>08/07/2024</td>
+                    <td> <a href="modal_consultar_denuncia-admin.html" target="_self"> <button> Consultar Denúncia </button></td> </a>
+                </tr>
+                <tr>
+                    <td scope="row">Ponto Duplicado</td>
+                    <td>Bianca Emily Lourenço</td>
+                    <td>21/05/2024</td>
+                    <td> <a href="modal_consultar_denuncia-admin.html" target="_self"> <button> Consultar Denúncia </button></td> </a>
+                </tr>
+                <tr>
+                    <td scope="row">Falso Ponto</td>
+                    <td>Alberto Kazuaki</td>
+                    <td>20/05/2024</td>
+                    <td> <a href="modal_consultar_denuncia-admin.html" target="_self"> <button> Consultar Denúncia </button></td> </a>
+                </tr>
+                <tr>
+                    <td scope="row">Falso Ponto</td>
+                    <td>Adriana Lourenço</td>
+                    <td>03/05/2024</td>
+                    <td> <a href="modal_consultar_denuncia-admin.html" target="_self"> <button> Consultar Denúncia </button></td> </a>
+                </tr>
+                <tr>
+                    <td scope="row">Falso Duplicado</td>
+                    <td>Karina Tais Pinto</td>
+                    <td>22/02/2024</td>
+                    <td> <a href="modal_consultar_denuncia-admin.html" target="_self"> <button> Consultar Denúncia </button></td> </a>
+                </tr>
+                <tr>
+                    <td scope="row">Falso Ponto</td>
+                    <td>Geisa Ramos</td>
+                    <td>10/01/2024</td>
+                    <td> <a href="modal_consultar_denuncia-admin.html" target="_self"> <button> Consultar Denúncia </button></td> </a>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+
+    <!-- Footer -->
+    <footer
+      class="fixed-bottom"
+      style="position: relative; background-color: #3acc97; height: 5rem"
+    ></footer>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Script do JavaScript do Bootstrap (opcional, mas recomendado) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,493 @@
+body{
+    font-family: 'Poppins';
+    margin: 0;
+}
+
+/*NavBar*/
+
+.container-fluid{
+    padding: 40px 54px 20px 45px;
+    position: relative;
+}
+
+#seta{
+    float: left;
+}
+
+.btn-select-criar{
+    background-color: #3ACC97;
+    border-radius: 60px;
+    border: none;
+    margin-left: 16px;
+    color: white;
+    font-weight: 800;
+    padding: 12px 18px;
+}
+
+#btn-select:hover{
+    background-color: #43dda4;
+}
+
+.perfil{
+    width: 57px;
+    height: 50px;
+    border: none;
+    background: none;
+    float: inline-end;
+    margin-top: -6px;
+    
+    & img{
+        width: 52px;
+    }
+}
+
+/*ModalPerfil*/
+
+#modalPerfil{
+    position: absolute;
+    float: right;
+    right: 54px;
+    background-color: #fff;
+    z-index: 10;
+    max-width: 90%;
+    width: 252px;
+    height: 370px;
+    border-radius: 16px;
+    text-align: center;
+    display: none;
+    padding: 24px;
+}
+
+#modalHeaderPerfil{
+    height: 20px;
+    width: 260px;
+    border: none;
+
+    p{
+        font-size: 12px;
+        font-weight: 500;
+        float: left;
+        margin: 0px 0px 0px 78px;
+    }
+
+}
+
+/*Style button close - se aplica a todos os botoes de fechar dos modais*/
+
+.btn-close-perfil, .btn-close-lista, .btn-filtro, .btn-close-ranking, .btn-close-criar {
+    background-color: #fff;
+    border: none;
+    float: inline-end;
+}
+
+.btn-close-perfil> img, .btn-close-lista> img, .btn-close-ranking> img, .btn-close-criar > img{
+    width: 15px;
+}
+
+#modalBodyPerfil{
+    height: 400px;
+    width: 100%;
+    display: block;
+
+    p{
+        margin: 0;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    a{
+        text-decoration: none;
+        color: #8692A6;
+        font-size: 13px;
+        text-align: left;
+        margin-left: -125px;
+    }
+}
+
+.foto{
+    width: 106px;  
+    height: 106px;
+    margin-left: 24px;
+    margin-top: 6px;
+}
+
+.nome{
+    font-weight: 700;
+    margin: 0;
+    
+}
+
+.trofeu{
+    width: 15px;
+    margin: 4px 10px 0px 60px;
+    float: left;
+}
+
+#cont{
+    border: 2px solid #3ACC97;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+    height: 40px;
+
+    p{
+        float: left;
+        margin-top: 10px;
+    }
+
+    h2{
+        margin: 0;
+        float: inline-end;
+    }
+}
+
+#tipo-usu{
+    margin: 0;
+    text-align: left;
+    float: left;
+    color: #3ACC97;
+}
+
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 20px;
+    float: right;
+    margin-right: 30px;
+    margin-top: 6px; 
+    padding-left: 4px;
+}
+  
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #3ACC97;
+    transition: .4s;
+    border-radius: 20px;
+    background-color: #3ACC97;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    border-radius: 20px;
+    right: 25px;
+    background-color: #FFF;
+    transition: .4s;
+    margin-top: 1px;
+}
+  
+input:checked + .slider {
+    border: 2px solid #3AB6CC;
+    background-color: #3AB6CC;
+}
+  
+input:focus + .slider {
+    outline: none;
+}
+  
+input:checked + .slider:before {
+    transform: translateX(1.4em);
+    background-color: #FFF;
+}
+
+/*ModalLista*/
+
+#modalLista{
+    position: absolute;
+    left: 30px;
+    background-color: #fff;
+    z-index: 10;
+    max-width: 90%;
+    width: 252px;
+    height: 370px;
+    border-radius: 16px;
+    display: none;
+    padding: 24px;
+}
+
+#modalHeaderLista{
+    height: 20px;
+    width: 260px;
+    border: none;
+
+    .btn-filtro > img{
+        width: 20px;
+    }
+
+}
+
+#modalBodyLista{
+    height: 400px;
+    width: 100%;
+    display: block;
+
+}
+
+.title{
+    font-weight: 700;
+    margin: 0;
+    float: left;
+}
+
+#lista, #lista-meus, #Ranking{
+    height: 200px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-x: hidden;
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+    .ponto{
+        margin-top: 12px;
+        height: 48px;
+        width: 100%;
+        border-bottom: 1px solid #f6f6f6;
+    }
+    
+    .ende{
+        width: 140px;
+        margin-left: 10px;
+        font-size: 12px;
+        float: left;
+    }
+    
+    .ponto >img {
+        width: 24px;
+        float: inline-start;
+    }
+
+    .btn-denuncia {
+        background-color: #FFF;
+        border: none;
+        margin-left: 22px;
+    }
+
+    .btn-denuncia > img{
+        width: 30px;
+    }
+
+    .btn-editar{
+        background-color: #FFF;
+        border: none;
+        padding: 0;
+        float: left;
+        margin: 8px 5px ;
+    }
+
+    .btn-excluir{
+        background-color: #FFF;
+        border: none;
+        padding: 0;
+        margin: 8px 0px ;
+    }
+
+    .btn-editar >img, .btn-excluir > img{
+        width: 22px;
+    }
+}
+
+#lista-meus{
+    height: 70px;
+}
+
+
+/*Barra de navegacao lista*/
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    
+  }
+  
+::-webkit-scrollbar-track {
+    width: 10px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color:#dedede;
+    border-radius: 10px;
+}
+
+
+
+/*ModalRanking*/
+
+#modalRanking{
+    position: fixed;
+    float: right;
+    right: 54px;
+    bottom: 80px;
+    background-color: #fff;
+    z-index: 10;
+    max-width: 90%;
+    width: 252px;
+    height: 370px;
+    border-radius: 16px;
+    display: none;
+    padding: 24px;
+}
+
+#modalHeaderRanking{
+    height: 20px;
+    width: 260px;
+    border: none;
+
+    h4{
+        margin-left: 10px;
+    }
+}
+
+#modalBodyRanking{
+    height: 400px;
+    width: 100%;
+    display: block;
+}
+
+.icon{
+    width: 24px;
+    float: left;
+}
+
+#Ranking{
+    height: 320px;
+}
+
+.rank {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f6f6f6; 
+}
+
+.rank img, .rank h4{
+    margin-right: 10px;
+    width: 20px; 
+}
+
+.rank h4{
+    margin-left: 2px;
+}
+
+.rank p {
+    margin: 0 10px 0 0;
+}
+
+.rank .pont {
+    margin-left: auto; 
+}
+
+
+/*Modal Criar Ponto de Coleta*/
+
+#modalCriar{
+    position: fixed;
+    left: 30px;
+    bottom: 80px;
+    background-color: #fff;
+    z-index: 10;
+    max-width: 90%;
+    width: 252px;
+    height: 370px;
+    border-radius: 16px;
+    display: none;
+    padding: 24px;
+}
+
+#modalHeaderCriar{
+    height: 20px;
+    width: 260px;
+    margin-bottom: 20px;
+}
+
+#modalBodyCriar{
+    height: 400px;
+    width: 100%;
+    display: block;
+
+    h4{
+        margin: 6px 200px 12px 0px;
+    }
+
+    div{
+        margin-bottom: 6px;
+    }
+
+    input[type=text]{
+        float: right;
+        border-radius: 6px;
+        height: 20px;
+        width: 124px;
+    }
+}
+
+.container-footer{
+    width: 98%;
+    margin: auto;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.container-button{
+    border: 0;
+    color: white;
+    font-weight: 800;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #3ACC97;
+    margin-top: 10px;
+}
+
+/*Footer*/
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 24px 40px 24px 50px;
+    width: calc(100% - 40px);
+}
+
+.btn-ranking{
+    border: none;
+    background: none;
+    float: right;
+    margin-right: 64px;
+    padding: 0;
+    
+    & img{
+        width: 42px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrashTrack</title>
+    <link rel="stylesheet" href="css/style-mapa.css">
+    <link rel="stylesheet" href="js/script-mapa.js">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14801.977616058008!2d-46.7960322!3d-21.953980199999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1724979796574!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0; position: absolute; margin: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</head>
+<body>
+
+  <!--NavBar-->
+
+  <nav class="container-fluid">
+    <a href="index.html"><img src="img/seta.svg" alt="seta" id="seta"></a>
+    <button type="button" class="btn-select-criar" id="btn-lista">Seleção de pontos</button>
+    <button class="perfil "><img src="img/perfil.svg" alt="perfil"></button>
+  </nav>
+
+  <!--ModalPerfil-->
+
+  <div id="modalPerfil">
+    <div id="modalHeaderPerfil">
+      <p>email@gmail.com</p>
+      <button class="btn-close-perfil"><img src="img/x.png" alt="X"></button>
+    </div>
+
+    <div id="modalBodyPerfil">
+      <img  class="foto" src="img/perfil.svg" alt="perfil">
+      <h4 class="nome">Olá, Nome</h4>
+
+      <div class="Ranking">
+        <img class="trofeu" src="img/trofeu.png" alt="trofeu">
+        <p>Ranking #005</p> 
+      </div>
+
+      <div id="cont">
+        <p id="cont-lixos">Lixos Coletados</p>
+        <h2>120</h2>
+      </div>
+
+      <a href="modal_editar_info.html" target="self">Editar Informações</a>
+      <br>
+      <h2 id="tipo-usu">Sou Coletor</h2>
+      <label class="switch" >
+        <input type="checkbox" id="toggle">
+        <span class="slider"></span>
+    </label>
+    </div>
+  </div>
+
+    <!--Modal Lista de pontos-->
+
+  <div id="modalLista">
+    <div id="modalHeaderLista">
+      <h4 class="title">Pontos de Coleta</h4>
+      <button class="btn-close-lista"><img src="img/x.png" alt="X"></button>
+      <button class="btn-filtro"><img src="img/filtro.png" alt="filtro"></button>
+    </div>
+    <div id="modalBodyLista">
+      <div id="lista">
+        <div class="ponto">
+          <img  src="img/pontoOrganico.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+        </div>
+        <div class="ponto">
+          <img src="img/pontoOleo.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>       
+        </div>
+        <div class="ponto">
+          <img src="img/pontoReciclagem.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>      
+        </div>
+        <div class="ponto">
+          <img src="img/pontoOrganico.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>        
+        </div>
+        <div class="ponto">
+          <img src="img/pontoReciclagem.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+        </div>
+        <div class="ponto">
+          <img src="img/pontoOleo.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+        </div>
+        <div class="ponto">
+          <img src="img/pontoReciclagem.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+        </div>
+      </div>
+      <h4 class="title">Meus Pontos</h4>
+      <div id="lista-meus" >
+        <div class="ponto">
+          <img id="ponto" src="img/pontoOleo.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+          <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+        </div>
+        <div class="ponto">
+          <img id="ponto" src="img/pontoOrganico.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+          <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--ModalRanking-->
+
+  <div id="modalRanking">
+    <div id="modalHeaderRanking">
+      <img class="icon" src="img/trofeu.png" alt="ranking">
+      <h4 class="title">Ranking</h4>
+      <button class="btn-close-ranking"><img src="img/x.png" alt="X"></button>
+    </div>
+    <div id="modalBodyRanking">
+      <div id="Ranking">
+        <div class="rank">
+          <img src="img/medalha1.png" alt="ponto">
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+            <img src="img/medalha2.png" alt="ponto">    
+            <p>Nome</p>
+            <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+          <img  src="img/medalha3.png" alt="ponto">
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+          <h4>4</h4>
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+          <h4>5</h4>
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+          <h4>6</h4>
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+          <h4>7</h4>
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>  
+        <div class="rank">
+          <h4>8</h4>
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+          <h4>9</h4>
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div>
+        <div class="rank">
+          <h4>10</h4>
+          <p>Nome</p>
+          <b class="pont">120pt</b>
+        </div> 
+      </div>   
+    </div>
+  </div>
+
+  <!--Modal Criar Ponto de Coleta-->
+
+  <div id="modalCriar">
+    <div id="modalHeaderCriar">
+      <h4 class="title">Criar ponto de Coleta</h4>
+      <button class="btn-close-criar"><img src="img/x.png" alt="X"></button>
+    </div>
+
+    <div id="modalBodyCriar">
+      <div class="checkbox-container">
+        <div>
+            <input type="checkbox" id="organico" class="checkers">
+            <label for="organico">Organico</label>
+        </div>
+        <div>
+            <input type="checkbox" id="eletronico" class="checkers">
+            <label for="eletronico">Eletrônico</label>
+        </div>
+        <div>
+            <input type="checkbox" id="reciclavel" class="checkers">
+            <label for="reciclavel">Reciclável</label>
+        </div>
+        <div>
+            <input type="checkbox" id="oleo" class="checkers">
+            <label for="oleo">Óleo</label>
+        </div>
+
+        <h4 class="title">Endereço</h4>
+        <br>
+        <div>
+          <label for="rua">Rua</label>
+          <input id="rua" type="text">
+        </div>
+        <div>
+          <label for="numero">Número</label>
+          <input id="numero" type="text">
+        </div>
+        <div>
+          <label for="bairro">Bairro</label>
+          <input id="bairro" type="text">
+        </div>
+        <div>
+          <label for="cidade">Cidade</label>
+          <input id="cidade" type="text">
+        </div>
+        <div>
+          <label for="complemento">Complemento</label>
+          <input id="complemento" type="text">
+        </div>
+        
+
+        <div class="container-footer">
+          <button class="container-button">Criar Ponto de Coleta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <!--Footer-->
+
+  <nav class="footer" >
+    <button type="button" class="btn-select-criar" id="btn-criar">Criar Ponto de Coleta</button>
+    <button class="btn-ranking "><img src="img/ranking.png" alt="perfil"></button>
+
+  </nav>
+
+  <script src="js/script-mapa.js"></script>
+  
+</body>
+
+</html>
