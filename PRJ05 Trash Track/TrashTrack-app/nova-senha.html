@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrashTrack</title>
+
+    <!-- Link do CSS Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style-cadastro-login.css">
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid vh-100">
+        <div class="row" style="height: 100%;">
+
+            <!-- Coluna esquerda -->
+            <div class="col-md-6 background-site d-flex align-items-center justify-content-center">
+                <div>
+                    <img src="img/reciclagem.png" alt="">
+                </div>
+            </div>
+
+
+            <!-- Coluna direita -->
+            <div class="col-md-6 d-flex flex-column">
+
+                <!-- Botão de voltar -->
+                <div class="mb-3" style="position: absolute; margin-top: 5%; margin-left: 5%;">
+                    <a href="index.html" class=""> &lt; Home</a>
+                </div>
+            
+                <!-- parte inteira do nova senha -->
+                <div class="d-flex justify-content-center align-items-center flex-grow-1">
+
+                    <div class="login-container text-left">
+                            <form>
+                                <h2>Cadastre uma nova senha</h2>
+                                <p class="cinza">Preencha os campos com uma nova senha</p>
+
+                                <!-- senha -->
+                                <div class="form-group">
+
+                                    <label for="password" class="cinza">Nova Senha</label>
+
+                                    <div class="d-flex align-items-center botao-forms form-control botao-senha">
+                                        <input type="password" id="password" placeholder="" class="">
+                                        <img src="img/eye-close.png" alt="" id="eyeicon" onclick="mostrarsenha()">
+
+                                    </div>
+
+                                </div>
+                                
+                                <!-- confirmar senha -->
+                                <div class="form-group">
+
+                                    <label for="password2" class="cinza">Confirmar Senha</label>
+
+                                    <div class="d-flex align-items-center botao-forms form-control botao-senha">
+                                        <input type="password" id="password2" placeholder="" class="">
+                                        <img src="img/eye-close.png" alt="" id="eyeicon2" onclick="confirmarsenha()">
+
+                                    </div>
+
+                                </div>
+
+                        
+                            </form>         
+
+                                <!-- botao enviar cadastro -->
+                                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Nova senha</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Script do JavaScript do Bootstrap (opcional, mas recomendado) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- scripts -->
+    <script src="js/script-cadastro-login.js"></script>
+
+</body>
+</html>
