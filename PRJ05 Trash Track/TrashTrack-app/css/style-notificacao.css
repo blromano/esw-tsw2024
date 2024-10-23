@@ -1,0 +1,13 @@
+.notificacao-pop-up-dropdown-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.notificacao-pop-up-dropdown-list{
+    list-style-type: none;
+    padding: 0;
+}
+.notificacao-pop-up-dropdown-list li{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.349);
+    margin-top: 4px;
+}
