@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia São João - Tela de Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="images/image_4.png" alt="Logo Guia São João" class="logo-img">
+                <a href="index.html"><div class="logo-text">Guia São João</div></a>
+            </div>
+            <div class="header-buttons">
+                <button class="login-btn" onclick="window.location.href='login.html';">Login</button>
+                <button class="signup-btn" onclick="window.location.href='cadastro.html';">Cadastro</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Login</h1>
+            <form class="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit" class="submit-btn" onclick="window.location.href='admAcessarMapa.html';">Entrar</button>
+                
+                <a href="esqueciMinhaSenha.html" class="forgot-password">Esqueci minha senha</a>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
