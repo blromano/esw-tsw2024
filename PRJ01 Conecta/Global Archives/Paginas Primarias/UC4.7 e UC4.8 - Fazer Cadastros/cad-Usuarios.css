@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f3f3f3, #e2e2e2);
+}
+
+.container {
+    display: flex;
+    gap: 40px; /* Espaçamento aumentado entre os botões */
+    padding: 20px;
+}
+
+.option-box {
+    width: 300px; /* Tamanho levemente maior para mais impacto visual */
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #007BFF;
+    border-radius: 20px; /* Bordas mais arredondadas para suavizar */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.profissional {
+    background-color: #ffc800;
+}
+
+h2 {
+    font-size: 26px;
+    color: white;
+    user-select: none;
+    z-index: 1;
+    transition: color 0.3s;
+}
+
+.option-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.option-box:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    clip-path: circle(150px at 0% 0%);
+    transition: clip-path 0.5s ease-in-out;
+    z-index: 0;
+}
+
+.option-box:hover:before {
+    clip-path: circle(300px at 0% 0%);
+}
+
+.option-box.clicked {
+    transform: scale(0.98);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cliente:hover {
+    background-color: #0056b3;
+}
+
+.profissional:hover {
+    background-color: #ffc900;
+}
+
+/* Container dos formulários */
+.form-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-container form {
+    display: inline-block;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
