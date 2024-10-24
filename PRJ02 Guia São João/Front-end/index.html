@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guia São João - Tela Inicial</title>
+    <title>Guia São João</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container-fluid p-0">
+    <header class="container-fluid p-0">
       <nav class="navbar p-3">
         <div class="container">
           <div>
@@ -24,12 +24,24 @@
           </div>
 
           <div>
-            <button class="btn btn-light mx-1" type="button">Cadastro</button>
-            <button class="btn btn-light mx-2" type="button">Login</button>
+            <button
+              class="btn btn-light mx-1"
+              type="button"
+              onclick="window.location.href='cadastro.html';"
+            >
+              Cadastro
+            </button>
+            <button
+              class="btn btn-light mx-2"
+              type="button"
+              onclick="window.location.href='login.html';"
+            >
+              Login
+            </button>
           </div>
         </div>
       </nav>
-    </div>
+    </header>
 
     <div class="container-fluid p-0 position-relative">
       <!-- Imagem de fundo ocupando toda a tela -->
