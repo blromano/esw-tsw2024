@@ -17,7 +17,7 @@
   >
     <header class="container-fluid p-0">
       <nav class="navbar p-3">
-        <div class="container ps-1">
+        <div class="container">
           <div>
             <a class="d-flex align-items-center" href="index.html">
               <img src="/images/pin.svg" alt="Logo" width="30" height="35" />
@@ -28,47 +28,83 @@
       </nav>
     </header>
 
-    <div
-      class="d-flex flex-column justify-content-center align-items-center custom-form-container"
-    >
-      <form class="my-5">
-        <h1 class="fs-1 fw-normal text-center">Bem vindo(a)!</h1>
-        <div class="mt-4 mb-2">
-          <label for="inputEmail">Email</label>
-          <input type="email" class="form-control" id="inputEmail" />
-          <div class="mb-3 fw-light">
-            Nós nunca vamos compartilhar seu email com terceiros.
-          </div>
-          <label for="inputPassword">Senha</label>
-          <input type="password" class="form-control" id="inputPassword" />
-        </div>
+    <section class="h-100">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-xl-11">
+            <div class="card rounded-3">
+              <div class="row g-0">
+                <div class="col-lg-6">
+                  <div class="card-body p-md-5 mx-md-4">
+                    <form class="my-5">
+                      <h1 class="fs-1 fw-normal text-center">Login</h1>
+                      <div class="mt-4 mb-2">
+                        <label for="inputEmail">Email</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="inputEmail"
+                        />
+                        <label for="inputPassword">Senha</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="inputPassword"
+                        />
+                      </div>
 
-        <div class="mb-3 d-flex justify-content-between">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="disabledFieldsetCheck"
-            />
-            <label class="form-check-label" for="disabledFieldsetCheck">
-              Lembrar senha
-            </label>
-          </div>
-          <div>
-            <a href="#"><p class="text-dark">Esqueci minha senha</p></a>
+                      <div class="mb-3 d-flex justify-content-between">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="disabledFieldsetCheck"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="disabledFieldsetCheck"
+                          >
+                            Lembrar senha
+                          </label>
+                        </div>
+                        <div>
+                          <a href="#"
+                            ><p class="text-dark">Esqueci minha senha</p></a
+                          >
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        class="btn btn-light w-100 mb-3"
+                        onclick="window.location.href='admAcessarMapa.html';"
+                      >
+                        Login
+                      </button>
+                      <p class="text-center">
+                        Ainda não tem uma conta?
+                        <a
+                          class="link-underline-opacity-0 link-underline-opacity-75-hover"
+                          href="cadastro.html"
+                          >Cadastre-se</a
+                        >
+                      </p>
+                    </form>
+                  </div>
+                </div>
+                <div
+                  class="col-lg-6 d-flex align-items-center gradient-custom-2 justify-content-center rounded"
+                  style="background-color: #eee"
+                >
+                  <div class="px-3 py-4 p-md-5 mx-md-4">
+                    <img src="/images/login-icon.svg" alt="login icon" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <button type="submit" class="btn btn-light w-100 mb-3">Login</button>
-        <p class="text-center">
-          Ainda não tem uma conta?
-          <a
-            class="link-offset-1 link-underline-opacity-0 link-underline-opacity-75-hover custom-link"
-            href="cadastro.html"
-            >Cadastre-se</a
-          >
-        </p>
-      </form>
-    </div>
+      </div>
+    </section>
   </body>
 </html>

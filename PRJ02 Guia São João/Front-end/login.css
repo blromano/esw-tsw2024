@@ -2,7 +2,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #282828;
-  overflow: hidden;
 }
 
 a {
@@ -17,32 +16,8 @@ span {
   background-color: #0e9594;
 }
 
-.custom-form-container {
-  background-color: #e0e0e0;
-  border-radius: 30px;
-  box-shadow: 1px 1px 20px 0px #000000d2;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  max-width: 600px; /* Largura máxima desejada */
-  margin-top: 6%;
-}
-
-/* Estilos responsivos */
-@media (max-width: 992px) {
-  .custom-form-container {
-      width: 60%; /* Largura para telas menores */
-  }
-}
-
-@media (min-width: 993px) {
-  .custom-form-container {
-      width: 50%; /* Largura para telas maiores */
-  }
-}
-
-.custom-link {
-  cursor: pointer;
+section {
+  margin-top: 3%;
 }
 
 /*
@@ -51,4 +26,5 @@ span {
 #0e9594
 #07beb8
 #e0e0e0
+#464BD8
 */
