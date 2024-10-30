@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #282828;
+}
+
+a {
+  text-decoration: none;
+}
+
+span {
+  font-size: 25px;
+}
+
+.navbar {
+  background-color: #0e9594;
+}
+
+section {
+  margin-top: 3%;
+}
+
+/*
+#282828
+#525358
+#0e9594
+#07beb8
+#e0e0e0
+#464BD8
+*/

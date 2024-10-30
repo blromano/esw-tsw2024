@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #e0e0e0;
+}
+
+a {
+  text-decoration: none;
+}
+
+span {
+  font-size: 25px;
+}
+
+.navbar {
+  background-color: #0e9594;
+}
+
+.slogan-container {
+  background-color: #28282869; /* Fundo preto semi-transparente */
+  backdrop-filter: blur(5px); /* Efeito de blur */
+  border-radius: 15px; /* Bordas arredondadas */
+  padding: 2rem; /* Espaçamento interno */
+}
+
+main {
+  background-color: #282828;
+}
+
+.card {
+  background-color: #e0e0e0;
+}
+
+.list-group-item {
+  background-color: #e0e0e0;
+  border-color: #9c9c9c;
+}
+
+/*
+#282828
+#525358
+#0e9594
+#07beb8
+#e0e0e0
+*/

@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+body {
+    font-family: 'Poppins';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+}
+
+.default-size {
+    margin-left: 12rem;
+    margin-right: 12rem;
+}
+
+.custom-bg{
+    background-color: #3ACC97;
+    width: 100%;
+    height: 560px;
+}
+
+.custom-card {
+    width: 25rem;
+    height: 12.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.custom-card img {
+    width: 71px;
+    height: 71px;
+}
+
+.row {
+    overflow-x: hidden; /* Remove o overflow horizontal */
+    overflow-y: hidden; /* Remove o overflow horizontal */
+ /* Remove o overflow horizontal */
+}
+
+.logo{
+    margin-top: 0.7rem;
+    transition: 0.3s;
+}
+
+.logo:hover{
+    transform: rotate(35deg);
+    cursor: pointer;
+}
+
+.btn-outline-success{
+    border:2px solid #3ACC97;
+}
+
+.btn-outline-success:hover{
+    background-color:  #3ACC97;
+    border:2px solid #3ACC97;
+
+}
+
+.photoFrame{
+   width: 370px;
+   height: 370px;
+   padding: 20px;
+}
+
+.photoFrame img{
+    width: 256px;
+    height: 256px;
+    border: 3px solid #3ACC97;
+    border-radius: 300px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.duvidas{
+    justify-content: center;
+    display: flex;
+}
+
+.btn-success{
+    background-color: #3ACC97;
+    border: #3ACC97;
+    margin-bottom: 40px;
+}
+
+.btn-success:hover{
+    background-color: #47e2a9;
+}
+
+div.custom-card {
+    height: auto;
+}
+
+@media(max-width: 971px){
+    .recycle{
+        height: 27rem;
+        width: 23rem;
+    }
+}
+
+@media(max-width: 911px) {
+.logo{
+        display: none;
+        margin-top: 0;
+    }  
+}
+
+.Titulo>h2{
+    font-weight: bolder;
+    font-size: 50px;
+}
+
+.FAQ>h2{
+    text-align: center;
+}
+
+.FAQ>h3{
+    font-size: 20px;
+    font-weight: bolder;
+}
+
