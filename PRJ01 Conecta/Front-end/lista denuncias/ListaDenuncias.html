@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Denúncias</title>
+    <link rel="stylesheet" href="ListaDenuncias.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Denúncias</h1>
+        <ul class="denuncia-lista">
+            <li class="denuncia-item">
+                <div class="denuncia-header">
+                    <h2 class="denuncia-titulo">Título da Denúncia 1</h2>
+                    <span class="denuncia-status">Pendente</span>
+                </div>
+                <p class="denuncia-descricao">Descrição breve da denúncia que foi registrada. Mais detalhes sobre o caso e situação.</p>
+                <div class="denuncia-footer">
+                    <span class="denuncia-data">Data: 2024-10-10</span>
+                    <button class="denuncia-detalhes-btn" onclick="verDetalhes(this)">Ver Detalhes</button>
+                </div>
+            </li>
+            <!--Mais denuncias-->
+        </ul>
+    </div>
+
+    
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h3>Resumo da Denúncia</h3>
+            <p class="popup-descricao">Aqui está o resumo completo da denúncia.</p>
+            <div class="popup-acoes">
+                <label><input type="checkbox" id="suspender" > Suspender</label><br>
+                <label><input type="checkbox" id="banir" > Banir</label><br>
+            </div>
+                
+                <button onclick="confirmarAcao()">Confirmar</button>
+                <button onclick="fecharPopup()">Fechar</button>
+          
+        </div>
+    </div>
+
+    <script src="ListaDenuncias.js"></script>
+</body>
+</html>
