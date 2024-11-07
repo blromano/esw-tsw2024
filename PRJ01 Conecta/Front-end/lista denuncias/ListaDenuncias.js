@@ -20,22 +20,40 @@ function fecharPopup() {
 function confirmarAcao() {
     const suspender = document.getElementById('suspender').checked;
     const banir = document.getElementById('banir').checked;
-    
-    if (suspender || banir) {
-        const denunciaAtual = document.querySelector('.denuncia-item.atual');
-        
-        
-        const status = denunciaAtual.querySelector('.denuncia-status');
-        status.textContent = 'Concluído';
-        status.classList.add('concluido');
-        status.classList.remove('pendente');
-        
-        
-        fecharPopup();
-    } else {
-        alert("Selecione uma ação (Suspender ou Banir) para confirmar.");
+    const motivo = document.getElementById('motivo').value.trim();
+    const statusElement = document.getElementById('denuncia-status'); 
+
+    // Validações
+    if (!suspender && !banir) {
+        alert("Por favor, selecione uma ação (Suspender ou Banir).");
+        return;
     }
+
+    if (motivo === "") {
+        alert("Por favor, explique o motivo da ação.");
+        return;
+    }
+
+    // Log para depuração
+    console.log("Ação confirmada:");
+    console.log({
+        acao: suspender ? "Suspensão" : "Banimento",
+        motivo: motivo,
+    });
+
+    // Atualiza o status para "Concluído"
+    if (statusElement) {
+        statusElement.textContent = "Concluído";
+        statusElement.classList.remove("pendente");
+        statusElement.classList.add("concluido");
+        alert("Denúncia marcada como concluída!");
+    } else {
+        console.error("Elemento statusDenuncia não encontrado!");
+    }
+
+    fecharPopup();
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     const suspenderCheckbox = document.getElementById('suspender');
     const banirCheckbox = document.getElementById('banir');
@@ -54,3 +72,45 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+     // Função para filtrar denúncias com base no texto digitado
+     function filtrarDenuncias() {
+        const termo = document.getElementById('barraPesquisa').value.toLowerCase();
+        const lista = document.getElementById('listaDenuncias');
+        const itens = lista.getElementsByClassName('denuncia-item');
+
+        Array.from(itens).forEach(item => {
+            const titulo = item.querySelector('.denuncia-titulo').textContent.toLowerCase();
+            const descricao = item.querySelector('.denuncia-descricao').textContent.toLowerCase();
+
+            if (titulo.includes(termo) || descricao.includes(termo)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+    function confirmarAcao() {
+        const suspender = document.getElementById('suspender').checked;
+        const banir = document.getElementById('banir').checked;
+        const motivo = document.getElementById('motivo').value.trim();
+    
+        if (!suspender && !banir) {
+            alert("Por favor, selecione uma ação (Suspender ou Banir).");
+            return;
+        }
+    
+        if (motivo === "") {
+            alert("Por favor, explique o motivo da ação.");
+            return;
+        }
+    
+        // Lógica para processar a suspensão ou banimento com o motivo
+        console.log({
+            acao: suspender ? "Suspensão" : "Banimento",
+            motivo: motivo,
+        });
+    
+        alert("Ação confirmada com sucesso!");
+        fecharPopup();
+    }
+    
