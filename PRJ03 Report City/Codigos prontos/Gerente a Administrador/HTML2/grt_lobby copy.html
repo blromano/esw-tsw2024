@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby Gerente</title>
+    <!-- Importando Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<!-- Corpo --------------------------------------------------------------------------------------------------------->
+<body class="bg-gray-200 h-screen flex justify-center items-center">
+    <div class="container w-full h-full p-5 flex flex-col gap-1">
+        <div class="user-profile flex items-center justify-between bg-gray-400 p-4 rounded-lg relative">
+            <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <div class="user-info flex-grow">
+                <p class="user-name text-black font-bold m-0">Vinícius Pereda</p>
+                <p class="user-email text-black m-0">vinicius.pereda@aluno.edu.ifsp.com.br</p>
+            </div>
+            <div class="settings-icon text-2xl text-blue-900 cursor-pointer absolute top-2 right-2">&#9881;</div>
+        </div>
+<!-------------------------------------------------------------->
+<!-- Botões que controlam o que aparece na tela ---------------->
+        <div class="container w-full text-center h-full flex flex-col gap-3">
+            <div class="user-profile flex items-center justify-between bg-gray-400 p-4 rounded-lg relative">
+                <div class="user-info flex-grow">
+                    <button id="btnControlGrafico" class="btn bg-gray-200 text-black px-4 py-0 rounded">Gráfico</button>
+                    <button id="btnControlCidadao" class="btn bg-gray-200 text-black px-4 py-0 rounded">Cidadão</button>
+                    <button id="btnControlTerceirizado" class="btn bg-gray-200 text-black px-4 py-0 rounded">Terceirizados</button>
+                    <button id="btnControlTasks" class="btn bg-gray-200 text-black px-4 py-0 rounded">Tarefas</button>
+                </div>
+                
+            </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+            
+<!-- Div responsavel pela troca de telas pelos botões ------------------------------------------------------------------------------>
+        <div class="content flex justify-between gap-5 flex-grow">
+<!---------------------------------------------------------------------------------------------------------------------------------->
+<!-- Tela dos cidadões chamada pelo botão "Cidadão" -------------------------------------------------------------------------------->
+            <div id="cidadaoContent" class="left-panel bg-gray-400 p-4 rounded-lg flex flex-col justify-between w-2/3 hidden">
+                <div class="citizens-list">
+                    <label for="citizens" class="text-blue-900 text-xl mb-4 block"><b>Cidadãos:</b></label>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                            <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <p class="flex-grow text-black m-0">Gabrielly Ana Melo</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="gabrielly">></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                            <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <p class="flex-grow text-black m-0">Leandro Souza</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="outro">></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                        <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                            <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <p class="flex-grow text-black m-0">Gabriel Kaiter</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="mais_um">></button>
+                    </div>
+                </div>
+                
+            </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<!-- Tela dos Terceirizados chamada pelo botão "Terceirizados" --------------------------------------------------------------------->
+            <div id="terceirizadoContent" class="left-panel bg-gray-400 p-4 rounded-lg flex flex-col justify-between w-2/3 hidden">
+                
+                    
+                    <h2 class="text-blue-900 text-xl mb-4"><b>Terceirizados</b></h2>
+                    <button class="cadastrar-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Cadastrar</button>
+                    <h2 class="text-blue-900 text-xl mb-4"><b>Listar Terceirizados</b></h2>
+                    <ul class="terceirizados-list">
+                        <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                            <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                                <img src="src/Empresa (1).png" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                            <p class="text-black m-0">Empresa de Reparo de Buracos</p>
+                            <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="reparoBuracos">></button>
+                        </li>
+                        <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                            <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                                <img src="src/Empresa (2).png" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                            <p class="text-black m-0">Empresa de Rede Elétrica</p>
+                            <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="redeEletrica">></button>
+                        </li>
+                        <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                            <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                                <img src="src/Empresa (3).png" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                            <p class="text-black m-0">Empresa de Encanamento</p>
+                            <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="encanamentoEmpresa">></button>
+                        </li>
+                        <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                            <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                                <img src="src/Empresa (4).png" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                            <p class="text-black m-0">Empresa de Manutenção de Postes</p>
+                            <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="manutencaoPostes">></button>
+                        </li>
+                        
+                    </ul>
+                
+                
+            </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+<!-- Tela do Gráfico chamada pelo botão "Gráfico", Vem como padrão da Página ------------------------------------------------------->
+            <div id="graficoContent" class="left-panel bg-gray-400 p-4 rounded-lg flex flex-col justify-between w-2/3 hidden">
+                <canvas id="serviceChart"></canvas>
+                <div class="dropdown mt-4 text-left">
+                    <label for="serviceSelect" class="text-blue-900 font-bold mb-2 block">Selecionar Serviço:</label>
+                    <select id="serviceSelect" class="w-full p-2 rounded border border-blue-900 bg-gray-200 text-black">
+                        <option value="geral">Geral</option>
+                        <option value="buraco">Buraco na Rua</option>
+                        <option value="rede">Rede Elétrica Danificada</option>
+                        <option value="encanamento">Encanamento Danificado</option>
+                        <option value="postes">Postes Danificados</option>
+                    </select>
+                </div>
+            </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<!-- Tela das Tarefas chamada pelo botão "Tarefas" --------------------------------------------------------------------------------->
+            <div id="taskContent" class="left-panel bg-gray-400 p-4 rounded-lg flex flex-col justify-between w-2/3 hidden">
+                <p class="text-blue-900"><strong>Tarefas:</strong></p>
+                <div class="flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                    <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                        <img src="src/BuracoRua.jpeg" alt="Avatar" class="w-full h-full object-cover">
+                    </div>
+                    <p><strong>Nome:</strong></p><p class=" text-black m-0">Tarefa 01</p><p><strong>Tipo:</strong></p><p class=" text-black m-0">Buraco na Rua</p>
+                    <button id="tarefa01" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" >></button>
+                </div>
+                <div class="flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                    <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                        <img src="src/CanoRua.jpg" alt="Avatar" class="w-full h-full object-cover">
+                    </div>
+                    <p><strong>Nome:</strong></p><p class="m-0 text-black">Tarefa 02</p><p><strong>Tipo:</strong></p><p class=" text-black m-0">Cano Danificado</p>
+                    <button id="tarefa02" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" >></button>
+                </div>
+                <div class="flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                    <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                        <img src="src/RedeEletrica.jpg" alt="Avatar" class="w-full h-full object-cover">
+                    </div>
+                    <p><strong>Nome:</strong></p><p class="m-0 text-black">Tarefa 03</p><p><strong>Tipo:</strong></p><p class=" text-black m-0">Rede Elétrica Danificada</p>
+                    <button id="tarefa03" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" >></button>
+                </div>
+            </div>
+
+            
+<!-- Modal para tarefas -->
+<div id="modalTarefa01" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+        <span id="mTarefa01" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+        
+        <!-- Avatar -->
+        <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+            <img src="src/BuracoRua.jpeg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+        </div>
+        
+        <!-- Título -->
+        <h2 class="text-blue-900 text-xl mb-4 font-bold text-center">Informações da Tarefa:</h2>
+        
+        <!-- Detalhes da Tarefa (Alinhado à Esquerda) -->
+        <div class="text-left space-y-2">
+            <p><strong>Nome:</strong> Tarefa 01</p>
+            <p><strong>Endereço:</strong> Rua Prudente de Morais</p>
+            <p><strong>Número:</strong> 143</p>
+            <p><strong>Bairro:</strong> Centro</p>
+            <p><strong>Chamados:</strong> 22</p>
+            <p><strong>Status:</strong> <span class="bg-green-600 text-white p-1 rounded-lg">Em Andamento!</span></p>
+            <p><strong>Criado por:</strong> Vinícius Pereda</p>
+            <p><strong>Criado em:</strong> 02/11/2024</p>
+            <p><strong>Cidadão:</strong> Gabrielly Ana Melo</p>
+            <button id="abrirCidadosPorTarefa01" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">Verificar Cidadão</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalTarefa02" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+        <span id="mTarefa02" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+        
+        <!-- Avatar -->
+        <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+            <img src="src/CanoRua.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+        </div>
+        
+        <!-- Título -->
+        <h2 class="text-blue-900 text-xl mb-4 font-bold text-center">Informações da Tarefa:</h2>
+        
+        <!-- Detalhes da Tarefa (Alinhado à Esquerda) -->
+        <div class="text-left space-y-2">
+            <p><strong>Nome:</strong> Tarefa 01</p>
+            <p><strong>Endereço:</strong> Rua Antonia Junqueira</p>
+            <p><strong>Número:</strong> 49</p>
+            <p><strong>Bairro:</strong> Centro</p>
+            <p><strong>Chamados:</strong> 47</p>
+            <p><strong>Status:</strong> <span class="bg-gray-600 text-white p-1 rounded-lg">A Fazer!</span></p>
+            <p><strong>Criado por:</strong> Vinícius Pereda</p>
+            <p><strong>Criado em:</strong> 02/11/2024</p>
+            <p><strong>Cidadão:</strong> Leandro Souza</p>
+            <button id="abrirCidadosPorTarefa02" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">Verificar Cidadão</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalTarefa03" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+        <span id="mTarefa03" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+        
+        <!-- Avatar -->
+        <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+            <img src="src/RedeEletrica.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+        </div>
+        
+        <!-- Título -->
+        <h2 class="text-blue-900 text-xl mb-4 font-bold text-center">Informações da Tarefa:</h2>
+        
+        <!-- Detalhes da Tarefa (Alinhado à Esquerda) -->
+        <div class="text-left space-y-2">
+            <p><strong>Nome:</strong> Tarefa 01</p>
+            <p><strong>Endereço:</strong> Rua Antonia Junqueira</p>
+            <p><strong>Número:</strong> 49</p>
+            <p><strong>Bairro:</strong> Centro</p>
+            <p><strong>Chamados:</strong> 47</p>
+            <p><strong>Status:</strong> <span class="bg-blue-600 text-white p-1 rounded-lg">Finalizado!</span></p>
+            <p><strong>Criado por:</strong> Vinícius Pereda</p>
+            <p><strong>Criado em:</strong> 02/11/2024</p>
+            <p><strong>Cidadão:</strong> Gabriel Kaiter</p>
+            <button id="abrirCidadosPorTarefa03" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">Verificar Cidadão</button>
+        </div>
+    </div>
+</div>
+
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+<!-- Tela de Denuncias, tela do lado Direito --------------------------------------------------------------------------------------->
+            <div class="right-panel bg-gray-400 p-4 rounded-lg w-1/3">
+                
+                <div class="citizens-list">
+                    <label for="citizens" class="text-blue-900 text-xl mb-4 block"><b>Denúncias:</b></label>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                            <img src="src/BuracoRua.jpeg" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <p class="flex-grow text-black m-0">Buraco na Rua</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="denuncia1" >></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                            <img src="src/CanoRua.jpg" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <p class="flex-grow text-black m-0">Cano Danificado</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="denuncia2">></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                        <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                            <img src="src/RedeEletrica.jpg" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <p class="flex-grow text-black m-0">Rede elétrica danificada</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="denuncia3">></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+
+<!-- Tela de Denuncia: Buraco na Rua------------------------------------------------------------------------------------------------>
+    <div id="denuncia1Modal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="denuncia1">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/BuracoRua.jpeg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><b>Buraco na rua</b></h2>
+            <p><b>Endereço:</b> Rua Prudente de Morais</p>
+            <p><b>Número:</b> 143</p>
+            <p><b>Bairro:</b> Centro</p>
+            <p><b>Chamados:</b> 22</p>
+            <button id="registrarTask-btn" class="registrarTask-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Criar Tarefa</button>
+        </div>
+    </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+<!-- Criar Tarefa a partir da Denuncia: Buraco na Rua ------------------------------------------------------------------------------>
+    <div id="CadastrarTask1" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="CadastrarTask1">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/BuracoRua.jpeg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><b>Nomeie e Confirme a Criação da Nova Task!</b></h2>
+
+            <textarea id="taskName1" placeholder="Digite Aqui" class="resize-none w-full h-32 p-2 border border-gray-300 rounded" required></textarea>
+
+            <select id="serviceSelect1" class="w-full p-2 rounded border border-blue-900 bg-gray-200 text-black">
+                <option value="" disabled selected>Escolha uma opção</option>
+                <option value="buraco">Buraco na Rua</option>
+                <option value="rede">Rede Elétrica Danificada</option>
+                <option value="encanamento">Encanamento Danificado</option>
+                <option value="postes">Postes Danificados</option>
+            </select>
+            
+            
+            <div class="flex space-x-4">
+                <button id="CancelarcadastrarTask-btn" class="CancelarcadastrarTask-btn bg-red-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-red-800">Cancelar</button>
+                <button id="ConfirmarcadastrarTask-btn" class="ConfirmarcadastrarTask-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" disabled>Criar</button>
+                
+            </div>
+        </div>
+    </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+<!-- Tela de Denuncia: Cano Danificado --------------------------------------------------------------------------------------------->
+    <div id="denuncia2Modal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="denuncia2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/CanoRua.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><b>Cano Danificado</b></h2>
+            <p><b>Endereço:</b> Rua Antonia Junqueira</p>
+            <p><b>Número:</b> 49</p>
+            <p><b>Bairro:</b> Centro</p>
+            <p><b>Chamados:</b> 47</p>
+            <button id="registrarTask2-btn" class="registrarTask2-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Criar Tarefa</button>
+        </div>
+    </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+<!-- Criar Tarefa a partir da Denuncia: Cano Danificado ---------------------------------------------------------------------------->
+    <div id="CadastrarTask2" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="CadastrarTask2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/CanoRua.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><b>Nomeie e Confirme a Criação da Nova Task!</b></h2>
+
+            <textarea id="taskName2" placeholder="Digite Aqui" class="resize-none w-full h-32 p-2 border border-gray-300 rounded" required></textarea>
+
+            <select id="serviceSelect2" class="w-full p-2 rounded border border-blue-900 bg-gray-200 text-black">
+                <option value="" disabled selected>Escolha uma opção</option>
+                <option value="buraco">Buraco na Rua</option>
+                <option value="rede">Rede Elétrica Danificada</option>
+                <option value="encanamento">Encanamento Danificado</option>
+                <option value="postes">Postes Danificados</option>
+            </select>
+            
+            
+            <div class="flex space-x-4">
+                <button id="CancelarcadastrarTask2-btn" class="CancelarcadastrarTask-btn bg-red-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-red-800">Cancelar</button>
+                <button id="ConfirmarcadastrarTask2-btn" class="ConfirmarcadastrarTask-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" disabled>Criar</button>
+                
+            </div>
+        </div>
+    </div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+    <!-- Terceiro Item --------------------------------------------------------------------------------------------------------------------------------->
+    <div id="denuncia3Modal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="denuncia3">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/RedeEletrica.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><b>Rede Elétrica Danificada</b></h2>
+            <p><b>Endereço:</b> Rua João Ciaco</p>
+            <p><b>Número:</b> 155-1</p>
+            <p><b>Bairro:</b> Jardim leonor</p>
+            <p><b>Chamados:</b> 140</p>
+            <button id="registrarTask3-btn" class="registrarTask3-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Criar Tarefa</button>
+        </div>
+    </div>
+
+    <div id="CadastrarTask3" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="CadastrarTask3">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/RedeEletrica.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><b>Nomeie e Confirme a Criação da Nova Task!</b></h2>
+
+            <textarea id="taskName3" placeholder="Digite Aqui" class="resize-none w-full h-32 p-2 border border-gray-300 rounded" required></textarea>
+
+            <select id="serviceSelect3" class="w-full p-2 rounded border border-blue-900 bg-gray-200 text-black">
+                <option value="" disabled selected>Escolha uma opção</option>
+                <option value="buraco">Buraco na Rua</option>
+                <option value="rede">Rede Elétrica Danificada</option>
+                <option value="encanamento">Encanamento Danificado</option>
+                <option value="postes">Postes Danificados</option>
+            </select>
+            
+            
+            <div class="flex space-x-4">
+                <button id="CancelarcadastrarTask3-btn" class="CancelarcadastrarTask-btn bg-red-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-red-800">Cancelar</button>
+                <button id="ConfirmarcadastrarTask3-btn" class="ConfirmarcadastrarTask-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" disabled>Criar</button>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+    <!-- Modal para Gabrielly Ana Melo ---------------------------------------------------------------------------------------------->
+    <div id="gabriellyModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="gabrielly">&times;</span>
+            <div class="w-16 h-16 bg-black rounded-full overflow-hidden flex mb-4">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4">Gabrielly Ana Melo</h2>
+            <button class="disable-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" data-disable="gabrielly">Desabilitar Usuário</button>
+            <p class="text-blue-900"><strong>Tarefas:</strong></p>
+            <ul class="call-list">
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Buraco na Rua</p>
+                    <button id="cidadaoTarefa1" class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" >Ver Tarefa</button>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal para Outro Cidadão -->
+    <div id="outroModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="outro">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Leandro Souza</h2>
+            <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <button class="disable-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" data-disable="outro">Desabilitar Usuário</button>
+            <p class="text-blue-900"><strong>Tarefas:</strong></p>
+            <ul class="call-list">
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Cano Danificado</p>
+                    <button id="cidadaoTarefa2" class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" >Ver Tarefa</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal para Mais um Cidadão -->
+    <div id="mais_umModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="mais_um">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Gabriel Kaiter</h2>
+            <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <p class="text-blue-900"><strong>Tarefas:</strong></p>
+            <button class="disable-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" data-disable="mais_um">Desabilitar Usuário</button>
+            <ul class="call-list">
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Rede Elétrica Danificada</p>
+                    <button id="cidadaoTarefa3" class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" >Ver Tarefa</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal para Desabilitar Usuário -->
+    <div id="disableUserModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" onclick="closeDisableUserModal()">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+            <textarea id="disableReason" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+            <button class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800" onclick="disableUser()">Desabilitar</button>
+        </div>
+    </div>
+
+    <!-- Modal para o chat Buraco na Rua -->
+<div id="buracoModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close-chat="buraco">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Buraco na Rua</h2>
+        <div class="chat-box bg-gray-300 p-3 rounded mb-4">
+            <div class="message bg-white p-2 rounded mb-2">Há um grande buraco na rua.</div>
+            <div class="message citizen-message bg-green-700 text-white p-2 rounded">Já encaminhamos para o serviço correspondente.</div>
+        </div>
+        <textarea id="chatInput" rows="2" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Escreva sua mensagem..."></textarea>
+        <button class="send-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Enviar</button>
+    </div>
+</div>
+
+<!-- Modal para o chat Encanamento Danificado -->
+<div id="encanamentoModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close-chat="encanamento">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Encanamento Danificado</h2>
+        <div class="chat-box bg-gray-300 p-3 rounded mb-4">
+            <div class="message bg-white p-2 rounded mb-2">O encanamento está danificado e vazando.</div>
+            <div class="message citizen-message bg-green-700 text-white p-2 rounded">Já encaminhamos para o serviço de encanamento.</div>
+        </div>
+        <textarea id="chatInput" rows="2" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Escreva sua mensagem..."></textarea>
+        <button class="send-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Enviar</button>
+    </div>
+</div>
+
+<!-- Modal para o chat Poste Danificado -->
+<div id="posteModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close-chat="poste">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Poste Danificado</h2>
+        <div class="chat-box bg-gray-300 p-3 rounded mb-4">
+            <div class="message bg-white p-2 rounded mb-2">O poste de luz está danificado e perigoso.</div>
+            <div class="message citizen-message bg-green-700 text-white p-2 rounded">Já encaminhamos para a equipe elétrica.</div>
+        </div>
+        <textarea id="chatInput" rows="2" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Escreva sua mensagem..."></textarea>
+        <button class="send-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Enviar</button>
+    </div>
+</div>
+
+<!-- Modal para Terceirizados -->
+<div id="terceirizadosModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="terceirizados">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Terceirizados</h2>
+        <button class="cadastrar-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Cadastrar</button>
+        <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+            <div class="avatar w-10 h-10 rounded-full overflow-hidden">
+                <img src="src/BuracoRua.jpeg" alt="Avatar" class="w-full h-full object-cover">
+            </div>
+            <p class="flex-grow text-black m-0">Buraco na Rua</p>
+            <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="denuncia1" >></button>
+        </div>
+        <ul class="terceirizados-list">
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                
+                <p class="text-black m-0">Empresa de Reparo de Buracos</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="reparoBuracos">></button>
+            </li>
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                <p class="text-black m-0">Empresa de Rede Elétrica</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="redeEletrica">></button>
+            </li>
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                <p class="text-black m-0">Empresa de Encanamento</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="encanamentoEmpresa">></button>
+            </li>
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                <p class="text-black m-0">Empresa de Manutenção de Postes</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="manutencaoPostes">></button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal para Cadastro de Terceirizado -->
+<div id="cadastrarTerceirizadoModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="cadastrarTerceirizado">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Cadastrar Terceirizado</h2>
+        <form id="cadastrarTerceirizadoForm">
+            <label for="terceirizadoNome">Nome:</label>
+            <input type="text" id="terceirizadoNome" name="terceirizadoNome" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoCPF">CPF:</label>
+            <input type="text" id="terceirizadoCPF" name="terceirizadoCPF" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoArea">Área:</label>
+            <input type="text" id="terceirizadoArea" name="terceirizadoArea" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoTelefone">Telefone:</label>
+            <input type="text" id="terceirizadoTelefone" name="terceirizadoTelefone" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoEmail">E-mail:</label>
+            <input type="email" id="terceirizadoEmail" name="terceirizadoEmail" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoSenha">Senha:</label>
+            <input type="text" id="terceirizadoSenha" name="terceirizadoSenha" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <button type="button" id="create-manager-btn" class="register-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Cadastrar Terceirizado</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal para Configurações do Usuário --------------------------------------------------------------------------->
+<div id="settingsModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="settings">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Perfil</h2>
+        <img src="src/images.png" alt="Avatar" class="w-20 h-20 object-cover rounded-full">
+        <p class="text-black"><strong>Nome:</strong> Vinícius Pereda</p>
+        <p class="text-black"><strong>Email:</strong> vinicius.pereda@aluno.edu.ifsp.com.br</p>
+        <p class="text-black"><strong>Departamento:</strong>setor X</p>
+        <button id="editarPerfil-btn" class="editarPerf-btn bg-green-700 text-gray-200 px-2 py-1 rounded-full font-bold w-full mt-4 hover:bg-green-800">Editar</button>
+        <button id="logout-btn" class="logout-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Logout</button>
+    </div>
+</div>
+
+
+<div id="editarPerfilModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-5/6 max-w-lg relative">
+        <span id="perfilFechar" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" >&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Perfil</h2>
+        <p class="text-black"><strong>Foto:</strong></p>
+        <input type="file" id="photo" name="photo" class="w-4/5 p-2 mb-3 rounded border border-gray-400">
+        <p class="text-black"><strong>Nome:</strong></p> <textarea id="perfilNome" class="resize-none w-full h-12 p-2 border border-gray-300 rounded" required> Vinícius Pereda </textarea>
+        <p class="text-black"><strong>Email:</strong></p> <textarea id="perfilEmail" class="resize-none w-full h-12 p-2 border border-gray-300 rounded" required> vinicius.pereda@aluno.edu.ifsp.com.br </textarea>
+        <p class="text-black"><strong>Departamento:</strong></p> <textarea id="perfilSetor" class="resize-none w-full h-12 p-2 border border-gray-300 rounded" required> setor X </textarea>
+        <button id="salvarPerfil-btn" class="salvarPerf-btn bg-green-700 text-gray-200 px-2 py-1 rounded-full font-bold w-full mt-4 hover:bg-green-800">Salvar</button>
+    </div>
+</div>
+
+
+<!-- Modal para Desabilitar Usuário -->
+<div id="disableUserModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" onclick="closeDisableUserModal()">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+        <textarea id="disableReason" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+        <button id="disable-manager-btn" class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Desabilitar</button>
+    </div>
+</div>
+
+
+
+<!-- Modal para detalhes de Empresa de Reparo de Buracos -->
+<div id="reparoBuracosModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="reparoBuracos">&times;</span>
+        
+        <!-- Avatar centralizado e maior -->
+        <div class="avatar w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+            <img src="src/Empresa (1).png" alt="Avatar" class="w-full h-full object-cover">
+        </div>
+        
+        <!-- Botão de Desabilitar Terceirizado -->
+        <button id="desativarTerceiro01" class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Desabilitar Terceirizado</button>
+        
+        <!-- Título e Informações -->
+        <h2 class="text-blue-900 text-xl mb-4 text-center"><strong>Informações do Terceirizado:</strong></h2>
+        <p><strong>Nome:</strong> Empresa de Reparo de Buracos</p>
+        <p><strong>E-Mail:</strong> ConcertaBuracos@gmail.com</p>
+        <p><strong>Telefone:</strong> (19)123456789</p>
+        <p><strong>Área:</strong> Manutenção de Ruas e Rodovias</p>
+    </div>
+</div>
+
+<div id="desativarTer01" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span id="desativar01" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+        <textarea id="razaoDesativar01" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+        <button id="desabilitar01" class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800" >Desabilitar</button>
+    </div>
+</div>
+
+<!-- Modal para detalhes de Empresa de Rede Elétrica -->
+<div id="redeEletricaModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="redeEletrica">&times;</span>
+        <!-- Avatar centralizado e maior -->
+        <div class="avatar w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+            <img src="src/Empresa (2).png" alt="Avatar" class="w-full h-full object-cover">
+        </div>
+        
+        <!-- Botão de Desabilitar Terceirizado -->
+        <button id="desativarTerceiro02" class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Desabilitar Terceirizado</button>
+        
+        <!-- Título e Informações -->
+        <h2 class="text-blue-900 text-xl mb-4 text-center"><strong>Informações do Terceirizado:</strong></h2>
+        <p><strong>Nome:</strong> Empresa de Rede Elétrica</p>
+        <p><strong>E-Mail:</strong> ConcertaRedes@gmail.com</p>
+        <p><strong>Telefone:</strong> (19)987654321</p>
+        <p><strong>Área:</strong> Manutenção de Redes Elétricas</p>
+    </div>
+</div>
+
+<div id="desativarTer02" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span id="desativar02" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+        <textarea id="razaoDesativar02" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+        <button id="desabilitar02" class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800" >Desabilitar</button>
+    </div>
+</div>
+
+<!-- Modal para detalhes de Empresa de Encanamento -->
+<div id="encanamentoEmpresaModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="encanamentoEmpresa">&times;</span>
+        <!-- Avatar centralizado e maior -->
+        <div class="avatar w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+            <img src="src/Empresa (3).png" alt="Avatar" class="w-full h-full object-cover">
+        </div>
+        
+        <!-- Botão de Desabilitar Terceirizado -->
+        <button id="desativarTerceiro03" class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Desabilitar Terceirizado</button>
+        
+        <!-- Título e Informações -->
+        <h2 class="text-blue-900 text-xl mb-4 text-center"><strong>Informações do Terceirizado:</strong></h2>
+        <p><strong>Nome:</strong> Empresa de Encanamento</p>
+        <p><strong>E-Mail:</strong> ConcertaEncanamentos@gmail.com</p>
+        <p><strong>Telefone:</strong> (19)918273645</p>
+        <p><strong>Área:</strong> Manutenção de Encanamentos e Esgotos</p>
+    </div>
+</div>
+
+<div id="desativarTer03" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span id="desativar03" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+        <textarea id="razaoDesativar03" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+        <button id="desabilitar03" class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800" >Desabilitar</button>
+    </div>
+</div>
+
+<!-- Modal para detalhes de Empresa de Manutenção de Postes -->
+<div id="manutencaoPostesModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="manutencaoPostes">&times;</span>
+        <!-- Avatar centralizado e maior -->
+        <div class="avatar w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+            <img src="src/Empresa (4).png" alt="Avatar" class="w-full h-full object-cover">
+        </div>
+        
+        <!-- Botão de Desabilitar Terceirizado -->
+        <button id="desativarTerceiro04" class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Desabilitar Terceirizado</button>
+        
+        <!-- Título e Informações -->
+        <h2 class="text-blue-900 text-xl mb-4 text-center"><strong>Informações do Terceirizado:</strong></h2>
+        <p><strong>Nome:</strong> Empresa de Manutenção de Postes</p>
+        <p><strong>E-Mail:</strong> ConcertaPostes@gmail.com</p>
+        <p><strong>Telefone:</strong> (19)564738291</p>
+        <p><strong>Área:</strong> Manutenção de Postes</p>
+    </div>
+</div>
+
+<div id="desativarTer04" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span id="desativar04" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+        <textarea id="razaoDesativar04" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+        <button id="desabilitar04" class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800" >Desabilitar</button>
+    </div>
+</div>
+
+
+    <!-- Importando jQuery via CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/Gerente/grt_lobby copy.js"></script>
+    <script src="js/Gerente/Denuncia/denuncia.js"></script>
+    <script src="js/Gerente/Switch_Box/switch_box.js"></script>
+    <script src="js/Gerente/Grafico/grafico.js"></script>
+    <script src="js/Gerente/Funcoes/funcoes.js"></script>
+    <script src="js/Gerente/Abrir_Fechar_Modais/abrir_fechar_modais.js"></script>
+    <script src="js/Gerente/Perfil/perfil.js"></script>
+    <script src="js/Gerente/Tarefa/tarefa.js"></script>
+    <script src="js/Gerente/Terceirizado/terceirizado.js"></script>
+</body>
+</html>
