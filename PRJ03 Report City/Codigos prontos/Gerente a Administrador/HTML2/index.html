@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Importando Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 flex justify-center items-center h-screen">
+    <div class="text-center">
+        <div class="w-36 h-36 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+            <img src="src/ReportCity_verde2.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+        </div>
+        <div class="bg-gray-400 p-6 rounded-lg inline-block text-left mt-4">
+            <div class="flex justify-between mb-5">
+                <label class="segment-control flex-grow mx-2 flex items-center justify-center">
+                    <input type="radio" name="role" value="gerente" id="gerente-option" class="hidden">
+                    <span id="gerente-label" class="py-1 px-4 rounded-full cursor-pointer font-bold text-center bg-gray-200 text-blue-900 border border-gray-400">Gerente</span>
+                </label>
+                <label class="segment-control flex-grow mx-2 flex items-center justify-center">
+                    <input type="radio" name="role" value="adm" id="adm-option" class="hidden">
+                    <span id="adm-label" class="py-1 px-4 rounded-full cursor-pointer font-bold text-center bg-gray-200 text-blue-900 border border-gray-400">ADM</span>
+                </label>
+            </div>
+            
+            <label for="email" class="text-blue-900 font-bold mb-2 block">E-mail</label>
+            <input type="text" id="email" name="email" class="w-full p-2 mb-3 border border-blue-900 rounded">
+
+            <label for="password" class="text-blue-900 font-bold mb-2 block">Senha</label>
+            <input type="password" id="password" name="password" class="w-full p-2 mb-3 border border-blue-900 rounded">
+
+            <button id="login-btn" class="w-full p-2 bg-green-700 text-gray-200 rounded cursor-not-allowed">Login</button>
+        </div>
+    </div>
+    <!-- Importando jQuery via CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Usuários</title>
+    <!-- Importando Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 h-screen">
+    <div class="container mx-auto p-6 flex flex-col justify-between h-full">
+        <div class="user-profile flex items-center justify-between bg-gray-400 p-5 rounded-lg relative text-lg">
+            <div class="avatar w-12 h-12 bg-black rounded-full mr-4"></div>
+            <div class="user-info flex-grow">
+                <p class="user-name text-black font-bold m-0">Vinícius Pereda</p>
+                <p class="user-email text-black m-0">vinicius.pereda@aluno.edu.ifsp.com.br</p>
+            </div>
+            <div class="gear-icon text-2xl text-blue-900 cursor-pointer absolute top-2 right-2">&#9881;</div>
+        </div>
+
+        <div class="actions flex justify-between my-5">
+            <button id="add-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-48 hover:bg-green-800">Novo Gerente</button>
+            <button id="delete-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-48 hover:bg-green-800">Deletar Gerente</button>
+        </div>
+
+        <div class="manager-list bg-gray-400 p-5 rounded-lg flex-grow grid grid-cols-2 gap-4 overflow-y-auto">
+            <div class="manager-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                <div class="avatar w-12 h-12 bg-black rounded-full mr-4"></div>
+                <p class="flex-grow text-black m-0">Erick Victor Teixeira</p>
+                <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">&gt;</button>
+            </div>
+            <div class="manager-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                <div class="avatar w-12 h-12 bg-black rounded-full mr-4"></div>
+                <p class="flex-grow text-black m-0">Gerente Nome 2</p>
+                <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">&gt;</button>
+            </div>
+            <div class="manager-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                <div class="avatar w-12 h-12 bg-black rounded-full mr-4"></div>
+                <p class="flex-grow text-black m-0">Gerente Nome 3</p>
+                <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para informações do usuário e logout -->
+    <div id="settings-modal" class="modal hidden fixed z-50 left-0 top-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-6 rounded-lg w-11/12 max-w-lg text-center">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Vinícius Pereda</h2>
+            <p class="text-black mb-4">vinicius.pereda@aluno.edu.ifsp.com.br</p>
+            <p class="text-black mb-4">Outras informações relevantes...</p>
+            <button id="logout-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Logout</button>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar informações do gestor -->
+    <div id="manager-modal" class="modal hidden fixed z-50 left-0 top-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-6 rounded-lg w-11/12 max-w-lg text-center">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <h2 id="manager-name" class="text-blue-900 text-xl mb-4">Nome do Gerente</h2>
+            <p class="text-black mb-4">Nome: Erick Victor Teixeira</p>
+            <p class="text-black mb-4">Área: Departamento de Espaços Públicos e Paisagismos (DEP)</p>
+            <p class="text-black mb-4">Telefone: (18) 9 6523-0067</p>
+            <p class="text-black mb-4">E-Mail: erick.teixeira@gmail.com</p>
+            <button id="salvar-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Editar</button>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar novo gestor -->
+    <div id="add-manager-modal" class="modal hidden fixed z-50 left-0 top-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-6 rounded-lg w-11/12 max-w-lg text-center">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Novo Gerente</h2>
+            <form id="add-manager-form" class="flex flex-col items-center">
+                <label for="photo" class="w-4/5 text-left mb-2 text-black">Foto:</label>
+                <input type="file" id="photo" name="photo" class="w-4/5 p-2 mb-3 rounded border border-gray-400">
+
+                <label for="name" class="w-4/5 text-left mb-2 text-black">Nome:</label>
+                <input type="text" id="name" name="name" class="w-4/5 p-2 mb-3 rounded border border-gray-400" required>
+
+                <label for="cpf" class="w-4/5 text-left mb-2 text-black">CPF:</label>
+                <input type="text" id="cpf" name="cpf" class="w-4/5 p-2 mb-3 rounded border border-gray-400" required>
+
+                <label for="email" class="w-4/5 text-left mb-2 text-black">Email:</label>
+                <input type="email" id="email" name="email" class="w-4/5 p-2 mb-3 rounded border border-gray-400" required>
+
+                <label for="password" class="w-4/5 text-left mb-2 text-black">Senha:</label>
+                <input type="password" id="password" name="password" class="w-4/5 p-2 mb-3 rounded border border-gray-400" required>
+
+                <label for="department" class="w-4/5 text-left mb-2 text-black">Departamento:</label>
+                <input type="text" id="department" name="department" class="w-4/5 p-2 mb-3 rounded border border-gray-400" required>
+
+                <button type="submit" id="create-manager-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold mt-4 hover:bg-green-800">Criar Gestor</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para deletar gestor -->
+    <div id="delete-manager-modal" class="modal hidden fixed z-50 left-0 top-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-6 rounded-lg w-11/12 max-w-lg text-center">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Excluir Gerente</h2>
+            <form id="delete-manager-form" class="flex flex-col items-center">
+                <label for="select-manager" class="w-4/5 text-left mb-2 text-black">Selecione o Gerente:</label>
+                <select id="select-manager" name="select-manager" class="w-4/5 p-2 mb-3 rounded border border-gray-400" required>
+                    <option value="erick">Erick Victor Teixeira</option>
+                    <option value="gestor2">Gerente Nome 2</option>
+                    <option value="gestor3">Gerente Nome 3</option>
+                </select>
+
+                <label for="reason" class="w-4/5 text-left mb-2 text-black">Motivo:</label>
+                <textarea id="reason" name="reason" rows="4" class="w-4/5 p-2 mb-3 rounded border border-gray-400" required></textarea>
+
+                <button type="submit" id="delete-manager-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold mt-4 hover:bg-green-800">Excluir Gerente</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Importando jQuery via CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/adm_lobby.js"></script>
+</body>
+</html>
