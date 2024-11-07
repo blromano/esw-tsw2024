@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby Gerente</title>
+    <!-- Importando Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-200 h-screen flex justify-center items-center">
+    <!-- <header>
+        <div class="user-profile flex items-center justify-between bg-gray-400 p-4 rounded-lg relative">
+            <div class="avatar w-12 h-12 bg-black rounded-full"></div>
+            <div class="user-info flex-grow">
+                <p class="user-name text-black font-bold m-0">Vinícius Pereda</p>
+                <p class="user-email text-black m-0">vinicius.pereda@aluno.edu.ifsp.com.br</p>
+            </div>
+            <div class="settings-icon text-2xl text-blue-900 cursor-pointer absolute top-2 right-2">&#9881;</div>
+        </div>
+    </header>
+    <article>
+        <div class="content flex justify-between gap-5 flex-grow">
+            <div class="left-panel bg-gray-400 p-4 rounded-lg flex flex-col justify-between w-2/3">
+                <canvas id="serviceChart"></canvas>
+                <div class="dropdown mt-4 text-left">
+                    <label for="serviceSelect" class="text-blue-900 font-bold mb-2 block">Selecionar Serviço:</label>
+                    <select id="serviceSelect" class="w-full p-2 rounded border border-blue-900 bg-gray-200 text-black">
+                        <option value="buraco">Buraco na Rua</option>
+                        <option value="rede">Rede Elétrica Danificada</option>
+                        <option value="encanamento">Encanamento Danificado</option>
+                        <option value="postes">Postes Danificados</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="right-panel bg-gray-400 p-4 rounded-lg w-1/3">
+                <button class="segment-control bg-gray-200 text-blue-900 py-2 px-4 rounded-full font-bold w-full mb-5 cursor-pointer">Terceirizados</button>
+                <div class="citizens-list">
+                    <label for="citizens" class="text-blue-900 font-bold mb-2 block">Cidadãos:</label>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="avatar w-10 h-10 bg-black rounded-full"></div>
+                        <p class="flex-grow text-black m-0">Gabrielly Ana Melo</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="gabrielly">></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="avatar w-10 h-10 bg-black rounded-full"></div>
+                        <p class="flex-grow text-black m-0">Outro Cidadão</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="outro">></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                        <div class="avatar w-10 h-10 bg-black rounded-full"></div>
+                        <p class="flex-grow text-black m-0">Mais um Cidadão</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="mais_um">></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+
+    </footer> -->
+    <div class="container w-full h-full p-5 flex flex-col gap-5">
+        <div class="user-profile flex items-center justify-between bg-gray-400 p-4 rounded-lg relative">
+            <div class="avatar w-12 h-12 bg-black rounded-full"></div>
+            <div class="user-info flex-grow">
+                <p class="user-name text-black font-bold m-0">Vinícius Pereda</p>
+                <p class="user-email text-black m-0">vinicius.pereda@aluno.edu.ifsp.com.br</p>
+            </div>
+            <div class="settings-icon text-2xl text-blue-900 cursor-pointer absolute top-2 right-2">&#9881;</div>
+        </div>
+
+        <div class="content flex justify-between gap-5 flex-grow">
+            <div class="left-panel bg-gray-400 p-4 rounded-lg flex flex-col justify-between w-2/3">
+                <canvas id="serviceChart"></canvas>
+                <div class="dropdown mt-4 text-left">
+                    <label for="serviceSelect" class="text-blue-900 font-bold mb-2 block">Selecionar Serviço:</label>
+                    <select id="serviceSelect" class="w-full p-2 rounded border border-blue-900 bg-gray-200 text-black">
+                        <option value="buraco">Buraco na Rua</option>
+                        <option value="rede">Rede Elétrica Danificada</option>
+                        <option value="encanamento">Encanamento Danificado</option>
+                        <option value="postes">Postes Danificados</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="right-panel bg-gray-400 p-4 rounded-lg w-1/3">
+                <button class="segment-control bg-gray-200 text-blue-900 py-2 px-4 rounded-full font-bold w-full mb-5 cursor-pointer">Terceirizados</button>
+                <div class="citizens-list">
+                    <label for="citizens" class="text-blue-900 font-bold mb-2 block">Cidadãos:</label>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="avatar w-10 h-10 bg-black rounded-full"></div>
+                        <p class="flex-grow text-black m-0">Gabrielly Ana Melo</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="gabrielly">></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg mb-2">
+                        <div class="avatar w-10 h-10 bg-black rounded-full"></div>
+                        <p class="flex-grow text-black m-0">Outro Cidadão</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="outro">></button>
+                    </div>
+                    <div class="citizen-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                        <div class="avatar w-10 h-10 bg-black rounded-full"></div>
+                        <p class="flex-grow text-black m-0">Mais um Cidadão</p>
+                        <button class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800" data-citizen="mais_um">></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais para os diferentes cidadãos e funcionalidades -->
+    <!-- Modal para Gabrielly Ana Melo -->
+    <div id="gabriellyModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="gabrielly">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Gabrielly Ana Melo</h2>
+            <button class="disable-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" data-disable="gabrielly">Desabilitar Usuário</button>
+            <ul class="call-list">
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Buraco na Rua</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="buraco">Chat</button>
+                </li>
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Encanamento Danificado</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="encanamento">Chat</button>
+                </li>
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Poste Danificado</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="poste">Chat</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal para Outro Cidadão -->
+    <div id="outroModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="outro">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Outro Cidadão</h2>
+            <button class="disable-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" data-disable="outro">Desabilitar Usuário</button>
+            <ul class="call-list">
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Buraco na Rua</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="buraco">Chat</button>
+                </li>
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Encanamento Danificado</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="encanamento">Chat</button>
+                </li>
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Poste Danificado</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="poste">Chat</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal para Mais um Cidadão -->
+    <div id="mais_umModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="mais_um">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Mais um Cidadão</h2>
+            <button class="disable-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800" data-disable="mais_um">Desabilitar Usuário</button>
+            <ul class="call-list">
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Buraco na Rua</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="buraco">Chat</button>
+                </li>
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Encanamento Danificado</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="encanamento">Chat</button>
+                </li>
+                <li class="call-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                    <p class="text-black m-0">Poste Danificado</p>
+                    <button class="chat-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-chat="poste">Chat</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal para Desabilitar Usuário -->
+    <div id="disableUserModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+            <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" onclick="closeDisableUserModal()">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+            <textarea id="disableReason" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+            <button class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800" onclick="disableUser()">Desabilitar</button>
+        </div>
+    </div>
+
+    <!-- Modal para o chat Buraco na Rua -->
+<div id="buracoModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close-chat="buraco">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Buraco na Rua</h2>
+        <div class="chat-box bg-gray-300 p-3 rounded mb-4">
+            <div class="message bg-white p-2 rounded mb-2">Há um grande buraco na rua.</div>
+            <div class="message citizen-message bg-green-700 text-white p-2 rounded">Já encaminhamos para o serviço correspondente.</div>
+        </div>
+        <textarea id="chatInput" rows="2" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Escreva sua mensagem..."></textarea>
+        <button class="send-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Enviar</button>
+    </div>
+</div>
+
+<!-- Modal para o chat Encanamento Danificado -->
+<div id="encanamentoModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close-chat="encanamento">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Encanamento Danificado</h2>
+        <div class="chat-box bg-gray-300 p-3 rounded mb-4">
+            <div class="message bg-white p-2 rounded mb-2">O encanamento está danificado e vazando.</div>
+            <div class="message citizen-message bg-green-700 text-white p-2 rounded">Já encaminhamos para o serviço de encanamento.</div>
+        </div>
+        <textarea id="chatInput" rows="2" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Escreva sua mensagem..."></textarea>
+        <button class="send-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Enviar</button>
+    </div>
+</div>
+
+<!-- Modal para o chat Poste Danificado -->
+<div id="posteModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close-chat="poste">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Poste Danificado</h2>
+        <div class="chat-box bg-gray-300 p-3 rounded mb-4">
+            <div class="message bg-white p-2 rounded mb-2">O poste de luz está danificado e perigoso.</div>
+            <div class="message citizen-message bg-green-700 text-white p-2 rounded">Já encaminhamos para a equipe elétrica.</div>
+        </div>
+        <textarea id="chatInput" rows="2" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Escreva sua mensagem..."></textarea>
+        <button class="send-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Enviar</button>
+    </div>
+</div>
+
+<!-- Modal para Terceirizados -->
+<div id="terceirizadosModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="terceirizados">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Terceirizados</h2>
+        <button class="cadastrar-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mb-4 hover:bg-green-800">Cadastrar</button>
+        <ul class="terceirizados-list">
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                <p class="text-black m-0">Empresa de Reparo de Buracos</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="reparoBuracos">></button>
+            </li>
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                <p class="text-black m-0">Empresa de Rede Elétrica</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="redeEletrica">></button>
+            </li>
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                <p class="text-black m-0">Empresa de Encanamento</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="encanamentoEmpresa">></button>
+            </li>
+            <li class="terceirizado-item bg-gray-300 p-4 rounded-lg mb-2 flex justify-between items-center">
+                <p class="text-black m-0">Empresa de Manutenção de Postes</p>
+                <button class="details-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800" data-details="manutencaoPostes">></button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal para Cadastro de Terceirizado -->
+<div id="cadastrarTerceirizadoModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="cadastrarTerceirizado">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Cadastrar Terceirizado</h2>
+        <form id="cadastrarTerceirizadoForm">
+            <label for="terceirizadoNome">Nome:</label>
+            <input type="text" id="terceirizadoNome" name="terceirizadoNome" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoArea">Área:</label>
+            <input type="text" id="terceirizadoArea" name="terceirizadoArea" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoTelefone">Telefone:</label>
+            <input type="text" id="terceirizadoTelefone" name="terceirizadoTelefone" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoEmail">E-mail:</label>
+            <input type="email" id="terceirizadoEmail" name="terceirizadoEmail" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <label for="terceirizadoSenha">Senha:</label>
+            <input type="text" id="terceirizadoSenha" name="terceirizadoSenha" class="w-full p-2 rounded border border-blue-900 bg-white text-black" required>
+
+            <button type="button" id="create-manager-btn" class="register-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Cadastrar Terceirizado</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal para Configurações do Usuário -->
+<div id="settingsModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="settings">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Configurações do Usuário</h2>
+        <p class="text-black"><strong>Nome:</strong> Vinícius Pereda</p>
+        <p class="text-black"><strong>Email:</strong> vinicius.pereda@aluno.edu.ifsp.com.br</p>
+        <p class="text-black"><strong>Mais Informações:</strong> Gerente Responsável pelo setor X</p>
+        <button id="logout-btn" class="logout-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Logout</button>
+    </div>
+</div>
+
+
+<!-- Modal para Desabilitar Usuário -->
+<div id="disableUserModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" onclick="closeDisableUserModal()">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Motivo para Desabilitar</h2>
+        <textarea id="disableReason" rows="4" class="w-full p-2 rounded border border-blue-900 bg-white text-black" placeholder="Digite o motivo..."></textarea>
+        <button id="disable-manager-btn" class="disable-confirm-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Desabilitar</button>
+    </div>
+</div>
+
+
+
+<!-- Modal para detalhes de Empresa de Reparo de Buracos -->
+<div id="reparoBuracosModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="reparoBuracos">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Empresa de Reparo de Buracos</h2>
+        <p class="text-black">Aqui estão as informações sobre a empresa de reparo de buracos.</p>
+        <button class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Editar</button>
+    </div>
+</div>
+
+<!-- Modal para detalhes de Empresa de Rede Elétrica -->
+<div id="redeEletricaModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="redeEletrica">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Empresa de Rede Elétrica</h2>
+        <p class="text-black">Aqui estão as informações sobre a empresa de rede elétrica.</p>
+        <button class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Editar</button>
+    </div>
+</div>
+
+<!-- Modal para detalhes de Empresa de Encanamento -->
+<div id="encanamentoEmpresaModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="encanamentoEmpresa">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Empresa de Encanamento</h2>
+        <p class="text-black">Aqui estão as informações sobre a empresa de encanamento.</p>
+        <button class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Editar</button>
+    </div>
+</div>
+
+<!-- Modal para detalhes de Empresa de Manutenção de Postes -->
+<div id="manutencaoPostesModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative">
+        <span class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" data-close="manutencaoPostes">&times;</span>
+        <h2 class="text-blue-900 text-xl mb-4">Empresa de Manutenção de Postes</h2>
+        <p class="text-black">Aqui estão as informações sobre a empresa de manutenção de postes.</p>
+        <button class="edit-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Editar</button>
+    </div>
+</div>
+
+
+    <!-- Importando jQuery via CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/grt_lobby.js"></script>
+</body>
+</html>

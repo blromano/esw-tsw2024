@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Content Switcher</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-200 flex flex-col items-center justify-center min-h-screen">
+
+    <!-- Navigation Buttons -->
+    <div class="flex space-x-4 mb-6">
+        <button id="btnGrafico" class="bg-blue-500 text-white px-4 py-2 rounded">Gráfico</button>
+        <button id="btnCidadao" class="bg-green-500 text-white px-4 py-2 rounded">Cidadão</button>
+        <button id="btnTerceirizado" class="bg-yellow-500 text-white px-4 py-2 rounded">Terceirizados</button>
+    </div>
+
+    <!-- Content Container -->
+    <div id="content" class="bg-white p-6 rounded shadow-lg w-80">
+        <!-- Gráfico Content (Default) -->
+        <div id="graficoContent">
+            <h2 class="text-xl font-bold mb-4">Gráfico</h2>
+            <p>Aqui aparece o gráfico de dados.</p>
+        </div>
+
+        <!-- Cidadão Content -->
+        <div id="cidadaoContent" class="hidden">
+            <h2 class="text-xl font-bold mb-4">Lista de Cidadãos</h2>
+            <ul class="list-disc ml-6">
+                <li>Cidadão 1</li>
+                <li>Cidadão 2</li>
+                <li>Cidadão 3</li>
+            </ul>
+        </div>
+
+        <!-- Terceirizado Content -->
+        <div id="terceirizadoContent" class="hidden">
+            <h2 class="text-xl font-bold mb-4">Lista de Terceirizados</h2>
+            <ul class="list-disc ml-6">
+                <li>Terceirizado A</li>
+                <li>Terceirizado B</li>
+                <li>Terceirizado C</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Script to handle button clicks and show relevant content -->
+    <script>
+        $(document).ready(function() {
+            // Show Graph by default
+            $('#graficoContent').show();
+            
+            // Button click events to switch content
+            $('#btnGrafico').click(function() {
+                $('#graficoContent').show();
+                $('#cidadaoContent, #terceirizadoContent').hide();
+            });
+
+            $('#btnCidadao').click(function() {
+                $('#cidadaoContent').show();
+                $('#graficoContent, #terceirizadoContent').hide();
+            });
+
+            $('#btnTerceirizado').click(function() {
+                $('#terceirizadoContent').show();
+                $('#graficoContent, #cidadaoContent').hide();
+            });
+        });
+    </script>
+</body>
+</html>

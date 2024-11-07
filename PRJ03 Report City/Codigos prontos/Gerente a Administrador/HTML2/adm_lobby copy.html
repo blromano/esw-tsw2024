@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Usuários</title>
+    <!-- Importando Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 h-screen">
+    <div class="container mx-auto p-6 flex flex-col justify-between h-full">
+        <div class="user-profile flex items-center justify-between bg-gray-400 p-5 rounded-lg relative text-lg">
+            <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <div class="user-info flex-grow">
+                <p class="user-name text-black font-bold m-0">Vinícius Pereda</p>
+                <p class="user-email text-black m-0">vinicius.pereda@aluno.edu.ifsp.com.br</p>
+            </div>
+            <div class="gear-icon text-2xl text-blue-900 cursor-pointer absolute top-2 right-2">&#9881;</div>
+        </div>
+
+        <div class="container w-full text-center h-full flex flex-col gap-3 p-1">
+            <div class="user-profile flex items-center justify-between bg-gray-400 p-4 rounded-lg relative">
+                <div class="user-info flex-grow">
+                    <button id="add-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-48 hover:bg-green-800">Novo Gerente</button>
+                    <button id="delete-btn" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-48 hover:bg-green-800">Deletar Gerente</button>
+                </div>
+                
+            </div>
+
+        
+
+        <div class="manager-list bg-gray-400 p-5 rounded-lg flex-grow grid grid-cols-2 gap-4 overflow-y-auto">
+            <div class="manager-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                    <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                </div>
+                <p class="flex-grow text-black m-0">Erick Victor Teixeira</p>
+                <button id="gerente1" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">&gt;</button>
+            </div>
+            <div class="manager-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                    <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                </div>
+                <p class="flex-grow text-black m-0">Renala Arcantriz</p>
+                <button id="gerente2" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">&gt;</button>
+            </div>
+            <div class="manager-item flex items-center justify-between bg-gray-200 p-4 rounded-lg">
+                <div class="w-16 h-16 bg-black rounded-full mx-auto overflow-hidden flex justify-center items-center">
+                    <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                </div>
+                <p class="flex-grow text-black m-0">Thiago Lisint</p>
+                <button id="gerente3" class="arrow-btn bg-green-700 text-gray-200 p-2 rounded-full font-bold hover:bg-green-800">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para informações do usuário e logout -->
+    <div id="settings-modal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="perfilFechar" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4">Informações do Administrador</h2>
+            <p class="text-black mb-4"><strong>Nome:</strong>Vinícius Pereda</p>
+            <p class="text-black mb-4"><strong>E-mail:</strong>vinicius.pereda@aluno.edu.ifsp.com.br</p>
+            <button id="editarPerfil-btn" class="editarPerf-btn bg-green-700 text-gray-200 px-2 py-1 rounded-full font-bold w-full mt-4 hover:bg-green-800">Editar</button>
+            <button id="logout-btn" class="logout-btn bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold w-full mt-4 hover:bg-green-800">Logout</button>
+        </div>
+    </div>
+
+    <div id="editarPerfilModal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-5/6 max-w-lg relative">
+            <span id="editarPerfilFechar" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2" >&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4">Perfil</h2>
+            <p class="text-black"><strong>Foto:</strong></p>
+            <input type="file" id="photo" name="photo" class="w-4/5 p-2 mb-3 rounded border border-gray-400">
+            <p class="text-black"><strong>Nome:</strong></p> <textarea id="perfilNome" class="resize-none w-full h-12 p-2 border border-gray-300 rounded" required> Vinícius Pereda </textarea>
+            <p class="text-black"><strong>Email:</strong></p> <textarea id="perfilEmail" class="resize-none w-full h-12 p-2 border border-gray-300 rounded" required> vinicius.pereda@aluno.edu.ifsp.com.br </textarea>
+            <button id="salvarPerfil-btn" class="salvarPerf-btn bg-green-700 text-gray-200 px-2 py-1 rounded-full font-bold w-full mt-4 hover:bg-green-800">Salvar</button>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar informações do gestor -->
+    <div id="manager-modal1" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="gerente1x" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Informação do Gerente</strong></h2>
+            <p class="text-black mb-4"><strong>Nome:</strong> Erick Victor Teixeira</p>
+            <p class="text-black mb-4"><strong>Área:</strong> Departamento de Espaços Públicos e Paisagismos (DEP)</p>
+            <p class="text-black mb-4"><strong>Telefone:</strong> (18) 9 6523-0067</p>
+            <p class="text-black mb-4"><strong>E-Mail:</strong> erick.teixeira@gmail.com</p>
+            <button id="editar1" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Editar</button>
+        </div>
+    </div>
+
+    <div id="editarGestor1" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="editarGerente1" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Informação do Gerente</strong></h2>
+            <p class="text-black mb-4"><strong>Nome:</strong> </p><textarea id="g1t1" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">Erick Victor Teixeira</textarea>
+            <p class="text-black mb-4"><strong>Área:</strong> </p><textarea id="g1t2" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">Departamento de Espaços Públicos e Paisagismos (DEP)</textarea>
+            <p class="text-black mb-4"><strong>Telefone:</strong> </p><textarea id="g1t3" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">(18) 9 6523-0067</textarea>
+            <p class="text-black mb-4"><strong>E-Mail:</strong> </p><textarea id="g1t4" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">erick.teixeira@gmail.com</textarea>
+            <button id="salvar1" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Salvar</button>
+        </div>
+    </div>
+
+    <div id="manager-modal2" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="gerente2x" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Informação do Gerente</strong></h2>
+            <p class="text-black mb-4"><strong>Nome:</strong> Renala Arcantriz</p>
+            <p class="text-black mb-4"><strong>Área:</strong> Departamento de Espaços Públicos e Paisagismos (DEP)</p>
+            <p class="text-black mb-4"><strong>Telefone:</strong> (18) 9 6523-0067</p>
+            <p class="text-black mb-4"><strong>E-Mail:</strong> renala.arcantriz@gmail.com</p>
+            <button id="editar2" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Editar</button>
+        </div>
+    </div>
+
+    <div id="editarGestor2" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="editarGerente2" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Informação do Gerente</strong></h2>
+            <p class="text-black mb-4"><strong>Nome:</strong> </p><textarea id="g2t1" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">Renala Arcantriz</textarea>
+            <p class="text-black mb-4"><strong>Área:</strong> </p><textarea id="g2t2" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">Departamento de Espaços Públicos e Paisagismos (DEP)</textarea>
+            <p class="text-black mb-4"><strong>Telefone:</strong> </p><textarea id="g2t3" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">(18) 9 6523-0067</textarea>
+            <p class="text-black mb-4"><strong>E-Mail:</strong> </p><textarea id="g2t4" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">renala.arcantriz@gmail.com</textarea>
+            <button id="salvar2" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Salvar</button>
+        </div>
+    </div>
+
+    <div id="manager-modal3" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="gerente3x" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Informação do Gerente</strong></h2>
+            <p class="text-black mb-4"><strong>Nome:</strong> Thiago Lisint</p>
+            <p class="text-black mb-4"><strong>Área:</strong> Departamento de Espaços Públicos e Paisagismos (DEP)</p>
+            <p class="text-black mb-4"><strong>Telefone:</strong> (18) 9 6523-0067</p>
+            <p class="text-black mb-4"><strong>E-Mail:</strong> thiago.lisint@gmail.com</p>
+            <button id="editar3" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Editar</button>
+        </div>
+    </div>
+
+    <div id="editarGestor3" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="editarGerente3" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <div class="w-36 h-36 bg-black rounded-full overflow-hidden mx-auto">
+                <img src="src/images.png" alt="Avatar" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Informação do Gerente</strong></h2>
+            <p class="text-black mb-4"><strong>Nome:</strong> </p><textarea id="g3t1" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">Thiago Lisint</textarea>
+            <p class="text-black mb-4"><strong>Área:</strong> </p><textarea id="g3t2" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">Departamento de Espaços Públicos e Paisagismos (DEP)</textarea>
+            <p class="text-black mb-4"><strong>Telefone:</strong> </p><textarea id="g3t3" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">(18) 9 6523-0067</textarea>
+            <p class="text-black mb-4"><strong>E-Mail:</strong> </p><textarea id="g3t4" class="resize-none w-full h-12 p-2 border border-gray-300 rounded">thiago.lisint@gmail.com</textarea>
+            <button id="salvar3" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold hover:bg-green-800">Salvar</button>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar novo gestor -->
+    <div id="add-manager-modal" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="mTarefa03" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Novo Gerente</strong></h2>
+            
+                <label for="photo" class="w-4/5 text-left mb-2 text-black"><strong>Foto:</strong></label>
+                <input type="file" id="photo" name="photo" class="w-4/5 p-2 mb-3 rounded border border-gray-400">
+
+                <label for="name" class="w-4/5 text-left mb-2 text-black"><strong>Nome:</strong></label>
+                <textarea id="name" class="resize-none w-full h-12 p-2 border border-gray-300 rounded"></textarea>
+
+                <label for="cpf" class="w-4/5 text-left mb-2 text-black"><strong>CPF:</strong></label>
+                <textarea id="cpf" class="resize-none w-full h-12 p-2 border border-gray-300 rounded"></textarea>
+
+                <label for="email" class="w-4/5 text-left mb-2 text-black"><strong>Email:</strong></label>
+                <textarea id="email" class="resize-none w-full h-12 p-2 border border-gray-300 rounded"></textarea>
+
+                <label for="password" class="w-4/5 text-left mb-2 text-black"><strong>Senha:</strong></label>
+                <textarea id="password" class="resize-none w-full h-12 p-2 border border-gray-300 rounded"></textarea>
+
+                <label for="department" class="w-4/5 text-left mb-2 text-black"><strong>Departamento:</strong></label>
+                <textarea id="department" class="resize-none w-full h-12 p-2 border border-gray-300 rounded"></textarea>
+
+                <button id="submitGestor" class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold mt-4 hover:bg-green-800">Criar Gestor</button>
+            
+        </div>
+    </div>
+
+    <!-- Modal para deletar gestor -->
+    <div id="delete-manager-modal1" class="modal fixed inset-0 hidden bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-5 rounded-lg w-11/12 max-w-lg relative overflow-y-auto max-h-[80vh]">
+            <span id="fecharDeletar" class="close text-blue-900 text-2xl font-bold cursor-pointer absolute top-2 right-2">&times;</span>
+            <h2 class="text-blue-900 text-xl mb-4"><strong>Excluir Gerente</strong></h2>
+            <form id="delete-manager-form" class="flex flex-col items-center">
+                <label for="select-manager" class="w-4/5 text-left mb-2 text-black"><strong>Selecione o Gerente:</strong></label>
+                <select id="select-manager1" name="select-manager" class="w-4/5 p-2 mb-3 rounded border border-gray-400">
+                    <option value=""></option>
+                    <option value="erick">Erick Victor Teixeira</option>
+                    <option value="gestor2">Renala Arcantriz</option>
+                    <option value="gestor3">Thiago Lisint</option>
+                </select>
+
+                <label for="reason1" class="w-4/5 text-left mb-2 text-black"><strong>Motivo:</strong></label>
+                <textarea id="reason1" name="reason" rows="4" class="w-4/5 p-2 mb-3 rounded border border-gray-400"></textarea>
+
+                <button id="delete-manager1-btn" disabled class="bg-green-700 text-gray-200 px-4 py-2 rounded-full font-bold mt-4 hover:bg-green-800">Excluir Gerente</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Importando jQuery via CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/adm_lobby.js"></script>
+    <script src="js/Administrador/Listar Gerente/listarGerente.js"></script>
+    <script src="js/Administrador/Perfil/perfil.js"></script>
+    <script src="js/Administrador/Deletar Gerente/deletarGerente.js"></script>
+    <script src="js/Administrador/Novo Gerente/novoGerente.js"></script>
+</body>
+</html>

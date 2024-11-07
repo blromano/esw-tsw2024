@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Interativa Gerente</title>
+    <!-- Importando Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hover-green:hover {
+            background-color: #3A6642;
+            color: white;
+        }
+        .gray-border {
+            border: 1px solid #c4c4c4;
+        }
+        .clickable {
+            cursor: pointer;
+        }
+        #screen-container {
+            position: relative;
+        }
+        .screen-item {
+            position: absolute;
+            border: 1px solid transparent;
+        }
+        .screen-item:hover {
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body class="bg-gray-200 flex justify-center items-center h-screen">
+    <!-- Tela do Gerente -->
+    <div id="screen-container" class="relative">
+        <img src="image.png" alt="Tela Gerente" class="w-full h-auto max-w-4xl">
+
+        <!-- Gráfico (Área Clicável) -->
+        <div id="grafico" class="screen-item clickable" style="top: 35%; left: 10%; width: 35%; height: 40%;"></div>
+
+        <!-- Botão Terceirizados (Área Clicável) -->
+        <div id="terceirizados" class="screen-item clickable" style="top: 35%; right: 10%; width: 25%; height: 10%;"></div>
+
+        <!-- Outros Botões da Tela (Cidadãos) -->
+        <div id="citizen1" class="screen-item clickable" style="top: 48%; right: 10%; width: 25%; height: 8%;"></div>
+        <div id="citizen2" class="screen-item clickable" style="top: 58%; right: 10%; width: 25%; height: 8%;"></div>
+        <div id="citizen3" class="screen-item clickable" style="top: 68%; right: 10%; width: 25%; height: 8%;"></div>
+    </div>
+
+    <!-- Modal Estrutura -->
+    <div id="infoModal" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg w-11/12 max-w-lg text-left">
+            <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
+            <p id="modalDescription" class="text-gray-700"></p>
+            <button id="closeModal" class="mt-4 bg-red-600 text-white py-2 px-4 rounded">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Importando jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Conteúdo modal
+            const modalInfo = {
+                grafico: {
+                    title: 'Gráfico de Chamados',
+                    description: `<strong>Localização no código:</strong> grt_lobby.html <br>
+                    <strong>Elemento:</strong> <code>&lt;canvas id="serviceChart"&gt;&lt;/canvas&gt;</code> <br>
+                    <strong>Função:</strong> Exibe o gráfico com o número de chamados realizados, respondidos e não respondidos. <br>
+                    <strong>Backend:</strong> API para carregar os dados do gráfico.`
+                },
+                terceirizados: {
+                    title: 'Botão Terceirizados',
+                    description: `<strong>Localização no código:</strong> grt_lobby.html <br>
+                    <strong>Elemento:</strong> <code>&lt;button class="segment-control" &gt;Terceirizados&lt;/button&gt;</code> <br>
+                    <strong>Função:</strong> Abre o modal com a lista de terceirizados. <br>
+                    <strong>Backend:</strong> API para carregar lista de terceirizados e informações detalhadas. <br>
+                    <strong>Conteúdo:</strong> Ao clicar no botão, você verá 4 empresas, como <em>Empresa de Reparo de Buracos</em>, que também possuem botões clicáveis.`
+                },
+                citizen1: {
+                    title: 'Cidadão 1',
+                    description: `<strong>Localização no código:</strong> grt_lobby.html <br>
+                    <strong>Elemento:</strong> <code>&lt;div class="citizen-item"&gt;&lt;/div&gt;</code> <br>
+                    <strong>Função:</strong> Exibe informações sobre o cidadão e permite abrir o chat.`
+                },
+                citizen2: {
+                    title: 'Cidadão 2',
+                    description: `<strong>Localização no código:</strong> grt_lobby.html <br>
+                    <strong>Elemento:</strong> <code>&lt;div class="citizen-item"&gt;&lt;/div&gt;</code> <br>
+                    <strong>Função:</strong> Exibe informações sobre o cidadão e permite abrir o chat.`
+                },
+                citizen3: {
+                    title: 'Cidadão 3',
+                    description: `<strong>Localização no código:</strong> grt_lobby.html <br>
+                    <strong>Elemento:</strong> <code>&lt;div class="citizen-item"&gt;&lt;/div&gt;</code> <br>
+                    <strong>Função:</strong> Exibe informações sobre o cidadão e permite abrir o chat.`
+                }
+            };
+
+            // Ação ao clicar nas áreas clicáveis
+            $('#grafico').click(function() {
+                openModal('grafico');
+            });
+            $('#terceirizados').click(function() {
+                openModal('terceirizados');
+            });
+            $('#citizen1').click(function() {
+                openModal('citizen1');
+            });
+            $('#citizen2').click(function() {
+                openModal('citizen2');
+            });
+            $('#citizen3').click(function() {
+                openModal('citizen3');
+            });
+
+            // Função para abrir o modal
+            function openModal(item) {
+                $('#modalTitle').html(modalInfo[item].title);
+                $('#modalDescription').html(modalInfo[item].description);
+                $('#infoModal').removeClass('hidden');
+            }
+
+            // Fechar o modal
+            $('#closeModal').click(function() {
+                $('#infoModal').addClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
