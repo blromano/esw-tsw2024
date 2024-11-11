@@ -1,3 +1,10 @@
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("closed");
+}
+
+
+
 function verDetalhes(button) {
     
     document.getElementById('popup').style.display = 'flex';

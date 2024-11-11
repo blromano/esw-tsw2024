@@ -31,7 +31,7 @@ body {
 /* Sidebar Header with Favicon */
 .sidebar-header {
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: space-between;
     padding: 0px;
     background-color: #2e2d2d;
