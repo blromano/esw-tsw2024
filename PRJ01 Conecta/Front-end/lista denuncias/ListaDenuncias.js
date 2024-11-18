@@ -63,3 +63,43 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+function filtrarDenuncias() {
+    // Obtém o valor da barra de pesquisa e converte para minúsculas
+    const termoPesquisa = document.getElementById('barraPesquisa').value.toLowerCase();
+
+    // Seleciona todos os itens de denúncia
+    const denuncias = document.querySelectorAll('.denuncia-item');
+    
+    // Se a barra de pesquisa estiver vazia, exibe todas as denúncias
+    if (termoPesquisa === "") {
+        denuncias.forEach(denuncia => {
+            denuncia.style.display = ''; // Exibe todas as denúncias
+        });
+        return;
+    }
+
+    // Caso contrário, realiza a pesquisa
+    denuncias.forEach(denuncia => {
+        // Obtém o título e a descrição da denúncia e converte para minúsculas
+        const titulo = denuncia.querySelector('.denuncia-titulo').innerText.toLowerCase();
+        const descricao = denuncia.querySelector('.denuncia-descricao').innerText.toLowerCase();
+
+        // Verifica se o título ou a descrição contêm o termo de pesquisa
+        if (titulo.includes(termoPesquisa) || descricao.includes(termoPesquisa)) {
+            // Exibe a denúncia se houver correspondência
+            denuncia.style.display = '';
+        } else {
+            // Oculta a denúncia se não houver correspondência
+            denuncia.style.display = 'none';
+        }
+    });
+}
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("closed");
+
+    // Alterar o símbolo do botão com base no estado da sidebar
+    const toggleBtn = document.querySelector(".toggle-btn");
+    toggleBtn.textContent = sidebar.classList.contains("closed") ? "➔" : "➖";
+}
+

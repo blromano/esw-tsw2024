@@ -5,16 +5,88 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
+body, html {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+
+.sidebar {
+    height: 100vh;
+    width: 270px;
+    background-color: #2e2d2d;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+
+}
+
+.sidebar.closed {
+    width: 60px;
+}
+
+
+.sidebar-header {
+    display: absolute;
+    align-items: left;
+    justify-content: space-around;
+    padding: 0px;
+    background-color: #2e2d2d;
+}
+
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.sidebar a span {
+    transition: opacity 0.3s;
+}
+
+.sidebar.closed a span {
+    opacity: 0;
+}
+
+.sidebar a:hover {
+    background-color: #ffc800;
+}
+
+/* Top Bar */
 .top-bar {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     background-color: #ffc800;
-    padding: 10px; 
+    padding: 10px;
     color: white;
-    top: 0;
     position: fixed;
+    width: calc(100% - 270px);
+    left: 270px;
+    top: 0;
+    z-index: 100;
 }
+
 .user-profile {
     display: flex;
     align-items: center;
@@ -37,7 +109,6 @@
     cursor: pointer;
     font-weight: bold;
     padding-right: 30px;
-
 }
 
 .dropdown-content {
@@ -65,83 +136,97 @@
 }
 
 
-body {
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+.main-content {
+
+        margin-left: 270px;
+        margin-top: 50px; 
+        flex: 1;
+        padding: 20px;
+        background-color: #f4f4f9;
+        width: calc(100% - 270px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    
+    
 }
-.motivo-textarea{
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
+
+.container {
+   
+
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
 }
+
+
+
 footer {
     width: 100%;
-    height: 50px;
-    margin: auto;
-    bottom: 0;
     background-color: #2e2d2d;
-    
-    padding: 10px 0px; /* Tamanho da largura do Footer */
-    
-    position:fixed ;
-    margin-top: 18px;
-    width: 100%;
+    color: #fff;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-  }
-  .footer-content {
+    z-index: 100;
+}
+
+.footer-content {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-  }
-  
-  .footer-left,
-  .footer-center,
-  .footer-right {
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
     flex: 1;
-  }
-  
-  .footer-left {
+}
+
+.footer-left {
     text-align: left;
     padding-top: 18px;
-  }
-  
-  .footer-center {
+}
+
+.footer-center {
     text-align: center;
     padding-top: 5px;
-  }
-  
-  .footer-right {
+}
+
+.footer-right {
     text-align: right;
     padding-top: 18px;
-  }
-  
-  /* Estilo dos links no rodapé */
-  .footer-links a {
+}
+
+
+.footer-links a {
     color: #fff;
     text-decoration: none;
     margin: 0 5px;
     font-size: 14px;
-  }
-  
-  .footer-links a:hover {
+}
+
+.footer-links a:hover {
     text-decoration: underline;
-  }
-  
-  /* Estilo dos ícones sociais */
-  .social-icons {
+}
+
+
+.social-icons {
     display: inline-block;
-  }
-  
-  .social-icons a {
+}
+
+.social-icons a {
     text-decoration: none;
     color: #fff;
     font-size: 20px;
@@ -153,88 +238,16 @@ footer {
     background-color: #ffc800;
     line-height: 40px;
     transition: background-color 0.3s ease;
-  }
-  
-  .social-icons a:hover {
+}
+
+.social-icons a:hover {
     background-color: #ffffff;
-  }
-  
-  /* Ícones Font Awesome */
-  .social-icons i {
+}
+
+.social-icons i {
     vertical-align: middle;
-  }
-
-.container {
-    width: 100%;
-    height: 100%;
-    max-width: 800px;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.sidebar {
-    height: 100vh;
-    width: 270px;
-    height: 650px;
-    background-color: #2e2d2d;
-    color: white;
-    transition: width 0.3s ease;
-    position: fixed;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    left: 0;
 }
 
-.sidebar.closed {
-    width: 60px;
-}
-
-/* Sidebar Header with Favicon */
-.sidebar-header {
-    display: absolute;
-    align-items: left;
-    justify-content: space-between;
-    padding: 0px;
-    background-color: #2e2d2d;
-}
-
-/* Sidebar Menu */
-.sidebar a {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    margin: 10px 0;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-
-.sidebar a i {
-    margin-right: 10px;
-    font-size: 20px;
-}
-
-.sidebar a span {
-    transition: opacity 0.3s;
-}
-
-.sidebar.closed a span {
-    opacity: 0;
-}
-
-.sidebar a:hover {
-    background-color: #ffc800;
-}
-
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
 
 .denuncia-lista {
     list-style-type: none;
@@ -283,10 +296,9 @@ h1 {
     align-items: center;
 }
 
-
 .denuncia-detalhes-btn {
     padding: 8px 15px;
-    background-color:#ffc800;
+    background-color: #ffc800;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -323,10 +335,10 @@ h1 {
 
 .popup-acoes {
     margin-top: 15px;
-    display: flex;        
-    gap: 10px;             
-    justify-content: center;    
-    align-items: center;  
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .popup button {
@@ -337,10 +349,9 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top:20px;
-
-    
+    margin-top: 20px;
 }
+
 .pesquisa-container {
     margin-bottom: 15px;
 }
@@ -353,3 +364,69 @@ h1 {
     border-radius: 5px;
 }
 
+.motivo-textarea {
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.sidebar {
+    width: 250px;
+    transition: width 0.3s ease;
+}
+
+.sidebar.closed {
+    width: 60px;
+}
+
+.sidebar .menu a span {
+    display: inline-block;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar.closed .menu a span {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 270px;
+    background-color: #2e2d2d;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+    z-index: 101; 
+}
+
+
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #ffc800;
+    padding: 10px;
+    color: white;
+    position: fixed;
+    width: calc(100% - 270px); 
+    top: 0;
+    left: 270px; 
+    z-index: 100; 
+    transition: width 0.3s ease;
+}
+
+
+.sidebar.closed + .main-content .top-bar {
+    width: 100%;
+    left: 0;
+}
+
+.sidebar.closed {
+    width: 60px;
+}
