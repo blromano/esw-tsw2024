@@ -13,6 +13,13 @@ public class Departamento {
     private String nome ;
     private String descricao ;
 
+    public Departamento() {
+    }
+    
+    public Departamento(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

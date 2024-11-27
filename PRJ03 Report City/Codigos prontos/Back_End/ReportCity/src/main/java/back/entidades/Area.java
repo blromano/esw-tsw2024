@@ -13,6 +13,14 @@ public class Area {
     private String descricao ;
     private int id ;
 
+    public Area() {
+    }
+
+    public Area(int id) {
+        this.id = id;
+    }
+
+    
     public String getNome() {
         return nome;
     }

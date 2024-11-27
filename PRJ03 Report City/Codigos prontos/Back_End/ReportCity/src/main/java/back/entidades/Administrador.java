@@ -13,6 +13,12 @@ public class Administrador {
     private String nome ;
     private String email ;
     private String senha ;
+    
+    public Administrador () {}
+    
+    public Administrador (String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
