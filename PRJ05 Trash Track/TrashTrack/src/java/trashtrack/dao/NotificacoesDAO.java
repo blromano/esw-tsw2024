@@ -138,7 +138,7 @@ public class NotificacoesDAO extends DAO<Notificacao> {
             
             PontoDeColeta pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
             pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );
@@ -247,7 +247,7 @@ public class NotificacoesDAO extends DAO<Notificacao> {
             
             PontoDeColeta pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
             pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );

@@ -31,7 +31,7 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
                         + "PON_DESATIVADO, FK_MORADORES_COLETORES_MOC_ID ) " +
                 "VALUES ( ?, POINT( ?, ? ), ?, ?, ?, ?, ?, ?, ?, ? );" );
         
-        stmt.setInt( 1, obj.getTipoDeLixo() );
+        stmt.setString( 1, obj.getTipoDeLixo() );
         stmt.setDouble( 2, obj.getCoordenada().getLatitude() );
         stmt.setDouble( 3, obj.getCoordenada().getLongitude() );
         stmt.setString( 4, obj.getRua() );
@@ -59,7 +59,7 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
                         + "PON_DESATIVADO = ?, FK_MORADORES_COLETORES_MOC_ID = ? " +
                 "WHERE PON_ID = ?;" );
         
-        stmt.setInt( 1, obj.getTipoDeLixo() );
+        stmt.setString( 1, obj.getTipoDeLixo() );
         stmt.setDouble( 2, obj.getCoordenada().getLatitude() );
         stmt.setDouble( 3, obj.getCoordenada().getLongitude() );
         stmt.setString( 4, obj.getRua() );
@@ -144,7 +144,7 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
             
             PontoDeColeta pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
             pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );
@@ -220,7 +220,7 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
             
             pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
             pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );

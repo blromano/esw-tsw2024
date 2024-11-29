@@ -8,10 +8,11 @@ package trashtrack.entidades;
  *
  * @author victo
  */
+
 public class PontoDeColeta {
     
     private int id;
-    private int tipoDeLixo; //Não sei que tipo é o tipoDeLixo
+    private String tipoDeLixo;
     private Coordenada coordenada;
     private String rua;
     private String numero;
@@ -30,11 +31,11 @@ public class PontoDeColeta {
         this.id = id;
     }
 
-    public int getTipoDeLixo() {
+    public String getTipoDeLixo() {
         return tipoDeLixo;
     }
 
-    public void setTipoDeLixo(int tipoDeLixo) {
+    public void setTipoDeLixo(String tipoDeLixo) {
         this.tipoDeLixo = tipoDeLixo;
     }
 
