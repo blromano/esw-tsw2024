@@ -4,10 +4,13 @@
  */
 package back.dao;
 
+import back.Util.Utils;
 import java.sql.SQLException;
 import java.util.List;
 import back.entidades.Status ;
 import java.sql.PreparedStatement ;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,27 +24,95 @@ public class StatusDAO extends DAO<Status>{
 
     @Override
     public void salvar(Status obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              INSERT INTO STATUS
+                                                                (STA_NOME)
+                                                              VALUES
+                                                                (?) ;""",
+                                                               new String[]{ "insert_id" } ) ;
+        sql.setString(1, obj.getStatus());
+        
+        
+        sql.executeUpdate() ;
+        obj.setId( Utils.getChavePrimariaAposInsercao( sql, "insert_id" ).intValue() );
+        sql.close();
     }
 
     @Override
     public void atualizar(Status obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              UPDATE STATUS
+                                                              SET
+                                                                STA_NOME = ?
+                                                              WHERE
+                                                                STA_ID = ? ;""") ;
+        
+        sql.setString(1, obj.getStatus());
+        sql.setInt(2, obj.getId());
+        
+        sql.executeUpdate() ;
+        sql.close();
+        
     }
 
     @Override
     public void excluir(Status obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              DELETE FROM STATUS
+                                                              WHERE
+                                                                STA_ID = ? ;""") ;
+        sql.setInt(1, obj.getId());
+        
+        sql.executeUpdate() ;
+        sql.close();
     }
 
     @Override
     public List<Status> selecionarTodos() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Status> lista = new ArrayList<>() ;
+        
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT STA_ID, STA_NOME
+                                                                FROM STATUS ;""") ;
+        ResultSet rs = sql.executeQuery() ;
+        
+        while (rs.next()){
+            Status s = new Status() ;
+            
+            s.setId(rs.getInt("STA_ID"));
+            s.setStatus(rs.getString("STA_NOME"));
+            
+            lista.add(s) ;
+        }
+        
+        
+        return lista ;
     }
 
     @Override
     public Status selecionarPorID(String id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Status s = new Status() ;
+        
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT STA_ID, STA_NOME
+                                                                FROM STATUS 
+                                                              WHERE
+                                                                STA_ID = ? ;""") ;
+        
+        sql.setInt(1, Integer.parseInt(id));
+        ResultSet rs = sql.executeQuery() ;
+        
+        while (rs.next()){
+            
+            
+            s.setId(rs.getInt("STA_ID"));
+            s.setStatus(rs.getString("STA_NOME"));
+            
+            
+        }
+        
+        
+        return s ;
     }
 
 }
