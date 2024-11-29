@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import trashtrack.entidades.Coordenada;
 import trashtrack.entidades.MoradorColetor;
 import trashtrack.entidades.PontoDeColeta;
 
@@ -28,18 +29,19 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
                 "pontos_de_coleta( PON_TIPO_LIXO, PON_COORDENADA, PON_RUA, PON_NUMERO, "
                         + "PON_CIDADE, PON_BAIRRO, PON_COMPLEMENTO, PON_COLETADO, "
                         + "PON_DESATIVADO, FK_MORADORES_COLETORES_MOC_ID ) " +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );" );
+                "VALUES ( ?, POINT( ?, ? ), ?, ?, ?, ?, ?, ?, ?, ? );" );
         
-        stmt.setInt( 1, obj.getTipoDeLixo() );
-        stmt.setString( 2, obj.getCoordenada() );
-        stmt.setString( 3, obj.getRua() );
-        stmt.setString( 4, obj.getNumero() );
-        stmt.setString( 5, obj.getCidade() );
-        stmt.setString( 6, obj.getBairro() );
-        stmt.setString( 7, obj.getComplemento() );
-        stmt.setBoolean(8, obj.isColetado() );
-        stmt.setBoolean( 9, obj.isDesativado() );
-        stmt.setInt( 10, obj.getMorador().getId() );
+        stmt.setString( 1, obj.getTipoDeLixo() );
+        stmt.setDouble( 2, obj.getCoordenada().getLatitude() );
+        stmt.setDouble( 3, obj.getCoordenada().getLongitude() );
+        stmt.setString( 4, obj.getRua() );
+        stmt.setString( 5, obj.getNumero() );
+        stmt.setString( 6, obj.getCidade() );
+        stmt.setString( 7, obj.getBairro() );
+        stmt.setString( 8, obj.getComplemento() );
+        stmt.setBoolean( 9, obj.isColetado() );
+        stmt.setBoolean( 10, obj.isDesativado() );
+        stmt.setInt( 11, obj.getMorador().getId() );
         
         stmt.executeUpdate();
         stmt.close();
@@ -51,23 +53,24 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
         
         PreparedStatement stmt = getConnection().prepareStatement(
                 "UPDATE pontos_de_coleta " +
-                "SET PON_TIPO_LIXO = ?, PON_COORDENADA = ?, PON_RUA = ?, "
+                "SET PON_TIPO_LIXO = ?, PON_COORDENADA = POINT( ?, ? ), PON_RUA = ?, "
                         + "PON_NUMERO = ?, PON_CIDADE = ?, PON_BAIRRO = ?, "
                         + "PON_COMPLEMENTO = ?, PON_COLETADO = ?, "
                         + "PON_DESATIVADO = ?, FK_MORADORES_COLETORES_MOC_ID = ? " +
                 "WHERE PON_ID = ?;" );
         
-        stmt.setInt( 1, obj.getTipoDeLixo() );
-        stmt.setString( 2, obj.getCoordenada() );
-        stmt.setString( 3, obj.getRua() );
-        stmt.setString( 4, obj.getNumero() );
-        stmt.setString( 5, obj.getCidade() );
-        stmt.setString( 6, obj.getBairro() );
-        stmt.setString( 7, obj.getComplemento() );
-        stmt.setBoolean(8, obj.isColetado() );
-        stmt.setBoolean( 9, obj.isDesativado() );
-        stmt.setInt( 10, obj.getMorador().getId() );
-        stmt.setInt( 11, obj.getId() );
+        stmt.setString( 1, obj.getTipoDeLixo() );
+        stmt.setDouble( 2, obj.getCoordenada().getLatitude() );
+        stmt.setDouble( 3, obj.getCoordenada().getLongitude() );
+        stmt.setString( 4, obj.getRua() );
+        stmt.setString( 5, obj.getNumero() );
+        stmt.setString( 6, obj.getCidade() );
+        stmt.setString( 7, obj.getBairro() );
+        stmt.setString( 8, obj.getComplemento() );
+        stmt.setBoolean( 9, obj.isColetado() );
+        stmt.setBoolean( 10, obj.isDesativado() );
+        stmt.setInt( 11, obj.getMorador().getId() );
+        stmt.setInt( 12, obj.getId() );
         
         stmt.executeUpdate();
         stmt.close();
@@ -96,7 +99,8 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
         PreparedStatement stmt = getConnection().prepareStatement( 
                 "SELECT pontos_de_coleta.PON_ID, "
                         + "pontos_de_coleta.PON_TIPO_LIXO, "
-                        + "pontos_de_coleta.PON_COORDENADA, "
+                        + "ST_X(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_X, "
+                        + "ST_Y(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_Y, "
                         + "pontos_de_coleta.PON_RUA, "
                         + "pontos_de_coleta.PON_NUMERO, "
                         + "pontos_de_coleta.PON_CIDADE, "
@@ -134,12 +138,14 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
             moradorColetor.setAtivo( rs.getBoolean( "MOC_ATIVO" ) );
             moradorColetor.setQuantidadeLixoReciclado( rs.getInt( "MOC_QUANTIDADE_LIXO_RECICLADO" ) );
             
-            
+            Coordenada coordenadaDoPonto = new Coordenada();
+            coordenadaDoPonto.setLatitude(rs.getDouble( "PON_COORDENADA_X" ) );
+            coordenadaDoPonto.setLongitude( rs.getDouble( "PON_COORDENADA_Y" ) );
             
             PontoDeColeta pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
-            pontoDeColeta.setCoordenada( rs.getString( "PON_COORDENADA" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );
             pontoDeColeta.setCidade( rs.getString( "PON_CIDADE" ) );
@@ -164,7 +170,8 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
         PreparedStatement stmt = getConnection().prepareStatement( 
                 "SELECT pontos_de_coleta.PON_ID, "
                         + "pontos_de_coleta.PON_TIPO_LIXO, "
-                        + "pontos_de_coleta.PON_COORDENADA, "
+                        + "ST_X(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_X, "
+                        + "ST_Y(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_Y, "
                         + "pontos_de_coleta.PON_RUA, "
                         + "pontos_de_coleta.PON_NUMERO, "
                         + "pontos_de_coleta.PON_CIDADE, "
@@ -207,10 +214,14 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
             moradorColetor.setAtivo( rs.getBoolean( "MOC_ATIVO" ) );
             moradorColetor.setQuantidadeLixoReciclado( rs.getInt( "MOC_QUANTIDADE_LIXO_RECICLADO" ) );
             
+            Coordenada coordenadaDoPonto = new Coordenada();
+            coordenadaDoPonto.setLatitude( rs.getDouble( "PON_COORDENADA_X" ) );
+            coordenadaDoPonto.setLongitude( rs.getDouble( "PON_COORDENADA_Y" ) );
+            
             pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
-            pontoDeColeta.setCoordenada( rs.getString( "PON_COORDENADA" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );
             pontoDeColeta.setCidade( rs.getString( "PON_CIDADE" ) );

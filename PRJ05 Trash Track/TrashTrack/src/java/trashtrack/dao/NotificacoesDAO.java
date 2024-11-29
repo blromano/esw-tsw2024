@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import trashtrack.entidades.Coordenada;
 import trashtrack.entidades.MoradorColetor;
 import trashtrack.entidades.Notificacao;
 import trashtrack.entidades.PontoDeColeta;
@@ -90,7 +91,8 @@ public class NotificacoesDAO extends DAO<Notificacao> {
                         + "moc_notificacao.MOC_QUANTIDADE_LIXO_RECICLADO AS NOT_MOC_QUANTIDADE_LIXO_RECICLADO, "
                         + "pontos_de_coleta.PON_ID, "
                         + "pontos_de_coleta.PON_TIPO_LIXO, "
-                        + "pontos_de_coleta.PON_COORDENADA, "
+                        + "ST_X(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_X, "
+                        + "ST_Y(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_Y, "
                         + "pontos_de_coleta.PON_RUA, "
                         + "pontos_de_coleta.PON_NUMERO, "
                         + "pontos_de_coleta.PON_CIDADE, "
@@ -130,10 +132,14 @@ public class NotificacoesDAO extends DAO<Notificacao> {
             moradorColetor_PON.setAtivo( rs.getBoolean( "PON_MOC_ATIVO" ) );
             moradorColetor_PON.setQuantidadeLixoReciclado( rs.getInt( "PON_MOC_QUANTIDADE_LIXO_RECICLADO" ) );
             
+            Coordenada coordenadaDoPonto = new Coordenada();
+            coordenadaDoPonto.setLatitude( rs.getDouble( "PON_COORDENADA_X" ) );
+            coordenadaDoPonto.setLongitude( rs.getDouble( "PON_COORDENADA_Y" ) );
+            
             PontoDeColeta pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
-            pontoDeColeta.setCoordenada( rs.getString( "PON_COORDENADA" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );
             pontoDeColeta.setCidade( rs.getString( "PON_CIDADE" ) );
@@ -189,7 +195,8 @@ public class NotificacoesDAO extends DAO<Notificacao> {
                         + "moc_notificacao.MOC_QUANTIDADE_LIXO_RECICLADO AS NOT_MOC_QUANTIDADE_LIXO_RECICLADO, "
                         + "pontos_de_coleta.PON_ID, "
                         + "pontos_de_coleta.PON_TIPO_LIXO, "
-                        + "pontos_de_coleta.PON_COORDENADA, "
+                        + "ST_X(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_X, "
+                        + "ST_Y(pontos_de_coleta.PON_COORDENADA) as PON_COORDENADA_Y, "
                         + "pontos_de_coleta.PON_RUA, "
                         + "pontos_de_coleta.PON_NUMERO, "
                         + "pontos_de_coleta.PON_CIDADE, "
@@ -234,10 +241,14 @@ public class NotificacoesDAO extends DAO<Notificacao> {
             moradorColetor_PON.setAtivo( rs.getBoolean( "PON_MOC_ATIVO" ) );
             moradorColetor_PON.setQuantidadeLixoReciclado( rs.getInt( "PON_MOC_QUANTIDADE_LIXO_RECICLADO" ) );
             
+            Coordenada coordenadaDoPonto = new Coordenada();
+            coordenadaDoPonto.setLatitude( rs.getDouble( "PON_COORDENADA_X" ) );
+            coordenadaDoPonto.setLongitude( rs.getDouble( "PON_COORDENADA_Y" ) );
+            
             PontoDeColeta pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
-            pontoDeColeta.setTipoDeLixo( rs.getInt( "PON_TIPO_LIXO" ) );
-            pontoDeColeta.setCoordenada( rs.getString( "PON_COORDENADA" ) );
+            pontoDeColeta.setTipoDeLixo( rs.getString( "PON_TIPO_LIXO" ) );
+            pontoDeColeta.setCoordenada( coordenadaDoPonto );
             pontoDeColeta.setRua( rs.getString( "PON_RUA" ) );
             pontoDeColeta.setNumero( rs.getString( "PON_NUMERO" ) );
             pontoDeColeta.setCidade( rs.getString( "PON_CIDADE" ) );
