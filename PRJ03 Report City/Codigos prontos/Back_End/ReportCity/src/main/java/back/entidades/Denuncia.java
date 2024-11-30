@@ -4,7 +4,6 @@
  */
 package back.entidades;
 
-import java.awt.Point;
 import java.sql.Date ;
 
 /**
@@ -12,15 +11,13 @@ import java.sql.Date ;
  * @author nicho
  */
 public class Denuncia {
-    private enum tipo{
-    buracoNaPista,
-    arvoreCaida,
-    fioQuebrado,
-    };
+    private String tipo ;
     private String id ;
+    private int idPrivate ;
     private String titulo ;
     private String descricao ;
-    private Point coordenada ;
+    private double coordenadaX ;
+    private double coordenadaY ;
     private Date created ;
     private Date updated ;
     private String feedback ;
@@ -52,13 +49,22 @@ public class Denuncia {
         this.descricao = descricao;
     }
 
-    public Point getCoordenada() {
-        return coordenada;
+    public double getCoordenadaX() {
+        return coordenadaX;
     }
 
-    public void setCoordenada(Point coordenada) {
-        this.coordenada = coordenada;
+    public void setCoordenadaX(double coordenadaX) {
+        this.coordenadaX = coordenadaX;
     }
+
+    public double getCoordenadaY() {
+        return coordenadaY;
+    }
+
+    public void setCoordenadaY(double coordenadaY) {
+        this.coordenadaY = coordenadaY;
+    }
+
 
     public Date getCreated() {
         return created;
@@ -108,19 +114,35 @@ public class Denuncia {
         this.Status = Status;
     }
 
-    public void setTipo(String entrada) {
-        tipo.valueOf(entrada) ;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void getTipo() {
-        
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
+    public int getIdPrivate() {
+        return idPrivate;
+    }
+
+    public void setIdPrivate(int idPrivate) {
+        this.idPrivate = idPrivate;
+    }
+    
     @Override
     public String toString() {
-        return "Denuncia{" + "id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", coordenada=" + coordenada + ", created=" + created + ", updated=" + updated + ", feedback=" + feedback + ", imagem=" + imagem + ", cidadao=" + cidadao.toString() + ", Status=" + Status.toString() + '}';
+        return "Denuncia{" + "tipo=" + tipo + ", id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", coordenadaX=" + coordenadaX + ", coordenadaY=" + coordenadaY + ", created=" + created + ", updated=" + updated + ", feedback=" + feedback + ", imagem=" + imagem + ", cidadao=" + cidadao + ", Status=" + Status + '}';
     }
-    
-    
+
+    /*
+    Para carregar uma imagem no Java, um jeito simples é usar BufferedImage, que é uma classe que armazena a imagem e suas informações (pixels, tamanho, etc). Você pode modificar uma imagem carregada num BufferedImage aplicando algoritmos sobre os pixels dela.
+
+    Para exibiri uma imagem, você pode usar um JLabel do Swing, um Label no JavaFX ou desenhá-la diretamente sobre um canvas usando Java2D.
+
+    Para salvar uma imagem (possivelmente alterada), você pode usar ImageIo.write 43, que recebe um File com o caminho, um bufferedimage e o formato (jpeg, png, …).
+
+    Para copiar, você pode copiar diretamente pelo sistema operacional, ou basta usar o ImageIO.write para salvar com um nome diferente.*/
+
     
 }

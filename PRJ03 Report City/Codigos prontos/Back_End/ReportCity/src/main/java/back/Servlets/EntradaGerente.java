@@ -4,7 +4,6 @@
  */
 package back.Servlets;
 
-import back.dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +12,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import back.entidades.Gerente;
+import back.dao.GerenteDAO;
 
 /**
  *
  * @author nicho
  */
-@WebServlet(name = "Entrada", urlPatterns = {"/processaEntrada"})
-public class Entrada extends HttpServlet {
+@WebServlet(name = "EntradaGerente", urlPatterns = {"/pEntradaGerente"})
+public class EntradaGerente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,30 +37,31 @@ public class Entrada extends HttpServlet {
         String email = request.getParameter("email") ;
         String senha = request.getParameter("senha") ;
         
-        ProcurarUsuario(email, senha);
+        Gerente cid = ProcurarGerente(email, senha);
+        
+        try (PrintWriter out = response.getWriter()){
+            out.print(cid.toString());
+        }
+        
     }
     
-    private void ProcurarUsuario(String email, String senha) {
-        AdminDAO adDao = null ;
-        CidadaoDAO cidDao = null ;
-        GerenteDAO genDao = null ;
-        TerceirizadoDAO terDao = null ;
-        
+    private Gerente ProcurarGerente(String email, String senha) {
+        GerenteDAO gerDao = null ;
+        Gerente ger = new Gerente() ;
         try{
             
-            adDao = new AdminDAO() ;
-            cidDao = new CidadaoDAO() ;
-            genDao = new GerenteDAO() ;
-            terDao = new TerceirizadoDAO() ;
+            gerDao = new GerenteDAO();
+            ger = gerDao.procurarPorEmailESenha(email, senha) ;
              
         } catch(SQLException ex) {
             
             ex.printStackTrace();
+            ger = null ;
             
         } finally {
             
             try{
-                adDao.fecharConexao();
+                gerDao.fecharConexao();
             } catch (SQLException ex){
                 ex.printStackTrace();
             }
@@ -69,8 +69,10 @@ public class Entrada extends HttpServlet {
             
         }
         
+        return ger ;
+        
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

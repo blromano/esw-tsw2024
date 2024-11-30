@@ -85,21 +85,21 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
     }
 
     @Override
-    public Terceirizado selecionarPorID(String id) throws SQLException {
+    public Terceirizado selecionarPorID(int id) throws SQLException {
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT SER_NOME, SER_CPF, SER_CELULAR,
+                                                              SELECT SER_ID_PRIVADO, SER_ID_PUBLICO, SER_NOME, SER_CPF, SER_CELULAR,
                                                                     SER_EMAIL, SER_SENHA, FK_AREAS_ARE_ID
                                                                 FROM SERVICOS_TERCEIRIZADOS
-                                                                WHERE SER_ID_PUBLICO = ?;""") ;
+                                                                WHERE SER_ID_PRIVADO = ?;""") ;
         
-        sql.setString(1, id);
+        sql.setInt(1, id);
         
         Terceirizado ter = new Terceirizado() ;
         
         ResultSet rs = sql.executeQuery() ;
+        AreaDAO are = new AreaDAO() ;
         
         if (rs.next()) {
-            
             
             ter.setNome(rs.getString("SER_NOME"));
             ter.setCpf(rs.getString("SER_CPF"));
@@ -107,10 +107,12 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
             ter.setEmail(rs.getString("SER_EMAIL"));
             ter.setSenha(rs.getString("SER_SENHA"));
             ter.setSenha(rs.getString("CID_SENHA"));
-            ter.setArea(new Area(rs.getInt("FK_AREAS_ARE_ID")));
+            ter.setArea(are.selecionarPorID(rs.getInt("FK_AREAS_ARE_ID")));
             
             
         }
+        are.fecharConexao();
+        sql.close();
         return ter ;
     }
 
@@ -127,6 +129,8 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
         ResultSet rs = sql.executeQuery() ;
         
         List<Terceirizado> lista = new ArrayList<>() ;
+        AreaDAO are = new AreaDAO() ;
+        
         while (rs.next()) {
             
             ter.setNome(rs.getString("SER_NOME"));
@@ -135,27 +139,31 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
             ter.setEmail(rs.getString("SER_EMAIL"));
             ter.setSenha(rs.getString("SER_SENHA"));
             ter.setSenha(rs.getString("CID_SENHA"));
-            ter.setArea(new Area(rs.getInt("FK_AREAS_ARE_ID")));
+            ter.setArea(are.selecionarPorID(rs.getInt("FK_AREAS_ARE_ID")));
             
             lista.add(ter) ;
             
         }
+        are.fecharConexao();
+        sql.close();
         return lista ;
     }
     
-    public List<Terceirizado> procurarPorEmail (String email) throws SQLException{
+    public Terceirizado procurarPorEmailESenha (String email, String senha) throws SQLException{
         PreparedStatement sql = getConexao().prepareStatement("""
                                                               SELECT SER_NOME, SER_CPF, SER_CELULAR,
                                                                     SER_EMAIL, SER_SENHA, FK_AREAS_ARE_ID
                                                                 FROM SERVICOS_TERCEIRIZADOS
-                                                                WHERE SER_EMAIL = ?;""") ;
+                                                                WHERE SER_EMAIL = ? AND
+                                                                    SER_SENHA = ? ;""") ;
         
         sql.setString(1, email);
-        List<Terceirizado> lista = new ArrayList<>() ;
+        sql.setString(2, senha);
         Terceirizado ter = new Terceirizado() ;
         ResultSet rs = sql.executeQuery() ;
+        AreaDAO are = new AreaDAO() ;
         
-        while (rs.next()) {
+        if (rs.next()) {
             
             ter.setNome(rs.getString("SER_NOME"));
             ter.setCpf(rs.getString("SER_CPF"));
@@ -163,40 +171,47 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
             ter.setEmail(rs.getString("SER_EMAIL"));
             ter.setSenha(rs.getString("SER_SENHA"));
             ter.setSenha(rs.getString("CID_SENHA"));
-            ter.setArea(new Area(rs.getInt("FK_AREAS_ARE_ID")));
+            ter.setArea(are.selecionarPorID(rs.getInt("FK_AREAS_ARE_ID")));
             
-            lista.add(ter) ;
+            
             
         }
-        return lista ;
+        are.fecharConexao();
+        sql.close();
+        return ter ;
     }
     
-    public List<Terceirizado> procurarPorSenha (String senha) throws SQLException{
+    
+    public Terceirizado selecionarPorID(String id) throws SQLException {
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT SER_NOME, SER_CPF, SER_CELULAR,
+                                                              SELECT SER_ID_PRIVADO, SER_ID_PUBLICO, SER_NOME, SER_CPF, SER_CELULAR,
                                                                     SER_EMAIL, SER_SENHA, FK_AREAS_ARE_ID
                                                                 FROM SERVICOS_TERCEIRIZADOS
-                                                                WHERE SER_SENHA = ?;""") ;
+                                                                WHERE SER_ID_PUBLICO = ?;""") ;
         
-        sql.setString(1, senha);
-        List<Terceirizado> lista = new ArrayList<>() ;
+        sql.setString(1, id);
+        
         Terceirizado ter = new Terceirizado() ;
+        
         ResultSet rs = sql.executeQuery() ;
         
-        while (rs.next()) {
+        AreaDAO are = new AreaDAO() ;
+        if (rs.next()) {
             
+            ter.setIdPrivado(rs.getInt("SER_ID_PRIVADO"));
+            ter.setId(rs.getString("SER_ID_PUBLICO"));
             ter.setNome(rs.getString("SER_NOME"));
             ter.setCpf(rs.getString("SER_CPF"));
             ter.setCelular(rs.getString("SER_CELULAR"));
             ter.setEmail(rs.getString("SER_EMAIL"));
             ter.setSenha(rs.getString("SER_SENHA"));
             ter.setSenha(rs.getString("CID_SENHA"));
-            ter.setArea(new Area(rs.getInt("FK_AREAS_ARE_ID")));
+            ter.setArea(are.selecionarPorID(rs.getInt("FK_AREAS_ARE_ID")));
             
-            lista.add(ter) ;
             
         }
-        return lista ;
+        are.fecharConexao();
+        sql.close();
+        return ter ;
     }
-    
 }

@@ -9,6 +9,7 @@ package back.entidades;
  * @author nicho
  */
 public class Gerente {
+    private int idPrivado ;
     private String id ;
     private String nome ;
     private String foto ;
@@ -82,13 +83,17 @@ public class Gerente {
         this.dep = dep;
     }
 
-    @Override
-    public String toString() {
-        return "Gerente{" + "id=" + id + ", nome=" + nome + ", foto=" + foto + ", cpf=" + cpf + ", email=" + email + ", senha=" + senha + ", admin=" + admin.toString() + ", dep=" + dep.toString()
-                + '}';
+    public int getIdPrivado() {
+        return idPrivado;
     }
 
-    
-    
-    
+    public void setIdPrivado(int idPrivado) {
+        this.idPrivado = idPrivado;
+    }
+
+    @Override
+    public String toString() {
+        return "Gerente{" + "idPrivado=" + idPrivado + ", id=" + id + ", nome=" + nome + ", foto=" + foto + ", cpf=" + cpf + ", email=" + email + ", senha=" + senha + ", admin=" + admin + ", dep=" + dep + '}';
+    }
+
 }

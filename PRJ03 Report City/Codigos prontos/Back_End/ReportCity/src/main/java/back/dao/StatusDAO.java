@@ -90,7 +90,7 @@ public class StatusDAO extends DAO<Status>{
     }
 
     @Override
-    public Status selecionarPorID(String id) throws SQLException {
+    public Status selecionarPorID(int id) throws SQLException {
         Status s = new Status() ;
         
         PreparedStatement sql = getConexao().prepareStatement("""
@@ -99,7 +99,7 @@ public class StatusDAO extends DAO<Status>{
                                                               WHERE
                                                                 STA_ID = ? ;""") ;
         
-        sql.setInt(1, Integer.parseInt(id));
+        sql.setInt(1, id);
         ResultSet rs = sql.executeQuery() ;
         
         while (rs.next()){

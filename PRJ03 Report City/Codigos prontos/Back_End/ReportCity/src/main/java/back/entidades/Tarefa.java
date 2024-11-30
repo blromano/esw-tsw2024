@@ -10,6 +10,7 @@ import java.sql.Date;
  * @author nicho
  */
 public class Tarefa {
+    private int idPrivate ;
     private String id ;
     private String nome ;
     private String descricao ;
@@ -91,6 +92,15 @@ public class Tarefa {
     public void setGerente(Gerente gerente) {
         this.gerente = gerente;
     }
+
+    public int getIdPrivate() {
+        return idPrivate;
+    }
+
+    public void setIdPrivate(int idPrivate) {
+        this.idPrivate = idPrivate;
+    }
+    
 
     @Override
     public String toString() {

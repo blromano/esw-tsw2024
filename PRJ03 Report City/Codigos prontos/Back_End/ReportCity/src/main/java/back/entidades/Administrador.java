@@ -9,6 +9,7 @@ package back.entidades;
  * @author nicho
  */
 public class Administrador {
+    private int idPrivado ;
     private String id ;
     private String nome ;
     private String email ;
@@ -52,9 +53,17 @@ public class Administrador {
         this.senha = senha;
     }
 
+    public int getIdPrivado() {
+        return idPrivado;
+    }
+
+    public void setIdPrivado(int idPrivado) {
+        this.idPrivado = idPrivado;
+    }
+
     @Override
     public String toString() {
-        return "Administrador{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + '}';
+        return "Administrador{" + "idPrivado=" + idPrivado + ", id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + '}';
     }
     
     

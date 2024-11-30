@@ -70,13 +70,13 @@ public class AdminDAO extends DAO<Administrador>{
     }
 
     @Override
-    public Administrador selecionarPorID(String id) throws SQLException {
+    public Administrador selecionarPorID(int id) throws SQLException {
         PreparedStatement sql = getConexao().prepareStatement("""
                                                               SELECT ADM_ID_PUBLICO, ADM_NOME, ADM_EMAIL, ADM_SENHA 
                                                                 FROM ADMINISTRADORES 
-                                                                WHERE ID = ?;""") ;
+                                                                WHERE ADM_ID_PRIVADO = ?;""") ;
         
-        sql.setString(1, id);
+        sql.setInt(1, id);
         
         Administrador ad = new Administrador() ;
         
@@ -116,52 +116,56 @@ public class AdminDAO extends DAO<Administrador>{
         return lista ;
     }
     
-    public List<Administrador> procurarPorEmail (String email) throws SQLException{
+    public Administrador procurarPorEmailESenha (String email, String senha) throws SQLException{
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT ADM_ID_PUBLICO, ADM_NOME, ADM_SENHA 
-                                                                      FROM ADMINISTRADORES 
-                                                                WHERE ADM_EMAIL = ?;""") ;
+                                                              SELECT ADM_ID_PRIVADO, ADM_ID_PUBLICO, 
+                                                                    ADM_EMAIL, ADM_NOME, ADM_SENHA 
+                                                              FROM ADMINISTRADORES 
+                                                                WHERE ADM_EMAIL = ? AND
+                                                                    ADM_SENHA = ?;""") ;
         sql.setString(1, email);
+        sql.setString(2, senha);
         
-        List<Administrador>lista = new ArrayList<>() ;
         
+        Administrador ad = new Administrador() ;
         ResultSet rs = sql.executeQuery() ;
         
-        while (rs.next()) {
-            Administrador ad = new Administrador() ;
+        if (rs.next()) {
             
-            ad.setEmail(rs.getString(email));
+            
+            ad.setIdPrivado(rs.getInt("ADM_ID_PRIVADO"));
+            ad.setEmail(rs.getString("ADM_EMAIL"));
             ad.setId(rs.getString("ADM_ID_PUBLICO"));
             ad.setNome(rs.getString("ADM_NOME"));
             ad.setSenha(rs.getString("ADM_SENHA"));
             
-            lista.add(ad) ;
+        
         }
-        return lista ;
+        return ad ;
     }
     
-    public List<Administrador> procurarPorSenha (String senha) throws SQLException{
+    public Administrador selecionarPorID(String id) throws SQLException{
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT ADM_ID_PUBLICO, ADM_NOME, ADM_EMAIL
-                                                                      FROM ADMINISTRADORES 
-                                                                WHERE
-                                                                    ADM_SENHA = ?;""") ;
-        sql.setString(1, senha);
-        List<Administrador>lista = new ArrayList<>() ;
+                                                              SELECT ADM_ID_PRIVADO, ADM_ID_PUBLICO, ADM_NOME, ADM_EMAIL, ADM_SENHA 
+                                                                FROM ADMINISTRADORES 
+                                                                WHERE ADM_ID_PUBLICO = ?;""") ;
+        
+        sql.setString(1, id);
+        
+        Administrador ad = new Administrador() ;
         
         ResultSet rs = sql.executeQuery() ;
         
-        while (rs.next()) {
-            Administrador ad = new Administrador() ;
+        if (rs.next()) {
             
+            ad.setIdPrivado(rs.getInt("ADM_ID_PRIVADO"));
             ad.setEmail(rs.getString("ADM_EMAIL"));
             ad.setId(rs.getString("ADM_ID_PUBLICO"));
             ad.setNome(rs.getString("ADM_NOME"));
-            ad.setSenha(rs.getString(senha));
+            ad.setSenha(rs.getString("ADM_SENHA"));
             
-            lista.add(ad) ;
         }
-        return lista ;
+        return ad ;
     }
     
 }

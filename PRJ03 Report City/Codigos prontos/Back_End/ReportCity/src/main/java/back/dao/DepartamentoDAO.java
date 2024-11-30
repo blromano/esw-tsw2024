@@ -94,14 +94,14 @@ public class DepartamentoDAO extends DAO<Departamento> {
     }
 
     @Override
-    public Departamento selecionarPorID(String id) throws SQLException {
+    public Departamento selecionarPorID(int id) throws SQLException {
         Departamento dep = new Departamento() ;
         PreparedStatement sql = getConexao().prepareStatement("""
                                                               SELECT DEP_ID, DEP_NOME, DEP_DESCRICAO
                                                               FROM DEPARTAMENTOS 
                                                               WHERE DEP_ID = ?;""") ;
         
-        sql.setInt(1, Integer.parseInt(id));
+        sql.setInt(1, id);
         
         ResultSet rs = sql.executeQuery() ;
         

@@ -9,7 +9,8 @@ package back.entidades;
  * @author nicho
  */
 public class Cidadao {
-    private String id ;
+    private int idPrivado ;
+    private String idPublico ;
     private String cpf ;
     private String nome ;
     private String email ;
@@ -23,6 +24,13 @@ public class Cidadao {
     private String cidade ;
     private String estado ;
 
+    public int getIdPrivado() {
+        return idPrivado;
+    }
+
+    public void setIdPrivado(int idPrivado) {
+        this.idPrivado = idPrivado;
+    }
 
     public String getCpf() {
         return cpf;
@@ -97,11 +105,11 @@ public class Cidadao {
     }
 
     public String getId() {
-        return id;
+        return idPublico;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.idPublico = id;
     }
 
     public String getEmail() {
@@ -130,8 +138,10 @@ public class Cidadao {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", celular=" + celular + ", cep=" + cep + ", Rua=" + Rua + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + '}';
+        return "Cidadao{" + "idPrivado=" + idPrivado + ", idPublico=" + idPublico + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", celular=" + celular + ", cep=" + cep + ", Rua=" + Rua + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + '}';
     }
+
+    
 
     
     
