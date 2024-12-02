@@ -97,7 +97,7 @@ public class AreaDAO extends DAO<Area>{
     }
 
     @Override
-    public Area selecionarPorID(String id) throws SQLException {
+    public Area selecionarPorID(int id) throws SQLException {
         Area a = new Area() ;
         
         PreparedStatement sql = getConexao().prepareStatement("""
@@ -109,7 +109,7 @@ public class AreaDAO extends DAO<Area>{
                                                                 ARE_ID = ? ;
                                                               """) ;
         
-        sql.setInt(1, Integer.parseInt(id));
+        sql.setInt(1, id);
         ResultSet rs = sql.executeQuery() ;
         
         if (rs.next()) {

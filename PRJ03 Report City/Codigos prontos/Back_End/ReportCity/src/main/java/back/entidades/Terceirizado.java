@@ -9,6 +9,7 @@ package back.entidades;
  * @author nicho
  */
 public class Terceirizado {
+    private int idPrivado ;
     private String id ;
     private String nome ;
     private String cpf ;
@@ -82,10 +83,20 @@ public class Terceirizado {
         this.area = area;
     }
 
+    public int getIdPrivado() {
+        return idPrivado;
+    }
+
+    public void setIdPrivado(int idPrivado) {
+        this.idPrivado = idPrivado;
+    }
+
     @Override
     public String toString() {
-        return "Terceirizado{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", celular=" + celular + ", email=" + email + ", senha=" + senha + ", codRecuperacao=" + codRecuperacao + ", Area=" + area.toString() + '}';
+        return "Terceirizado{" + "idPrivado=" + idPrivado + ", id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", celular=" + celular + ", email=" + email + ", senha=" + senha + ", codRecuperacao=" + codRecuperacao + ", area=" + area + '}';
     }
+
+    
     
     
 }
