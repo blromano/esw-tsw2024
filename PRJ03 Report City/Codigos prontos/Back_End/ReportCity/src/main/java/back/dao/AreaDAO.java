@@ -96,7 +96,6 @@ public class AreaDAO extends DAO<Area>{
         return lista ;
     }
 
-    @Override
     public Area selecionarPorID(int id) throws SQLException {
         Area a = new Area() ;
         

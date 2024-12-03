@@ -34,7 +34,7 @@ public class AdminDAO extends DAO<Administrador>{
         sql.setString(3, obj.getSenha());
         
         sql.executeUpdate() ;
-        
+        sql.close();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class AdminDAO extends DAO<Administrador>{
         sql.setString(4, obj.getId());
         
         sql.executeUpdate() ;
-        
+        sql.close();
         
     }
 
@@ -67,30 +67,7 @@ public class AdminDAO extends DAO<Administrador>{
         sql.setString(1, obj.getId());
         
         sql.executeUpdate() ;
-    }
-
-    @Override
-    public Administrador selecionarPorID(int id) throws SQLException {
-        PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT ADM_ID_PUBLICO, ADM_NOME, ADM_EMAIL, ADM_SENHA 
-                                                                FROM ADMINISTRADORES 
-                                                                WHERE ADM_ID_PRIVADO = ?;""") ;
-        
-        sql.setInt(1, id);
-        
-        Administrador ad = new Administrador() ;
-        
-        ResultSet rs = sql.executeQuery() ;
-        
-        if (rs.next()) {
-            
-            ad.setEmail(rs.getString("ADM_EMAIL"));
-            ad.setId(rs.getString("ADM_ID_PUBLICO"));
-            ad.setNome(rs.getString("ADM_NOME"));
-            ad.setSenha(rs.getString("ADM_SENHA"));
-            
-        }
-        return ad ;
+        sql.close();
     }
 
     @Override
@@ -113,12 +90,37 @@ public class AdminDAO extends DAO<Administrador>{
             
             lista.add(ad) ;
         }
+        sql.close();
         return lista ;
+    }
+    
+    public Administrador selecionarPorID(String id) throws SQLException {
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT ADM_ID_PUBLICO, ADM_NOME, ADM_EMAIL, ADM_SENHA 
+                                                                FROM ADMINISTRADORES 
+                                                                WHERE ADM_ID_PUBLICO = ?;""") ;
+        
+        sql.setString(1, id);
+        
+        Administrador ad = new Administrador() ;
+        
+        ResultSet rs = sql.executeQuery() ;
+        
+        if (rs.next()) {
+            
+            ad.setEmail(rs.getString("ADM_EMAIL"));
+            ad.setId(rs.getString("ADM_ID_PUBLICO"));
+            ad.setNome(rs.getString("ADM_NOME"));
+            ad.setSenha(rs.getString("ADM_SENHA"));
+            
+        }
+        sql.close();
+        return ad ;
     }
     
     public Administrador procurarPorEmailESenha (String email, String senha) throws SQLException{
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT ADM_ID_PRIVADO, ADM_ID_PUBLICO, 
+                                                              SELECT ADM_ID_PUBLICO, 
                                                                     ADM_EMAIL, ADM_NOME, ADM_SENHA 
                                                               FROM ADMINISTRADORES 
                                                                 WHERE ADM_EMAIL = ? AND
@@ -132,8 +134,6 @@ public class AdminDAO extends DAO<Administrador>{
         
         if (rs.next()) {
             
-            
-            ad.setIdPrivado(rs.getInt("ADM_ID_PRIVADO"));
             ad.setEmail(rs.getString("ADM_EMAIL"));
             ad.setId(rs.getString("ADM_ID_PUBLICO"));
             ad.setNome(rs.getString("ADM_NOME"));
@@ -141,31 +141,26 @@ public class AdminDAO extends DAO<Administrador>{
             
         
         }
+        sql.close();
         return ad ;
     }
     
-    public Administrador selecionarPorID(String id) throws SQLException{
+    void selecionarPorID(Administrador ad) throws SQLException{
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT ADM_ID_PRIVADO, ADM_ID_PUBLICO, ADM_NOME, ADM_EMAIL, ADM_SENHA 
+                                                              SELECT ADM_ID_PRIVADO
                                                                 FROM ADMINISTRADORES 
                                                                 WHERE ADM_ID_PUBLICO = ?;""") ;
         
-        sql.setString(1, id);
-        
-        Administrador ad = new Administrador() ;
+        sql.setString(1, ad.getId());
         
         ResultSet rs = sql.executeQuery() ;
         
         if (rs.next()) {
             
             ad.setIdPrivado(rs.getInt("ADM_ID_PRIVADO"));
-            ad.setEmail(rs.getString("ADM_EMAIL"));
-            ad.setId(rs.getString("ADM_ID_PUBLICO"));
-            ad.setNome(rs.getString("ADM_NOME"));
-            ad.setSenha(rs.getString("ADM_SENHA"));
             
         }
-        return ad ;
+        sql.close();
     }
     
 }

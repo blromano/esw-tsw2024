@@ -89,7 +89,6 @@ public class StatusDAO extends DAO<Status>{
         return lista ;
     }
 
-    @Override
     public Status selecionarPorID(int id) throws SQLException {
         Status s = new Status() ;
         

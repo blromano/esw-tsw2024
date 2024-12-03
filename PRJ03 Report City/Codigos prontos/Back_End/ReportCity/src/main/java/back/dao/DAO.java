@@ -32,6 +32,6 @@ public abstract class DAO<Tipo> {
     public abstract void atualizar(Tipo obj) throws SQLException;
     public abstract void excluir(Tipo obj) throws SQLException;
     public abstract List<Tipo> selecionarTodos() throws SQLException;
-    public abstract Tipo selecionarPorID(int id) throws SQLException;
+    
     
 }

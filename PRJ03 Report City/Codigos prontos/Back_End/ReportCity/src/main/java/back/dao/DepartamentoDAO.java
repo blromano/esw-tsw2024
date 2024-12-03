@@ -93,7 +93,7 @@ public class DepartamentoDAO extends DAO<Departamento> {
         return lista ;
     }
 
-    @Override
+    
     public Departamento selecionarPorID(int id) throws SQLException {
         Departamento dep = new Departamento() ;
         PreparedStatement sql = getConexao().prepareStatement("""

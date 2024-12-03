@@ -54,7 +54,7 @@ public class EntradaAdmin extends HttpServlet {
             
             adDao = new AdminDAO() ;
             adm = adDao.procurarPorEmailESenha(email, senha) ;
-             
+            
         } catch(SQLException ex) {
             
             ex.printStackTrace();

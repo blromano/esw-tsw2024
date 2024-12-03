@@ -4,7 +4,6 @@
  */
 package back.dao;
 
-import back.entidades.Area;
 import java.sql.SQLException;
 import java.util.List;
 import back.entidades.Terceirizado ;
@@ -84,15 +83,15 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
         sql.executeUpdate() ;
     }
 
-    @Override
-    public Terceirizado selecionarPorID(int id) throws SQLException {
+
+    public Terceirizado selecionarPorID(String id) throws SQLException {
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT SER_ID_PRIVADO, SER_ID_PUBLICO, SER_NOME, SER_CPF, SER_CELULAR,
+                                                              SELECT SER_ID_PUBLICO, SER_NOME, SER_CPF, SER_CELULAR,
                                                                     SER_EMAIL, SER_SENHA, FK_AREAS_ARE_ID
                                                                 FROM SERVICOS_TERCEIRIZADOS
-                                                                WHERE SER_ID_PRIVADO = ?;""") ;
+                                                                WHERE SER_ID_PUBLICO = ?;""") ;
         
-        sql.setInt(1, id);
+        sql.setString(1, id);
         
         Terceirizado ter = new Terceirizado() ;
         
@@ -101,12 +100,12 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
         
         if (rs.next()) {
             
+            ter.setId(rs.getString("SER_ID_PUBLICO"));
             ter.setNome(rs.getString("SER_NOME"));
             ter.setCpf(rs.getString("SER_CPF"));
             ter.setCelular(rs.getString("SER_CELULAR"));
             ter.setEmail(rs.getString("SER_EMAIL"));
             ter.setSenha(rs.getString("SER_SENHA"));
-            ter.setSenha(rs.getString("CID_SENHA"));
             ter.setArea(are.selecionarPorID(rs.getInt("FK_AREAS_ARE_ID")));
             
             
@@ -182,36 +181,22 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
     }
     
     
-    public Terceirizado selecionarPorID(String id) throws SQLException {
+    void selecionarPorID(Terceirizado id) throws SQLException {
         PreparedStatement sql = getConexao().prepareStatement("""
-                                                              SELECT SER_ID_PRIVADO, SER_ID_PUBLICO, SER_NOME, SER_CPF, SER_CELULAR,
-                                                                    SER_EMAIL, SER_SENHA, FK_AREAS_ARE_ID
+                                                              SELECT SER_ID_PRIVADO
                                                                 FROM SERVICOS_TERCEIRIZADOS
                                                                 WHERE SER_ID_PUBLICO = ?;""") ;
         
-        sql.setString(1, id);
-        
-        Terceirizado ter = new Terceirizado() ;
-        
+        sql.setString(1, id.getId());
         ResultSet rs = sql.executeQuery() ;
         
-        AreaDAO are = new AreaDAO() ;
         if (rs.next()) {
             
-            ter.setIdPrivado(rs.getInt("SER_ID_PRIVADO"));
-            ter.setId(rs.getString("SER_ID_PUBLICO"));
-            ter.setNome(rs.getString("SER_NOME"));
-            ter.setCpf(rs.getString("SER_CPF"));
-            ter.setCelular(rs.getString("SER_CELULAR"));
-            ter.setEmail(rs.getString("SER_EMAIL"));
-            ter.setSenha(rs.getString("SER_SENHA"));
-            ter.setSenha(rs.getString("CID_SENHA"));
-            ter.setArea(are.selecionarPorID(rs.getInt("FK_AREAS_ARE_ID")));
-            
+            id.setIdPrivado(rs.getInt("SER_ID_PRIVADO"));
             
         }
-        are.fecharConexao();
+        
         sql.close();
-        return ter ;
+        
     }
 }
