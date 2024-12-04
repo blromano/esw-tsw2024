@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.sql.PreparedStatement ;
 import back.entidades.Denuncia ;
+import back.entidades.Status ;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import org.postgresql.geometric.PGpoint ;
@@ -209,6 +210,50 @@ public class DenunciaDAO extends DAO<Denuncia> {
         sql.close();
         return d ;
     }
+    
+    
+    public int countDenunciasPorStatus( Status sta) throws SQLException{
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT COUNT(DEN_ID_PRIVADO)
+                                                              FROM DENUNCIAS
+                                                              WHERE FK_STATUS_ID = ? ;
+                                                              """) ;
+        sql.setInt(1, sta.getId());
+        ResultSet rs = sql.executeQuery() ;
+        int consulta =rs.getInt("COUNT(DEN_ID_PRIVADO)") ;
+        sql.close();
+        return consulta ;
+        
+    }
    
+    public List<String> todosTipos() throws SQLException{
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT DISTINCT 
+                                                                DEN_TIPO
+                                                              FROM
+                                                                DENUNCIAZ ;""");
+        List<String> tipos = new ArrayList<>() ;
+        
+        ResultSet rs = sql.executeQuery() ;
+        
+        while (rs.next()) {
+            tipos.add(rs.getString("DEN_TIPO")) ;
+        }
+        
+        return tipos ;
+    }
+    
+    public int selectPorTipo (String tipo) throws SQLException {
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT COUNT(DEN_ID_PRIVADO)
+                                                              FROM DENUNCIAS
+                                                              WHERE DEN_TIPO = ? ;
+                                                              """) ;
+        sql.setString(1, tipo);
+        ResultSet rs = sql.executeQuery() ;
+        int consulta = rs.getInt("COUNT(DEN_ID_PRIVADO)") ;
+        sql.close();
+        return consulta ;
+    }
     
 }
