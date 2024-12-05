@@ -53,6 +53,8 @@ public class SolicitarRedefinicaoSenhaServlet extends HttpServlet {
                 Cidadao cid = daoC.procurarPorEmail(request.getParameter("email")) ;
                 
                 String seguranca = "senha" ;
+                cid.setCodigoRec(seguranca);
+                daoC.salvarSenhaAtualizacao(cid);
                 
                 enviado = gerarEmail(seguranca, cid.getEmail()) ;
                 
@@ -63,6 +65,9 @@ public class SolicitarRedefinicaoSenhaServlet extends HttpServlet {
                 Terceirizado ter = daoT.procurarPorEmail(request.getParameter("email")) ;
                 
                 String seguranca = "senha" ;
+                
+                ter.setCodRecuperacao(seguranca);
+                daoT.salvarSenhaAtualizacao(ter)  ;
                 
                 enviado = gerarEmail(seguranca, ter.getEmail()) ;
                 

@@ -23,6 +23,7 @@ public class Cidadao {
     private String bairro ;
     private String cidade ;
     private String estado ;
+    private String codigoRec ;
 
     public int getIdPrivado() {
         return idPrivado;
@@ -134,6 +135,14 @@ public class Cidadao {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCodigoRec() {
+        return codigoRec;
+    }
+
+    public void setCodigoRec(String codigoRec) {
+        this.codigoRec = codigoRec;
     }
 
     @Override

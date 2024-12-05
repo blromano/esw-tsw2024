@@ -274,4 +274,19 @@ public class CidadaoDAO extends DAO<Cidadao>{
         sql.close();
         return cid ;
     }
+    
+    public void salvarSenhaAtualizacao (Cidadao obj) throws SQLException{
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              UPDATE CIDADOES
+                                                              SET
+                                                                CID_COD_RECUPERACAO = ?
+                                                              WHERE
+                                                                CID_ID_PUBLICO = ?;""") ;
+        
+        sql.setString(1, obj.getCodigoRec());
+        sql.setString(2, obj.getId());
+        
+        
+        sql.executeUpdate() ;
+    }
 }

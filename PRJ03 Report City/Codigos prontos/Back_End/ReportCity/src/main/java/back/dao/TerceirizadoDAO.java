@@ -68,7 +68,6 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
         
         sql.executeUpdate() ;
         
-        
     }
 
     @Override
@@ -229,5 +228,20 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
         are.fecharConexao();
         sql.close();
         return ter ;
+    }
+    
+    public void salvarSenhaAtualizacao (Terceirizado obj) throws SQLException{
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              UPDATE SERVICOS_TERCEIRIZADOS
+                                                              SET
+                                                                SER_COD_RECUPERACAO = ?
+                                                              WHERE
+                                                                SER_ID_PUBLICO = ?;""") ;
+        
+        sql.setString(1, obj.getCodRecuperacao());
+        sql.setInt(2, obj.getArea().getId());
+        
+        
+        sql.executeUpdate() ;
     }
 }
