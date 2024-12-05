@@ -237,4 +237,41 @@ public class CidadaoDAO extends DAO<Cidadao>{
         sql.close();
         
     }
+    
+    public Cidadao procurarPorEmail (String email) throws SQLException {
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT CID_ID_PUBLICO, CID_COMPLEMENTO, 
+                                                                CID_NUMERO, CID_NOME, 
+                                                                CID_CPF, CID_CELULAR, 
+                                                                CID_CEP, CID_RUA, CID_BAIRRO, 
+                                                                CID_CIDADE, CID_ESTADO, CID_SENHA, CID_EMAIL
+                                                                FROM CIDADOES 
+                                                                WHERE  CID_EMAIL = ? ;""") ;
+        
+        sql.setString(1, email);
+        Cidadao cid = new Cidadao() ;
+        
+        ResultSet rs = sql.executeQuery() ;
+        
+        if (rs.next()) {
+            
+            cid.setId(rs.getString("CID_ID_PUBLICO"));
+            cid.setComplemento(rs.getString("CID_COMPLEMENTO"));
+            cid.setNumero(rs.getString("CID_NUMERO"));
+            cid.setNome(rs.getString("CID_NOME"));
+            cid.setCpf(rs.getString("CID_CPF"));
+            cid.setCelular(rs.getString("CID_CELULAR"));
+            cid.setEmail(rs.getString("CID_EMAIL"));
+            cid.setCep(rs.getString("CID_CEP"));
+            cid.setRua(rs.getString("CID_RUA"));
+            cid.setBairro(rs.getString("CID_BAIRRO"));
+            cid.setCidade(rs.getString("CID_CIDADE"));
+            cid.setEstado(rs.getString("CID_ESTADO"));
+            cid.setSenha(rs.getString("CID_SENHA"));
+        
+            
+        }
+        sql.close();
+        return cid ;
+    }
 }
