@@ -244,4 +244,36 @@ public class TerceirizadoDAO extends DAO<Terceirizado>{
         
         sql.executeUpdate() ;
     }
+    
+    public Terceirizado procurarPorCodigoRecuperacao (String codigo) throws SQLException{
+        PreparedStatement sql = getConexao().prepareStatement("""
+                                                              SELECT SER_NOME, SER_CPF, SER_CELULAR,
+                                                                    SER_EMAIL, SER_SENHA, FK_AREAS_ARE_ID
+                                                                FROM SERVICOS_TERCEIRIZADOS
+                                                                WHERE SER_COD_RECUPERACAO = ? ;
+                                                              """) ;
+        
+        sql.setString(1, codigo);
+       
+        Terceirizado ter = new Terceirizado() ;
+        ResultSet rs = sql.executeQuery() ;
+        AreaDAO are = new AreaDAO() ;
+        
+        if (rs.next()) {
+            
+            ter.setNome(rs.getString("SER_NOME"));
+            ter.setCpf(rs.getString("SER_CPF"));
+            ter.setCelular(rs.getString("SER_CELULAR"));
+            ter.setEmail(rs.getString("SER_EMAIL"));
+            ter.setSenha(rs.getString("SER_SENHA"));
+            ter.setSenha(rs.getString("CID_SENHA"));
+            ter.setArea(are.selecionarPorID(rs.getInt("FK_AREAS_ARE_ID")));
+            
+            
+            
+        }
+        are.fecharConexao();
+        sql.close();
+        return ter ;
+    }
 }
