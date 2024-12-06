@@ -106,6 +106,7 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
 
 $(document).ready( function() {
 
+  /* CRIANDO PONTO DE COLETA */
   $('#formularioCriarPonto').on("submit", function(event) {
 
     event.preventDefault();
@@ -168,5 +169,7 @@ $(document).ready( function() {
     $('#modalCriar').css( "display", "none" );
 
   })
+
+  /* EXCLUINDO PONTO DE COLETA */
 
 })
