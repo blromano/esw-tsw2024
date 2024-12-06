@@ -1,3 +1,6 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -53,16 +56,17 @@
                     <!--Botão - Insira seu email-->
                     <div class="row align-items-center my-5">
                         <div class="col-md-6"> 
-                        <form class="form-inline"> <span style="font-size: 15px;">Email</span> 
-                            <div class="input-group"> 
-                            <input type="text" class="form-control" placeholder="Insira seu Email..."/>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-outline-success">
-                                    Login
-                                </button>
-                            </div>
-                            </div>
-                        </form>
+                            <form class="form-inline" action="${cp}/login.jsp"><span style="font-size: 15px;">Email</span>
+                                <input type="hidden" name="acao" value="paginaLogin">
+                                <div class="input-group"> 
+                                    <input type="email" name="email" class="form-control" placeholder="Insira seu Email..."/>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-outline-success">
+                                            Login
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
