@@ -11,23 +11,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="wnameth=device-wnameth, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrashTrack</title>
 
     <!-- Link do CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style-cadastro-login.css">
-    <style>
-
-    </style>
 </head>
-    <!-- Possiveis erros - 
-        -ver se a senha precisa de 2 names, pois precisam da match 
-
-        -arrumar data de nascimento
-    -->
 <body>
-    <div class="container-fluname vh-100">
+    <div class="container-fluid vh-100">
         <div class="row" style="height: 100%;">
             <!-- Coluna esquerda -->
             <div class="col-md-6 background-site d-flex align-items-center justify-content-center">
@@ -40,7 +32,7 @@
 
                 <!-- Botão de voltar -->
                 <div class="mb-3" style="position: absolute; margin-top: 5%; margin-left: 5%;">
-                    <a href="index.html"> &lt; Home</a>
+                    <a href="index.jsp"> &lt; Home</a>
                 </div>
 
                 <!-- parte inteira do registro -->
@@ -48,56 +40,63 @@
 
                     <div class="login-container text-left">
 
+                        <!-- Exibição de mensagens de erro -->
+                        <c:if test="${not empty errorMessage}">
+                            <div class="alert alert-danger" role="alert">
+                                ${errorMessage}
+                            </div>
+                        </c:if>
+                        
                         <form method="post" action="${cp}/processaMoradorColetor">
                             <input name="acao" type="hidden" value="inserir"/>
                             <h2>Cadastro</h2>
                             <p class="cinza">Se torne um membro e aproveite dos benefícios!</p>
 
-                            <!-- nome -->
+                            <!-- Nome -->
                             <div class="form-group">
                                 <label for="nome" class="cinza">Nome Completo</label>
-                                <input type="text" name="nome" class="form-control botao-forms">
+                                <input type="text" name="nome" class="form-control botao-forms" required>
                             </div>
 
-                            <!-- email -->
+                            <!-- Email -->
                             <div class="form-group">
                                 <label for="email" class="cinza">Email</label>
-                                <input type="email" name="email" class="form-control botao-forms">
+                                <input type="email" name="email" class="form-control botao-forms" required>
                             </div>
 
-                            <!-- data de nascimento -->
+                            <!-- Data de nascimento -->
                             <div class="form-group">
                                 <label for="data-nsc" class="cinza">Data de Nascimento</label>
-                                <input type="date" name="dataNascimento" class="form-control botao-forms text-center">
+                                <input type="date" name="dataNascimento" class="form-control botao-forms text-center" required>
                             </div>
 
-                            <!-- cpf -->
+                            <!-- CPF -->
                             <div class="form-group">
                                 <label for="cpf" class="cinza">CPF</label>
                                 <input type="text" name="cpf" class="form-control botao-forms text-center" 
                                 placeholder="000.000.000-00" autocomplete="off" 
-                                maxlength="14" data-mask="000.000.000-00">
+                                maxlength="14" required>
                             </div>                                            
 
-                            <!-- senha -->
+                            <!-- Senha -->
                             <div class="form-group">
                                 <label for="password" class="cinza">Senha</label>
                                 <div class="d-flex align-items-center botao-forms form-control botao-senha">
-                                    <input type="password" name="senha" id="password">
+                                    <input type="password" name="senha" id="password" required>
                                     <img src="img/eye-close.png" id="eyeicon" name="eyeicon" onclick="mostrarsenha()">
                                 </div>
                             </div>
 
-                            <!-- confirmar senha -->
+                            <!-- Confirmar senha -->
                             <div class="form-group">
                                 <label for="password2" class="cinza">Confirmar Senha</label>
                                 <div class="d-flex align-items-center botao-forms form-control botao-senha">
-                                    <input type="password" name="confirmarSenha" id="password2">
+                                    <input type="password" name="confirmarSenha" id="password2" required>
                                     <img src="img/eye-close.png" alt="" id="eyeicon2" name="eyeicon2" onclick="confirmarsenha()">
                                 </div>
                             </div>
 
-                            <!-- botao enviar cadastro -->
+                            <!-- Botão enviar cadastro -->
                             <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Cadastrar</button>
                         </form> 
                     </div>
@@ -109,11 +108,12 @@
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- Script do JavaScript do Bootstrap (opcional, mas recomendado) -->
+    <!-- Script do JavaScript do Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- scripts -->
     <script src="js/script-cadastro-login.js"></script>
 </body>
 </html>
+
 

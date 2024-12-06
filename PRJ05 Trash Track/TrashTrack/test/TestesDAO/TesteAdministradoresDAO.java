@@ -27,7 +27,7 @@ public class TesteAdministradoresDAO {
             
             dao = new AdministradoresDAO();
             
-            dao.excluir(administrador);
+            dao.salvar(administrador);
             
             
         } catch (SQLException exc) {

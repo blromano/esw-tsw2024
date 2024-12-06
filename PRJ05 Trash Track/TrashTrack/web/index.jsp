@@ -1,3 +1,6 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,7 +17,7 @@
     <!-- NAV BAR -->
     <nav class="navbar navbar-expand-lg navbar-light py-3" style="margin-left: 12rem; margin-right: 12rem;">
       <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="index.jsp">
               <img src="img/Logo.png" alt="TrashTrack Logo" width="160" height="45" class="d-inline-block">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +26,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                      <a class="nav-link active" aria-current="page" href="index.jsp">Home</a>
                   </li>
               </ul>
               <div class="d-flex align-items-center gap-3">
@@ -35,7 +38,7 @@
                           <a class="nav-link" aria-current="page" href="cadastro.jsp">Cadastro</a>
                       </li>
                       <li class="nav-item">
-                          <a href="login.html"> <button class="btn btn-outline-success" type="submit">Entrar</button> </a>
+                          <a href="login.jsp"> <button class="btn btn-outline-success" type="submit">Entrar</button> </a>
                       </li>
                   </ul>
               </div>
@@ -53,16 +56,17 @@
                     <!--Botão - Insira seu email-->
                     <div class="row align-items-center my-5">
                         <div class="col-md-6"> 
-                        <form class="form-inline"> <span style="font-size: 15px;">Email</span> 
-                            <div class="input-group"> 
-                            <input type="text" class="form-control" placeholder="Insira seu Email..."/>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-outline-success">
-                                    Login
-                                </button>
-                            </div>
-                            </div>
-                        </form>
+                            <form class="form-inline" action="${cp}/login.jsp"><span style="font-size: 15px;">Email</span>
+                                <input type="hidden" name="acao" value="paginaLogin">
+                                <div class="input-group"> 
+                                    <input type="email" name="email" class="form-control" placeholder="Insira seu Email..."/>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-outline-success">
+                                            Login
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -109,7 +113,7 @@
                 <!--Pergunta 1-->
                 <div class="accordion-item">
                   <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Como fazemos para realizar o Cadastro de um novo ponto de coleta?
                     </button>
                   </h2>
