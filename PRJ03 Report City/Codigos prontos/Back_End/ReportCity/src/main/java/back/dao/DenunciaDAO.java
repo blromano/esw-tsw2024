@@ -11,7 +11,6 @@ import back.entidades.Denuncia ;
 import back.entidades.Status ;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import org.postgresql.geometric.PGpoint ;
 /**
  *
  * @author nicho
@@ -42,7 +41,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
         sql.setDate(5, obj.getCreated());
         sql.setDate(6, obj.getUpdated());
         sql.setString(7, obj.getFeedback());
-        sql.setString(9, obj.getImagem());
+        sql.setString(9, obj.getImagem().getCaminho());
         sql.setString(10,obj.getTipo());
         sql.setInt(11,obj.getCidadao().getIdPrivado());
         sql.setInt(12, obj.getStatus().getId());
@@ -77,7 +76,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
         sql.setDate(5, obj.getCreated());
         sql.setDate(6, obj.getUpdated());
         sql.setString(7, obj.getFeedback());
-        sql.setString(9, obj.getImagem());
+        sql.setString(9, obj.getImagem().getCaminho());
         sql.setString(10,obj.getTipo());
         sql.setInt(11,obj.getCidadao().getIdPrivado());
         sql.setInt(12, obj.getStatus().getId());
@@ -119,12 +118,14 @@ public class DenunciaDAO extends DAO<Denuncia> {
         
         while(rs.next()) {
             Denuncia d = new Denuncia() ;
-            
+            ArrayList<Double> coordenada = (ArrayList<Double>) rs.getArray("DEN_COORDENADA") ;
+            d.setCoordenadaX(coordenada.get(0));
+            d.setCoordenadaY(coordenada.get(1));
             d.setCreated(rs.getDate("DEN_CREATED_AT"));
             d.setDescricao(rs.getString("DEN_DESCRICAO"));
             d.setFeedback(rs.getString("DEN_FEEDBACK"));
             d.setId(rs.getString("DEN_ID_PUBLICO"));
-            d.setImagem(rs.getString("DEN_IMAGEM"));
+            d.getImagem().setCaminho(rs.getString("DEN_IMAGEM"));
             d.setTipo(rs.getString("DEN_TIPO"));
             d.setTitulo(rs.getString("DEN_TITULO"));
             d.setUpdated(rs.getDate("DEN_UPDATED_AT"));
@@ -186,12 +187,15 @@ public class DenunciaDAO extends DAO<Denuncia> {
         
         if(rs.next()) {
             
+            ArrayList<Double> coordenada = (ArrayList<Double>) rs.getArray("DEN_COORDENADA") ;
+            d.setCoordenadaX(coordenada.get(0));
+            d.setCoordenadaY(coordenada.get(1));
             d.setId(rs.getString("DEN_ID_PUBLICO"));
             d.setCreated(rs.getDate("DEN_CREATED_AT"));
             d.setDescricao(rs.getString("DEN_DESCRICAO"));
             d.setFeedback(rs.getString("DEN_FEEDBACK"));
             d.setId(rs.getString("DEN_ID_PUBLICO"));
-            d.setImagem(rs.getString("DEN_IMAGEM"));
+            d.getImagem().setCaminho(rs.getString("DEN_IMAGEM"));
             d.setTipo(rs.getString("DEN_TIPO"));
             d.setTitulo(rs.getString("DEN_TITULO"));
             d.setUpdated(rs.getDate("DEN_UPDATED_AT"));
@@ -231,7 +235,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
                                                               SELECT DISTINCT 
                                                                 DEN_TIPO
                                                               FROM
-                                                                DENUNCIAZ ;""");
+                                                                DENUNCIAS ;""");
         List<String> tipos = new ArrayList<>() ;
         
         ResultSet rs = sql.executeQuery() ;
@@ -243,7 +247,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
         return tipos ;
     }
     
-    public int selectPorTipo (String tipo) throws SQLException {
+    public int contarPorTipo (String tipo) throws SQLException {
         PreparedStatement sql = getConexao().prepareStatement("""
                                                               SELECT COUNT(DEN_ID_PRIVADO)
                                                               FROM DENUNCIAS

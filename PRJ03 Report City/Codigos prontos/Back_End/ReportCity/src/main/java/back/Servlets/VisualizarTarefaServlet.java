@@ -4,9 +4,8 @@
  */
 package back.Servlets;
 
-import back.dao.DenunciaDAO;
-import back.dao.StatusDAO;
-import back.entidades.Status;
+import back.dao.TarefaDAO;
+import back.entidades.Tarefa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -22,8 +21,8 @@ import java.util.List;
  *
  * @author nicho
  */
-@WebServlet(name = "GraficoGerenteServlet", urlPatterns = {"/pGraficoGerente"})
-public class GraficoGerenteServlet extends HttpServlet {
+@WebServlet(name = "VisualizarTarefaServlet", urlPatterns = {"/pVisualizarTarefa"})
+public class VisualizarTarefaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,79 +37,41 @@ public class GraficoGerenteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String retorno = "{" ;
-        String tipos =  null ;
+        String terceirizado = request.getParameter("idTerceirizado") ;
+        TarefaDAO dao = null ;
+        List<Tarefa> tarefas = new ArrayList<>() ;
+        
         try {
             
-            retorno = retorno.concat(contarStatus()) ;
-            tipos = contarTipos() ;
-            
-            if (tipos != null) {
-                retorno = retorno.concat(", ") ;
-                retorno = retorno.concat(tipos) ;
-            }
+            dao = new TarefaDAO() ;
+            tarefas = dao.selecionarTodos() ;
             
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            
+            try {
+                dao.fecharConexao();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            
+        }
+        String saida = "{" ;
+        
+        for (Tarefa t : tarefas) {
+            if (t.getServicoTereirizado().getId() == terceirizado) {
+                saida = saida.concat(t.toString()) ;
+            }
         }
         
-        retorno = retorno.concat("}") ;
+        saida = saida.concat("}") ;
+        
         try (PrintWriter out = response.getWriter()) {
-            out.write(retorno);
+            out.print(saida);
         }
-        
     }
 
-    private String contarStatus() throws SQLException{
-        String retorno = null;
-        StatusDAO sta = null ;
-        DenunciaDAO den = null ;
-        
-        
-        List<Status> status = null;
-        List<Integer> valores = new ArrayList<>() ;
-        
-        sta = new StatusDAO() ;
-        den = new DenunciaDAO() ;
-        
-        status = sta.selecionarTodos() ;
-            
-        for (Status s : status) {
-            valores.add(den.countDenunciasPorStatus(s)) ;
-        }
-        
-        for (int i = 0 ; i < status.size(); i++) {
-            retorno = retorno.concat(status.get(i).getStatus() + ": " + valores.get(i));
-            if (i < status.size()-1){
-                retorno = retorno.concat(", ") ;
-            }
-        }
-        
-        sta.fecharConexao();
-        den.fecharConexao();
-        
-        return retorno ;
-    }
-    
-    private String contarTipos () throws SQLException {
-        String retorno = null ;
-        DenunciaDAO den = new DenunciaDAO() ;
-        
-        List<String> tipos = den.todosTipos() ;
-        
-        for (String s : tipos) {
-            retorno = retorno.concat( s +": " + den.contarPorTipo(s)) ;
-            if (tipos.indexOf(s) < tipos.size() -1) {
-                retorno = retorno.concat(", ") ;
-            }
-        }
-        
-        den.fecharConexao();
-        
-        return retorno ;
-        
-    }
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

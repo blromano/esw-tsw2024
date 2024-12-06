@@ -68,57 +68,15 @@
       <button class="btn-filtro"><img src="img/filtro.png" alt="filtro"></button>
     </div>
     <div id="modalBodyLista">
+
       <div id="lista">
-        <div class="ponto" data-idPonto=""> <!-- INSERIR ID RESPECTIVO DO PONTO COM JSP -->
-          <img  src="img/pontoOrganico.png" alt="ponto"> 
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img src="img/pontoOleo.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>       
-        </div>
-        <div class="ponto">
-          <img src="img/pontoReciclagem.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>      
-        </div>
-        <div class="ponto">
-          <img src="img/pontoOrganico.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>        
-        </div>
-        <div class="ponto">
-          <img src="img/pontoReciclagem.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img src="img/pontoOleo.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img src="img/pontoReciclagem.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
+        
       </div>
+
       <h4 class="title">Meus Pontos</h4>
+      
       <div id="lista-meus" >
-        <div class="ponto">
-          <img id="ponto" src="img/pontoOleo.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-          <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img id="ponto" src="img/pontoOrganico.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-          <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-        </div>
+        
       </div>
     </div>
   </div>

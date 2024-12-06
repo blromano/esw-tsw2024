@@ -1,25 +1,49 @@
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\com\mycompany\report\resources\JakartaEE10Resource.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\UsuarioDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\AreaDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Tarefa.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\StatusDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Departamento.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Status.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\com\mycompany\report\JakartaRestConfiguration.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\GerenteDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Denuncia.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\TerceirizadoDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\CidadaoDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Cidadao.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Terceirizado.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\DepartamentoDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Administrador.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\Servlets\Entrada.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Usuario.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\DenunciaDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\jdbc\ConnectionFactory.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Area.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\AdminDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\entidades\Gerente.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\TarefaDAO.java
-C:\Users\nicho\Documents\NetBeansProjects\ReportCity\src\main\java\back\dao\DAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\StatusDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Denuncia.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Administrador.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\ListarCidadaoGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\DepartamentoDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\VisualizarDenunciaServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\InformacoesTarefasGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\com\mycompany\report\resources\JakartaEE10Resource.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\InformacoesTerceirizadoGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Util\Utils.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\CidadaoDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\VerificarCodigoRedefinicaoSenhaServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\AreaDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\SolicitarRedefinicaoSenhaServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Cidadao.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\GraficoGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\ListarDenunciasRealizadasServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\TerceirizadosGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\EntradaAdmin.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\RealizarDenunciasServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\CriarTarefaDenunciaGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Departamento.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Status.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\jdbc\ConnectionFactory.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\EntradaCidadao.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\EntradaServicoTerceirizado.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Tarefa.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\TarefaDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\DenunciaDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\GerenteDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\CadastrarTerceirizadoGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\informacoesDenunciaGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\CadastrarUsuarioServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\DAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\EntradaGerente.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\AdminDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\DenunciasGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\dao\TerceirizadoDAO.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Gerente.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\RedefinirSenhaServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\VisualizarPerfilCidadaoServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\com\mycompany\report\JakartaRestConfiguration.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Area.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\VisualizarDenunciaEnviarFeedbackServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\VisualizarTarefaServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\TarefasGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\AtualizarStatusDenunciaServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\Servlets\DesabilitarTerceirizadoGerenteServlet.java
+C:\Users\nicho\Documents\GitHub\esw-tsw2024\PRJ03 Report City\Codigos prontos\Back_End\ReportCity\src\main\java\back\entidades\Terceirizado.java

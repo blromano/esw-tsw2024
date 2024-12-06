@@ -63,7 +63,7 @@ document.querySelector('button.btn-close-perfil').addEventListener('click', func
 
 /* Mudar a interface do tipo de usuario */
 
-let tipoUsuario = ""
+let tipoUsuario = "coletor";
 const toggle = document.getElementById("toggle");
 const texto = document.getElementById("tipo-usu");
 const contador = document.getElementById("cont");
@@ -78,7 +78,6 @@ toggle.addEventListener('click', function() {
       contador.style.borderColor = '#3ACC97';
       lixos.textContent = 'Lixos Coletados';
       tipoUsuario = "coletor";
-      console.log(`Tipo de usuário alterado para: ${tipoUsuario}`);
   } else {
       toggle.classList.add('active');
       toggle.textContent = 'Desativar';
@@ -87,8 +86,10 @@ toggle.addEventListener('click', function() {
       contador.style.borderColor = '#3AB6CC';
       lixos.textContent = 'Lixos Reciclados';
       tipoUsuario = "morador";
-      console.log(`Tipo de usuário alterado para: ${tipoUsuario}`);
   }
+
+  listarPontos(event);
+
 });
 
 
@@ -277,13 +278,28 @@ function listarPontos( event ) {
 
       data.forEach(pontoDeColeta => {
 
+        if (tipoUsuario == "coletor") {
+
           $listaDePontos.append (
-              `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-                <img  src="img/pontoOrganico.png" alt="ponto"> 
-                <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-                <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-              </div>`
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <img  src="img/pontoOrganico.png" alt="ponto"> 
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
           );
+
+        } else {
+
+          $listaDePontos.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
+          );
+
+        }
+
+          
 
       });
 
@@ -306,14 +322,30 @@ function listarPontos( event ) {
 
       data.forEach(pontoDeColeta => {
 
+        if (tipoUsuario == "coletor") {
+
           $listaDePontosProprios.append (
-              `<div class="ponto">
-                <img id="ponto" src="img/pontoOleo.png" alt="ponto">
-                <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-                <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-                <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-              </div>`
+            `<div class="ponto">
+              <img id="ponto" src="img/pontoOleo.png" alt="ponto">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
           );
+
+        } else {
+
+          $listaDePontosProprios.append (
+            `<div class="ponto">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
+          );
+
+        }
+
+          
 
       });
 
