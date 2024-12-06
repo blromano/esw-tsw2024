@@ -407,7 +407,7 @@ input:checked + .slider:before {
     z-index: 10;
     max-width: 90%;
     width: 252px;
-    height: 370px;
+    height: 410px;
     border-radius: 16px;
     display: none;
     padding: 24px;
