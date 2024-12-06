@@ -479,15 +479,26 @@ input:checked + .slider:before {
     }
 }
 
+/*Div Mapa*/
 
+#map {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1; /* Fica abaixo da interface */
+}
 
+#interface {
+  position: relative;
+  z-index: 10; /* Interface aparece acima do mapa */
+}
 
-
-
-
-
-
-
-
-
+/* Estilo para áreas não interativas da interface */
+#menu {
+  position: absolute;
+  width: 100%;
+  z-index: -2; /* Interativa e acima do mapa */
+}
   

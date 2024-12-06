@@ -13,10 +13,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14801.977616058008!2d-46.7960322!3d-21.953980199999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1724979796574!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0; position: absolute; margin: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
 </head>
 <body>
 
+ <div id="interface">
+    <div id="menu">
   <!--NavBar-->
 
   <nav class="container-fluid">
@@ -265,10 +267,20 @@
 
   </nav>
 
+  </div>
+  </div>
+    
+    <!-- Mapa da API --> 
+  <div id="map"></div>
+
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+  
   <script src="js/script-mapa.js"></script>
+  
+  <!<!-- Import do mapa -- nele tem a API e os IDS do mapa -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgZY0C6jCU1K1vRyv4MkZunP83_q3claI&map_ids=1c9b70d1e5ae023b&callback=initMap" async defer></script>
+  
   
 </body>
 
