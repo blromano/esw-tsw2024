@@ -50,9 +50,6 @@ public class MoradorColetorServlet extends HttpServlet {
                 } else if (!isCPFValido(cpf)) {
                     request.setAttribute("errorMessage", "CPF inválido.");
                     disp = request.getRequestDispatcher("cadastro.jsp");
-                } else if (existeEmailOuCPF(dao, email, cpf)) { // Verifica se já existe o e-mail ou CPF
-                    request.setAttribute("errorMessage", "E-mail ou CPF já estão associados a uma conta.");
-                    disp = request.getRequestDispatcher("cadastro.jsp");
                 } else {
                     // Criando o objeto MoradorColetor
                     LocalDate dataNascimentoLocal = LocalDate.parse(dataNascimento, dtf);
@@ -121,22 +118,6 @@ public class MoradorColetorServlet extends HttpServlet {
     // Método para validar o formato do CPF
     private boolean isCPFValido(String cpf) {
         return cpf != null && cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
-    }
-
-    // Método para verificar duplicidade de e-mail ou CPF
-    private boolean existeEmailOuCPF(MoradoresColetoresDAO dao, String email, String cpf) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM moradores_coletores WHERE MOC_EMAIL = ? OR MOC_CPF = ?";
-        try (var connection = dao.getConnection();
-             var stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, email);
-            stmt.setString(2, cpf);
-            try (var rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;  // Retorna true se encontrar duplicidade
-                }
-            }
-        }
-        return false;  // Retorna false se não encontrar duplicidade
     }
 
     @Override
