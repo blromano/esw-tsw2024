@@ -22,7 +22,7 @@ public class MoradorColetorServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String acao = request.getParameter("acao");
         MoradoresColetoresDAO dao = null;
         RequestDispatcher disp = null;
@@ -30,9 +30,9 @@ public class MoradorColetorServlet extends HttpServlet {
 
         try {
             dao = new MoradoresColetoresDAO();
-            
+
             if (acao.equals("inserir")) {
-                // Recebendo os parâmetros do formulário
+                // Cadastro de usuário
                 String email = request.getParameter("email");
                 String senha = request.getParameter("senha");
                 String confirmarSenha = request.getParameter("confirmarSenha");
@@ -49,6 +49,9 @@ public class MoradorColetorServlet extends HttpServlet {
                     disp = request.getRequestDispatcher("cadastro.jsp");
                 } else if (!isCPFValido(cpf)) {
                     request.setAttribute("errorMessage", "CPF inválido.");
+                    disp = request.getRequestDispatcher("cadastro.jsp");
+                } else if (existeEmailOuCPF(dao, email, cpf)) { // Verifica se já existe o e-mail ou CPF
+                    request.setAttribute("errorMessage", "E-mail ou CPF já estão associados a uma conta.");
                     disp = request.getRequestDispatcher("cadastro.jsp");
                 } else {
                     // Criando o objeto MoradorColetor
@@ -69,13 +72,29 @@ public class MoradorColetorServlet extends HttpServlet {
 
                     // Redireciona para a página de sucesso
                     request.setAttribute("successMessage", "Cadastro realizado com sucesso!");
-                    disp = request.getRequestDispatcher("login.html");
+                    disp = request.getRequestDispatcher("login.jsp");
+                }
+            } else if (acao.equals("login")) {
+                // Login de usuário
+                String email = request.getParameter("email");
+                String senha = request.getParameter("senha");
+                
+                // Verificação de credenciais no banco de dados
+                MoradorColetor mc = dao.buscarPorEmail(email);
+
+                if (mc != null && mc.getSenha().equals(senha)) {
+                    request.getSession().setAttribute("usuarioLogado", mc);
+                    disp = request.getRequestDispatcher("mapa.html");
+                } else {
+                    // Credenciais inválidas
+                    request.setAttribute("errorMessage", "E-mail ou senha incorretos.");
+                    disp = request.getRequestDispatcher("login.jsp");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Erro ao processar a requisição: " + e.getMessage());
-            disp = request.getRequestDispatcher("cadastro.jsp");
+            disp = request.getRequestDispatcher("erro.jsp");
         } finally {
             // Fechando a conexão com o DAO
             if (dao != null) {
@@ -102,6 +121,22 @@ public class MoradorColetorServlet extends HttpServlet {
     // Método para validar o formato do CPF
     private boolean isCPFValido(String cpf) {
         return cpf != null && cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
+    }
+
+    // Método para verificar duplicidade de e-mail ou CPF
+    private boolean existeEmailOuCPF(MoradoresColetoresDAO dao, String email, String cpf) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM moradores_coletores WHERE MOC_EMAIL = ? OR MOC_CPF = ?";
+        try (var connection = dao.getConnection();
+             var stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            stmt.setString(2, cpf);
+            try (var rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;  // Retorna true se encontrar duplicidade
+                }
+            }
+        }
+        return false;  // Retorna false se não encontrar duplicidade
     }
 
     @Override
