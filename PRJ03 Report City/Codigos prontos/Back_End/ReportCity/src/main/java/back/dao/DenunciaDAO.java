@@ -41,7 +41,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
         sql.setDate(5, obj.getCreated());
         sql.setDate(6, obj.getUpdated());
         sql.setString(7, obj.getFeedback());
-        sql.setString(9, obj.getImagem());
+        sql.setString(9, obj.getImagem().getCaminho());
         sql.setString(10,obj.getTipo());
         sql.setInt(11,obj.getCidadao().getIdPrivado());
         sql.setInt(12, obj.getStatus().getId());
@@ -76,7 +76,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
         sql.setDate(5, obj.getCreated());
         sql.setDate(6, obj.getUpdated());
         sql.setString(7, obj.getFeedback());
-        sql.setString(9, obj.getImagem());
+        sql.setString(9, obj.getImagem().getCaminho());
         sql.setString(10,obj.getTipo());
         sql.setInt(11,obj.getCidadao().getIdPrivado());
         sql.setInt(12, obj.getStatus().getId());
@@ -125,7 +125,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
             d.setDescricao(rs.getString("DEN_DESCRICAO"));
             d.setFeedback(rs.getString("DEN_FEEDBACK"));
             d.setId(rs.getString("DEN_ID_PUBLICO"));
-            d.setImagem(rs.getString("DEN_IMAGEM"));
+            d.getImagem().setCaminho(rs.getString("DEN_IMAGEM"));
             d.setTipo(rs.getString("DEN_TIPO"));
             d.setTitulo(rs.getString("DEN_TITULO"));
             d.setUpdated(rs.getDate("DEN_UPDATED_AT"));
@@ -195,7 +195,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
             d.setDescricao(rs.getString("DEN_DESCRICAO"));
             d.setFeedback(rs.getString("DEN_FEEDBACK"));
             d.setId(rs.getString("DEN_ID_PUBLICO"));
-            d.setImagem(rs.getString("DEN_IMAGEM"));
+            d.getImagem().setCaminho(rs.getString("DEN_IMAGEM"));
             d.setTipo(rs.getString("DEN_TIPO"));
             d.setTitulo(rs.getString("DEN_TITULO"));
             d.setUpdated(rs.getDate("DEN_UPDATED_AT"));
@@ -247,7 +247,7 @@ public class DenunciaDAO extends DAO<Denuncia> {
         return tipos ;
     }
     
-    public int selectPorTipo (String tipo) throws SQLException {
+    public int contarPorTipo (String tipo) throws SQLException {
         PreparedStatement sql = getConexao().prepareStatement("""
                                                               SELECT COUNT(DEN_ID_PRIVADO)
                                                               FROM DENUNCIAS

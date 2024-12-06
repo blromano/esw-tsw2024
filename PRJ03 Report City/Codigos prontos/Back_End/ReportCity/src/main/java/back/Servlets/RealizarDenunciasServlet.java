@@ -17,14 +17,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-/*
 import java.io.File;
 import java.util.List;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-*/
+
 /**
  *
  * @author nicho
@@ -79,9 +78,11 @@ public class RealizarDenunciasServlet extends HttpServlet {
             
             den.setCreated(new Date(System.currentTimeMillis()));
             den.setUpdated(new Date(System.currentTimeMillis()));
+            
             den = ReceberImagem(request, response, den) ;
             
             dao.salvar(den);
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -94,37 +95,33 @@ public class RealizarDenunciasServlet extends HttpServlet {
             
         }
         
-        String saida = "{" + den.toString() + "}" ;
         try (PrintWriter out = response.getWriter()) {
-            out.print(saida);
+            
         }
     }
     
-    private Denuncia ReceberImagem (HttpServletRequest request, HttpServletResponse response, Denuncia den) {
-        /*
-        long serialVersionUID = 1L;
-        String UPLOAD_DIRECTORY = "uploads";
-
-        if (ServletFileUpload.isMultipartContent(request)) {
-            try {
-                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                for (FileItem item : multiparts) {
-                    if (!item.isFormField()) {
-                        String name = new File(item.getName()).getName();
-                        item.write(new File(request.getServletContext().getRealPath("/") + UPLOAD_DIRECTORY + File.separator + name));
-                    }
-                }
-                request.setAttribute("message", "Arquivo carregado com sucesso!");
-            } catch (Exception ex) {
-                request.setAttribute("message", "Erro no carregamento do arquivo: " + ex.getMessage());
+    private Denuncia ReceberImagem (HttpServletRequest request, HttpServletResponse response, Denuncia den) 
+            throws ServletException{
+        
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        
+        // Perguntar para o Professor david se ele 
+        //faz alguma ideia de como resolver o erro que está aparecendo
+        /*List<FileItem> items = upload.parseRequest(request) ;
+        
+        for (FileItem item : items) {
+            if (!item.isFormField()) {
+                String fileName = item.getName();
+                String contentType = item.getContentType();
+                
+            } else {
+                //campos normais
+                String campo = item.getFieldName();
+                String valor = item.getString();
             }
-        } else {
-            request.setAttribute("message", "Essa requisição não contém dados de upload");
         }
-        request.getRequestDispatcher("/result.jsp").forward(request, response);
-    }
-
- */
+        */
         return den ;
     }
 

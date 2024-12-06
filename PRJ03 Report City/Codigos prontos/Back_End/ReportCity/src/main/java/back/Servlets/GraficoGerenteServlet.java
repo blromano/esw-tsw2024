@@ -99,7 +99,7 @@ public class GraficoGerenteServlet extends HttpServlet {
         List<String> tipos = den.todosTipos() ;
         
         for (String s : tipos) {
-            retorno = retorno.concat( s +": " + den.selectPorTipo(s)) ;
+            retorno = retorno.concat( s +": " + den.contarPorTipo(s)) ;
             if (tipos.indexOf(s) < tipos.size() -1) {
                 retorno = retorno.concat(", ") ;
             }
