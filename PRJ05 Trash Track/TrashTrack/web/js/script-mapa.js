@@ -111,6 +111,8 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
 });
 
 $(document).ready( function() {
+    
+    const dadosMoradorColetor = JSON.parse(sessionStorage.getItem("dadosMoradorColetor"));
 
   listarPontos(event); // Listando pela primeira vez
 
