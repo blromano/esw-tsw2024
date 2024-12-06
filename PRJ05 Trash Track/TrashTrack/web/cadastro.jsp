@@ -49,7 +49,7 @@
                     <div class="login-container text-left">
 
                         <form method="post" action="${cp}/processaMoradorColetor">
-                            <input name="acao" type="hnameden" value="inserir"/>
+                            <input name="acao" type="hidden" value="inserir"/>
                             <h2>Cadastro</h2>
                             <p class="cinza">Se torne um membro e aproveite dos benefícios!</p>
 
@@ -68,7 +68,7 @@
                             <!-- data de nascimento -->
                             <div class="form-group">
                                 <label for="data-nsc" class="cinza">Data de Nascimento</label>
-                                <input type="date" name="data-nsc" class="form-control botao-forms text-center">
+                                <input type="date" name="dataNascimento" class="form-control botao-forms text-center">
                             </div>
 
                             <!-- cpf -->
@@ -83,8 +83,8 @@
                             <div class="form-group">
                                 <label for="password" class="cinza">Senha</label>
                                 <div class="d-flex align-items-center botao-forms form-control botao-senha">
-                                    <input type="password" name="password">
-                                    <img src="img/eye-close.png" name="eyeicon" onclick="mostrarsenha()">
+                                    <input type="password" name="senha" id="password">
+                                    <img src="img/eye-close.png" id="eyeicon" name="eyeicon" onclick="mostrarsenha()">
                                 </div>
                             </div>
 
@@ -92,8 +92,8 @@
                             <div class="form-group">
                                 <label for="password2" class="cinza">Confirmar Senha</label>
                                 <div class="d-flex align-items-center botao-forms form-control botao-senha">
-                                    <input type="password" name="password2">
-                                    <img src="img/eye-close.png" alt="" name="eyeicon2" onclick="confirmarsenha()">
+                                    <input type="password" name="confirmarSenha" id="password2">
+                                    <img src="img/eye-close.png" alt="" id="eyeicon2" name="eyeicon2" onclick="confirmarsenha()">
                                 </div>
                             </div>
 
