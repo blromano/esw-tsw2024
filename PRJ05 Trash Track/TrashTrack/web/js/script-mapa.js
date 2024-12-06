@@ -21,7 +21,7 @@ document.querySelector('button.btn-close-perfil').addEventListener('click', func
 
 /* Mudar a interface do tipo de usuario */
 
-let tipoUsuario = "coletor"
+let tipoUsuario = ""
 const toggle = document.getElementById("toggle");
 const texto = document.getElementById("tipo-usu");
 const contador = document.getElementById("cont");
@@ -35,6 +35,8 @@ toggle.addEventListener('click', function() {
       texto.style.color = '#3ACC97';
       contador.style.borderColor = '#3ACC97';
       lixos.textContent = 'Lixos Coletados';
+      tipoUsuario = "coletor";
+      console.log(`Tipo de usuário alterado para: ${tipoUsuario}`);
   } else {
       toggle.classList.add('active');
       toggle.textContent = 'Desativar';
@@ -42,27 +44,10 @@ toggle.addEventListener('click', function() {
       texto.style.color = '#3AB6CC';
       contador.style.borderColor = '#3AB6CC';
       lixos.textContent = 'Lixos Reciclados';
+      tipoUsuario = "morador";
+      console.log(`Tipo de usuário alterado para: ${tipoUsuario}`);
   }
 });
-
-/* parte para mudar e salvar o tipo do usuario */
-
-function alternarUsuario(event) {
-    if (tipoUsuario === "coletor") {
-        tipoUsuario = "morador";
-        console.log("O usuário agora é Morador");
-    } else {
-        tipoUsuario = "coletor";
-        console.log("O usuário agora é Coletor");
-    }
-    
-    console.log(`${tipoUsuario}`); 
-
-}
-
-   
-
-
 
 
 /* Abrir Lista de pontos */
