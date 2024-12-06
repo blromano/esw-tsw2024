@@ -127,7 +127,6 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
 
 $(document).ready( function() {
 
-<<<<<<< Updated upstream
   /* CRIANDO PONTO DE COLETA */
   $('#formularioCriarPonto').on("submit", function(event) {
 
@@ -175,6 +174,7 @@ $(document).ready( function() {
       }).done((data) => {
 
         /* reexibir pontos de coleta no mapa */
+        /* re-listar pontos de coleta */
 
       }).fail((jqXHR, textStatus, errorThrown) => {
 
@@ -193,7 +193,33 @@ $(document).ready( function() {
   })
 
   /* EXCLUINDO PONTO DE COLETA */
+  $('.btn-denuncia').on('click', function() {
+
+    const $divPonto = $(this).closest('.ponto');
+    const idPonto = $divPonto.data("idPonto");
+
+    /* DISPARAR MODAL CONFIRMANDO - SE NEGAR, APENAS DE 'return;' - SE ACEITAR, APENAS CONTINUAR */
+
+    $.ajax("processaPontoDeColeta", {
+
+      data: {
+        acao: "deletar",
+        idPonto: idPonto
+      },
+
+      dataType: "json"
+
+    }).done((data) => {
+
+      /* reexibir pontos de coleta no mapa */
+      /* re-listar pontos de coleta */
+
+    }).fail((jqXHR, textStatus, errorThrown) => {
+
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+
+    });
+
+  })
 
 })
-=======
->>>>>>> Stashed changes

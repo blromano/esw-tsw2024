@@ -89,6 +89,18 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 dao.salvar(pdc);
                 
+            } else if ( acao.equals("excluir") ) {
+                
+                String idPonto = request.getParameter("idPonto");
+                
+                int id = Integer.parseInt(idPonto);
+                
+                PontoDeColeta pontoDeColeta = dao.obterPorId(id);
+                
+                pontoDeColeta.setDesativado(true);
+                
+                dao.atualizar( pontoDeColeta );
+                
             }
         } catch ( SQLException exc ) {
             
