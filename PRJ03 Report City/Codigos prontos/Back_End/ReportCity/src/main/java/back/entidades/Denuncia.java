@@ -5,7 +5,7 @@
 package back.entidades;
 
 import java.sql.Date ;
-
+import org.postgresql.geometric.PGpoint ;
 /**
  *
  * @author nicho
@@ -16,8 +16,7 @@ public class Denuncia {
     private int idPrivate ;
     private String titulo ;
     private String descricao ;
-    private double coordenadaX ;
-    private double coordenadaY ;
+    private PGpoint locacao ;
     private Date created ;
     private Date updated ;
     private String feedback ;
@@ -50,19 +49,19 @@ public class Denuncia {
     }
 
     public double getCoordenadaX() {
-        return coordenadaX;
+        return locacao.x;
     }
 
     public void setCoordenadaX(double coordenadaX) {
-        this.coordenadaX = coordenadaX;
+        this.locacao.x = coordenadaX;
     }
 
     public double getCoordenadaY() {
-        return coordenadaY;
+        return locacao.y;
     }
 
     public void setCoordenadaY(double coordenadaY) {
-        this.coordenadaY = coordenadaY;
+        this.locacao.y = coordenadaY;
     }
 
 
@@ -132,7 +131,7 @@ public class Denuncia {
     
     @Override
     public String toString() {
-        return "Denuncia{" + "tipo=" + tipo + ", id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", coordenadaX=" + coordenadaX + ", coordenadaY=" + coordenadaY + ", created=" + created + ", updated=" + updated + ", feedback=" + feedback + ", imagem=" + imagem + ", cidadao=" + cidadao + ", Status=" + Status + '}';
+        return "Denuncia{" + "tipo=" + tipo + ", id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", coordenadaX=" + locacao.x + ", coordenadaY=" + locacao.y + ", created=" + created + ", updated=" + updated + ", feedback=" + feedback + ", imagem=" + imagem + ", cidadao=" + cidadao + ", Status=" + Status + '}';
     }
 
     /*
