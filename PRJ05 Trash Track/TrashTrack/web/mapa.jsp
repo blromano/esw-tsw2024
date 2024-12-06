@@ -1,3 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cp" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +20,7 @@
   <!--NavBar-->
 
   <nav class="container-fluid">
-    <a href="index.html"><img src="img/seta.svg" alt="seta" id="seta"></a>
+    <a href="index.jsp"><img src="img/seta.svg" alt="seta" id="seta"></a>
     <button type="button" class="btn-select-criar" id="btn-lista">Seleção de pontos</button>
     <button class="perfil "><img src="img/perfil.svg" alt="perfil"></button>
   </nav>
@@ -46,7 +50,7 @@
       <a href="modal_editar_info.html" target="self">Editar Informações</a>
       <br>
       <h2 id="tipo-usu">Sou Coletor</h2>
-      <label class="switch" >
+      <label class="switch" id="alterarUsuarios" >
         <input type="checkbox" id="toggle">
         <span class="slider"></span>
     </label>
@@ -62,57 +66,15 @@
       <button class="btn-filtro"><img src="img/filtro.png" alt="filtro"></button>
     </div>
     <div id="modalBodyLista">
+
       <div id="lista">
-        <div class="ponto">
-          <img  src="img/pontoOrganico.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img src="img/pontoOleo.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>       
-        </div>
-        <div class="ponto">
-          <img src="img/pontoReciclagem.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>      
-        </div>
-        <div class="ponto">
-          <img src="img/pontoOrganico.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>        
-        </div>
-        <div class="ponto">
-          <img src="img/pontoReciclagem.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img src="img/pontoOleo.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img src="img/pontoReciclagem.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-        </div>
+        
       </div>
+
       <h4 class="title">Meus Pontos</h4>
+      
       <div id="lista-meus" >
-        <div class="ponto">
-          <img id="ponto" src="img/pontoOleo.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-          <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-        </div>
-        <div class="ponto">
-          <img id="ponto" src="img/pontoOrganico.png" alt="ponto">
-          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
-          <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-          <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -190,52 +152,65 @@
     </div>
 
     <div id="modalBodyCriar">
-      <div class="checkbox-container">
-        <div>
-            <input type="checkbox" id="organico" class="checkers">
-            <label for="organico">Organico</label>
-        </div>
-        <div>
-            <input type="checkbox" id="eletronico" class="checkers">
-            <label for="eletronico">Eletrônico</label>
-        </div>
-        <div>
-            <input type="checkbox" id="reciclavel" class="checkers">
-            <label for="reciclavel">Reciclável</label>
-        </div>
-        <div>
-            <input type="checkbox" id="oleo" class="checkers">
-            <label for="oleo">Óleo</label>
+
+      <form id="formularioCriarPonto" action="">
+
+        <input type="hidden" name="idMoradorColetor" value=""> <!-- COLOCAR VARIAVEL DE ID DO MORADOR DENTRO DO PARAMETRO 'value' -->
+
+        <div class="checkbox-container">
+
+          <div>
+              <input type="radio" id="organico" value="OR" name="tipoLixo" class="checkers">
+              <label for="organico">Organico</label>
+          </div>
+          <div>
+              <input type="radio" id="eletronico" value="EL" name="tipoLixo" class="checkers">
+              <label for="eletronico">Eletrônico</label>
+          </div>
+          <div>
+              <input type="radio" id="reciclavel" value="RE" name="tipoLixo" class="checkers">
+              <label for="reciclavel">Reciclável</label>
+          </div>
+          <div>
+              <input type="radio" id="oleo" value="OL" name="tipoLixo" class="checkers">
+              <label for="oleo">Óleo</label>
+          </div>
+
+          <h4 class="title">Endereço</h4>
+          <br>
+
+          <div>
+            <label for="rua">Rua</label>
+            <input id="rua" name="rua" type="text">
+          </div>
+
+          <div>
+            <label for="numero">Número</label>
+            <input id="numero" name="numero" type="text">
+          </div>
+
+          <div>
+            <label for="bairro">Bairro</label>
+            <input id="bairro" name="bairro" type="text">
+          </div>
+
+          <div>
+            <label for="cidade">Cidade</label>
+            <input id="cidade" name="cidade" type="text">
+          </div>
+
+          <div>
+            <label for="complemento">Complemento</label>
+            <input id="complemento" name="complemento" type="text">
+          </div>
+
+          <div class="container-footer">
+            <input type="submit" class="container-button" value="Criar Ponto de Coleta"></button>
+          </div>
+
         </div>
 
-        <h4 class="title">Endereço</h4>
-        <br>
-        <div>
-          <label for="rua">Rua</label>
-          <input id="rua" type="text">
-        </div>
-        <div>
-          <label for="numero">Número</label>
-          <input id="numero" type="text">
-        </div>
-        <div>
-          <label for="bairro">Bairro</label>
-          <input id="bairro" type="text">
-        </div>
-        <div>
-          <label for="cidade">Cidade</label>
-          <input id="cidade" type="text">
-        </div>
-        <div>
-          <label for="complemento">Complemento</label>
-          <input id="complemento" type="text">
-        </div>
-        
-
-        <div class="container-footer">
-          <button class="container-button">Criar Ponto de Coleta</button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
  
@@ -247,6 +222,9 @@
     <button class="btn-ranking "><img src="img/ranking.png" alt="perfil"></button>
 
   </nav>
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
   <script src="js/script-mapa.js"></script>
   

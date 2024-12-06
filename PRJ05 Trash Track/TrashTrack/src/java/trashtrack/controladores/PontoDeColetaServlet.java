@@ -13,8 +13,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import trashtrack.dao.MoradoresColetoresDAO;
 import trashtrack.dao.PontosDeColetaDAO;
 import trashtrack.entidades.Coordenada;
@@ -81,19 +84,76 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 MoradorColetor mc = new MoradorColetor();
                 
-                mc.setId(id);
+                MoradoresColetoresDAO daoMc = new MoradoresColetoresDAO();
+                mc = daoMc.obterPorId(id);
+                
+                pdc.setMorador(mc);
                 
                 dao.salvar(pdc);
                 
+            } else if ( acao.equals("excluir") ) {
+                
+                String idPonto = request.getParameter("idPonto");
+                
+                int id = Integer.parseInt(idPonto);
+                
+                PontoDeColeta pontoDeColeta = dao.obterPorId(id);
+                
+                pontoDeColeta.setDesativado(true);
+                
+                dao.atualizar( pontoDeColeta );
+                
+            } else if ( acao.equals("listar") ) {
+                
+                String idMoradorColetor = request.getParameter("idMoradorColetor");
+                int id = Integer.parseInt( idMoradorColetor );
+                
+                List<PontoDeColeta> lista = dao.listarTodos();
+                
+                List<PontoDeColeta> listaNaoProprios = new ArrayList<>();
+                
+                for (PontoDeColeta pontoDeColeta : lista) {
+                    
+                    if ( pontoDeColeta.getMorador().getId() != id ) {
+                        listaNaoProprios.add(pontoDeColeta);
+                    }
+                    
+                }
+                
+                PrintWriter pw = response.getWriter();
+                pw.print(jb.toJson(listaNaoProprios));
+                
+            }  else if ( acao.equals("listarPontosProprios") ) {
+                
+                String idMoradorColetor = request.getParameter("idMoradorColetor");
+                int id = Integer.parseInt( idMoradorColetor );
+                
+                List<PontoDeColeta> lista = dao.listarTodos();
+                
+                List<PontoDeColeta> listaProprios = new ArrayList<>();
+                
+                for (PontoDeColeta pontoDeColeta : lista) {
+                    
+                    if ( pontoDeColeta.getMorador().getId() == id ) {
+                        listaProprios.add(pontoDeColeta);
+                    }
+                    
+                }
+                
+                PrintWriter pw = response.getWriter();
+                pw.print(jb.toJson(listaProprios));
+                
             }
-        } catch ( SQLException e ) {
-            e.printStackTrace();
+        } catch ( SQLException exc ) {
+            
+            exc.printStackTrace();
+            
         } finally {
             if ( dao != null ) {
                 try {
                     dao.closeConnection();
-                } catch ( SQLException e ) {
-                    e.printStackTrace();
+                } catch ( SQLException exc ) {
+                    exc.printStackTrace();
                 }
             }
         }

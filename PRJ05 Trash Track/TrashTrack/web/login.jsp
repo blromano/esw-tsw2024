@@ -39,7 +39,7 @@
 
                 <!-- Botão de voltar -->
                 <div class="mb-3" style="position: absolute; margin-top: 5%; margin-left: 5%;">
-                    <a href="index.html" class=""> &lt; Home</a>
+                    <a href="index.jsp" class=""> &lt; Home</a>
                 </div>
 
             
@@ -47,20 +47,21 @@
                 <div class="d-flex justify-content-center align-items-center flex-grow-1">
 
                     <div class="login-container text-left">
-                            <form>
+                            <form method="post" action="${cp}/processaMoradorColetor">
+                            <input name="acao" type="hidden" value="login"/>
                                 <h2>Login</h2>
                                 <p class="cinza">Se você ja é um membro do TrashTrack você ja pode realizar seu login.</p>
 
                                 <!-- login  -->
                                 <div class="form-group">
                                     <label for="email" class="cinza">Email</label>
-                                    <input type="text" id="email" class="form-control botao-forms" placeholder="">
+                                    <input type="text" id="email" name="email" class="form-control botao-forms" placeholder="" value="${param.email}">
                                 </div>
 
                                 <!-- senha -->
                                 <div class="form-group">
                                     <label for="password" class="cinza">Senha</label>
-                                    <input type="password" id="password" class="form-control botao-forms" placeholder="">
+                                    <input type="password" id="password" name="senha" class="form-control botao-forms" placeholder="">
                                 </div>
                                 
                                 <div class="form-check">
