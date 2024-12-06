@@ -4,6 +4,8 @@
  */
 package trashtrack.controladores;
 
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,9 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import trashtrack.dao.MoradoresColetoresDAO;
 import trashtrack.entidades.MoradorColetor;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet(name = "MoradorColetorServlet", urlPatterns = {"/processaMoradorColetor"})
 public class MoradorColetorServlet extends HttpServlet {
@@ -26,6 +30,7 @@ public class MoradorColetorServlet extends HttpServlet {
         String acao = request.getParameter("acao");
         MoradoresColetoresDAO dao = null;
         RequestDispatcher disp = null;
+        Jsonb jb = JsonbBuilder.create();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
@@ -77,16 +82,23 @@ public class MoradorColetorServlet extends HttpServlet {
                 String senha = request.getParameter("senha");
                 
                 // Verificação de credenciais no banco de dados
-                MoradorColetor mc = dao.buscarPorEmail(email);
-
-                if (mc != null && mc.getSenha().equals(senha)) {
-                    request.getSession().setAttribute("usuarioLogado", mc);
-                    disp = request.getRequestDispatcher("mapa.html");
-                } else {
-                    // Credenciais inválidas
-                    request.setAttribute("errorMessage", "E-mail ou senha incorretos.");
-                    disp = request.getRequestDispatcher("login.jsp");
+                List<MoradorColetor> lista = dao.listarTodos();
+                MoradorColetor mc = null;
+                
+                for (MoradorColetor moradorColetorLista : lista) {
+                    
+                    if ( moradorColetorLista.getEmail().equals(email) ) {
+                        
+                        if ( moradorColetorLista.getSenha().equals(senha) ) {
+                            mc = moradorColetorLista;
+                            break;
+                        }
+                    }
+                    
                 }
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson(mc));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -31,43 +31,67 @@
     };
     
     $(document).ready(function () {
-        $("#btnCadastro").on("submit",function (e) {
         
-        e.preventDefault();
+        $("#btnCadastro").on("submit", function ( e ) {
+            
+            e.preventDefault();
         
-        let nome = $('input[name="nome"]').val();
-        let email = $('input[name="email"]').val();
-        let dataNascimento = $('input[name="dataNascimento"]').val();
-        let cpf = $('input[name="cpf"]').val();
-        let senha = $('input[name="senha"]').val();
-        let confirmar = $('input[name="confirmarSenha"]').val();
+            let nome = $('input[name="nome"]').val();
+            let email = $('input[name="email"]').val();
+            let dataNascimento = $('input[name="dataNascimento"]').val();
+            let cpf = $('input[name="cpf"]').val();
+            let senha = $('input[name="senha"]').val();
+            let confirmar = $('input[name="confirmarSenha"]').val();
+            
+            $.ajax("processaMoradorColetor", {
+                method: "POST",
+                data: {
+                    acao: "inserir",
+                    nome: nome,
+                    email: email,
+                    dataNascimento: dataNascimento,
+                    cpf: cpf,
+                    senha: senha,
+                    confirmarSenha: confirmar
+                },
+                dataType: "text"
+            }).done( ( data ) =>  {
+                window.location.replace("login.jsp");
+            }).fail ( ( jqXHR, textStatus, errorThrown ) => {
+                console.log("Erro na requisição");
+                console.log("Código de status: " + jqXHR.status);
+                console.log("Erro: " + errorThrown); 
+            });
+        });
         
-        console.log(nome);
-        console.log(confirmar);
-        
-        $.ajax("processaMoradorColetor", {
-            method: "POST",
-            data: {
-                acao: "inserir",
-                nome: nome,
-                email: email,
-                dataNascimento: dataNascimento,
-                cpf: cpf,
-                senha: senha,
-                confirmarSenha: confirmar
-            },
-            dataType: "text"
-        }).done((data) => {
-            console.log("certo");
-            window.location.replace("login.jsp");
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log("erro");
-              console.log("Erro na requisição");
-              console.log("Código de status: " + jqXHR.status);  // Verifique o status HTTP
-              console.log("Texto do erro: " + textStatus);  // Pode fornecer mais informações sobre o erro
-              console.log("Erro: " + errorThrown); 
+        $("#btnLogin").on("submit", function ( e ) {
+            
+            e.preventDefault();
+            
+            
+            let email = $('input[name="email"]').val();
+            let senha = $('input[name="senha"]').val();
+            
+            $.ajax("processaMoradorColetor", {
+                method: "POST",
+                data: {
+                    acao: "login",
+                    email: email,
+                    senha: senha
+                },
+                dataType: "json"
+            }).done( ( data ) => {
+                if ( data ) {
+                    sessionStorage.setItem("dadosMoradorColetor",JSON.stringify(data));
+                    window.location.replace("mapa.jsp");
+                } else {
+                    alert("Erro ao Logar");
+                }
+            }).fail( ( jqXHR, textStatus, errorThrown ) => {
+                console.log("Erro na requisição");
+                console.log("Código de status: " + jqXHR.status);
+                console.log("Erro: " + errorThrown); 
+                console.log(jqXHR.responseText);
+            });
         });
     });
-    });
-    
-    
