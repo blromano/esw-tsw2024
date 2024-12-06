@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import trashtrack.dao.MoradoresColetoresDAO;
@@ -81,19 +82,24 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 MoradorColetor mc = new MoradorColetor();
                 
-                mc.setId(id);
+                MoradoresColetoresDAO daoMc = new MoradoresColetoresDAO();
+                mc = daoMc.obterPorId(id);
+                
+                pdc.setMorador(mc);
                 
                 dao.salvar(pdc);
                 
             }
-        } catch ( SQLException e ) {
-            e.printStackTrace();
+        } catch ( SQLException exc ) {
+            
+            exc.printStackTrace();
+            
         } finally {
             if ( dao != null ) {
                 try {
                     dao.closeConnection();
-                } catch ( SQLException e ) {
-                    e.printStackTrace();
+                } catch ( SQLException exc ) {
+                    exc.printStackTrace();
                 }
             }
         }

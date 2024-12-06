@@ -104,5 +104,69 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
   document.querySelector('#modalCriar').style.display = "none";
 });
 
+$(document).ready( function() {
 
+  $('#formularioCriarPonto').on("submit", function(event) {
 
+    event.preventDefault();
+
+    let idMoradorColetor = $('input[name="idMoradorColetor"]').val();
+    let tipoDeLixo = $('input[name="tipoLixo"]:checked').val();
+    let rua = $('input[name="rua"]').val();
+    let numero = $('input[name="numero"]').val();
+    let bairro = $('input[name="bairro"]').val();
+    let cidade = $('input[name="cidade"]').val();
+    let complemento = $('input[name="complemento"]').val();
+    
+    /* INSERIR COORDENADAS */
+    /*
+      let longitude = ...
+      let latitude = ...
+
+      OBTER UTILIZANDO: https://developers.google.com/maps/documentation/javascript/geocoding?hl=pt-br (ESPERANDO API DO SAMUEL)
+    */
+
+    if ( idMoradorColetor && tipoDeLixo && rua && numero && bairro && cidade && complemento ){
+
+      if ( !complemento ) {
+        complemento = " ";
+      }
+
+      $.ajax("processaPontoDeColeta", {
+
+        data: {
+          acao: "inserir",
+          idMoradorColetor: idMoradorColetor,
+          tipoDeLixo: tipoDeLixo,
+          rua: rua,
+          numero: numero,
+          bairro: bairro,
+          cidade: cidade,
+          complemento: complemento,
+          longitude: longitude,
+          latitude: latitude
+        },
+  
+        dataType: "json"
+  
+      }).done((data) => {
+
+        /* reexibir pontos de coleta no mapa */
+
+      }).fail((jqXHR, textStatus, errorThrown) => {
+
+        console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+
+      });
+
+    } else {
+
+      alert("Não deixe nenhum campo em branco");
+
+    }
+
+    $('#modalCriar').css( "display", "none" );
+
+  })
+
+})
