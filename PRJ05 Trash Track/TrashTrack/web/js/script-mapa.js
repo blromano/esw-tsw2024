@@ -18,7 +18,6 @@ document.querySelector('button.btn-close-perfil').addEventListener('click', func
   document.querySelector('#modalPerfil').style.display = "none";
 });
 
-
 /* Mudar a interface do tipo de usuario */
 
 let tipoUsuario = ""
@@ -112,6 +111,8 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
 
 $(document).ready( function() {
 
+  listarPontos(event); // Listando pela primeira vez
+
   /* CRIANDO PONTO DE COLETA */
   $('#formularioCriarPonto').on("submit", function(event) {
 
@@ -159,7 +160,7 @@ $(document).ready( function() {
       }).done((data) => {
 
         /* reexibir pontos de coleta no mapa */
-        /* re-listar pontos de coleta */
+        listarPontos(event);
 
       }).fail((jqXHR, textStatus, errorThrown) => {
 
@@ -197,7 +198,7 @@ $(document).ready( function() {
     }).done((data) => {
 
       /* reexibir pontos de coleta no mapa */
-      /* re-listar pontos de coleta */
+      listarPontos(event);
 
     }).fail((jqXHR, textStatus, errorThrown) => {
 
@@ -208,3 +209,67 @@ $(document).ready( function() {
   })
 
 })
+
+/* Função para Listar os pontos */
+function listarPontos( event ) {
+
+  $.ajax("processaPontoDeColeta", {
+      data: {
+          acao: "listar",
+          idMoradorColetor: idMoradorColetor
+      },
+      dataType: "json"
+  })
+  .done((data) => {
+
+      let $listaDePontos = $("#lista");
+      $listaDePontos.html("");
+
+      data.forEach(pontoDeColeta => {
+
+          $listaDePontos.append (
+              `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+                <img  src="img/pontoOrganico.png" alt="ponto"> 
+                <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+                <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+              </div>`
+          );
+
+      });
+
+  })
+  .fail((jqXHR, textStatus, errorThrown) => {
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+  });
+
+  $.ajax("processaPontoDeColeta", {
+      data: {
+          acao: "listarPontosProprios",
+          idMoradorColetor: idMoradorColetor
+      },
+      dataType: "json"
+  })
+  .done((data) => {
+
+      let $listaDePontosProprios = $("#lista-meus");
+      $listaDePontosProprios.html("");
+
+      data.forEach(pontoDeColeta => {
+
+          $listaDePontosProprios.append (
+              `<div class="ponto">
+                <img id="ponto" src="img/pontoOleo.png" alt="ponto">
+                <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+                <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+                <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+              </div>`
+          );
+
+      });
+
+  })
+  .fail((jqXHR, textStatus, errorThrown) => {
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+  });
+
+}

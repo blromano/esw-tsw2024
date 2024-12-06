@@ -97,7 +97,7 @@
                     </div>
             <!--Imagem Direita Linha 3-->
                     <div class="Titulo col-md-6 text-center">
-                        <a href="mapa.html"> <img style="width: 350px ;" src="img/MapaComPontosDeColeta.png" alt="imagemresponsiva" class="img-fluid"> </a>
+                        <a href="mapa.jsp"> <img style="width: 350px ;" src="img/MapaComPontosDeColeta.png" alt="imagemresponsiva" class="img-fluid"> </a>
                     </div>
                 </div>
 

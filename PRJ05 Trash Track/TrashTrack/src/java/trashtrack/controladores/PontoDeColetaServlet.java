@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import trashtrack.dao.MoradoresColetoresDAO;
 import trashtrack.dao.PontosDeColetaDAO;
 import trashtrack.entidades.Coordenada;
@@ -100,6 +102,46 @@ public class PontoDeColetaServlet extends HttpServlet {
                 pontoDeColeta.setDesativado(true);
                 
                 dao.atualizar( pontoDeColeta );
+                
+            } else if ( acao.equals("listar") ) {
+                
+                String idMoradorColetor = request.getParameter("idMoradorColetor");
+                int id = Integer.parseInt( idMoradorColetor );
+                
+                List<PontoDeColeta> lista = dao.listarTodos();
+                
+                List<PontoDeColeta> listaNaoProprios = new ArrayList<>();
+                
+                for (PontoDeColeta pontoDeColeta : lista) {
+                    
+                    if ( pontoDeColeta.getMorador().getId() != id ) {
+                        listaNaoProprios.add(pontoDeColeta);
+                    }
+                    
+                }
+                
+                PrintWriter pw = response.getWriter();
+                pw.print(jb.toJson(listaNaoProprios));
+                
+            }  else if ( acao.equals("listarPontosProprios") ) {
+                
+                String idMoradorColetor = request.getParameter("idMoradorColetor");
+                int id = Integer.parseInt( idMoradorColetor );
+                
+                List<PontoDeColeta> lista = dao.listarTodos();
+                
+                List<PontoDeColeta> listaProprios = new ArrayList<>();
+                
+                for (PontoDeColeta pontoDeColeta : lista) {
+                    
+                    if ( pontoDeColeta.getMorador().getId() == id ) {
+                        listaProprios.add(pontoDeColeta);
+                    }
+                    
+                }
+                
+                PrintWriter pw = response.getWriter();
+                pw.print(jb.toJson(listaProprios));
                 
             }
         } catch ( SQLException exc ) {
