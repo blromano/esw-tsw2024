@@ -19,8 +19,9 @@ document.querySelector('button.btn-close-perfil').addEventListener('click', func
 });
 
 
-/* Mudar tipo de usuario */
+/* Mudar a interface do tipo de usuario */
 
+let tipoUsuario = "coletor"
 const toggle = document.getElementById("toggle");
 const texto = document.getElementById("tipo-usu");
 const contador = document.getElementById("cont");
@@ -43,6 +44,26 @@ toggle.addEventListener('click', function() {
       lixos.textContent = 'Lixos Reciclados';
   }
 });
+
+/* parte para mudar e salvar o tipo do usuario */
+
+function alternarUsuario(event) {
+    if (tipoUsuario === "coletor") {
+        tipoUsuario = "morador";
+        console.log("O usuário agora é Morador");
+    } else {
+        tipoUsuario = "coletor";
+        console.log("O usuário agora é Coletor");
+    }
+    
+    console.log(`${tipoUsuario}`); 
+
+}
+
+   
+
+
+
 
 /* Abrir Lista de pontos */
 
@@ -106,6 +127,7 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
 
 $(document).ready( function() {
 
+<<<<<<< Updated upstream
   /* CRIANDO PONTO DE COLETA */
   $('#formularioCriarPonto').on("submit", function(event) {
 
@@ -173,3 +195,5 @@ $(document).ready( function() {
   /* EXCLUINDO PONTO DE COLETA */
 
 })
+=======
+>>>>>>> Stashed changes
