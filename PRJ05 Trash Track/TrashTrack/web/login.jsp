@@ -39,7 +39,7 @@
 
                 <!-- Botão de voltar -->
                 <div class="mb-3" style="position: absolute; margin-top: 5%; margin-left: 5%;">
-                    <a href="index.html" class=""> &lt; Home</a>
+                    <a href="index.jsp" class=""> &lt; Home</a>
                 </div>
 
             
@@ -54,7 +54,7 @@
                                 <!-- login  -->
                                 <div class="form-group">
                                     <label for="email" class="cinza">Email</label>
-                                    <input type="text" id="email" class="form-control botao-forms" placeholder="">
+                                    <input type="text" id="email" class="form-control botao-forms" placeholder="" value="${param.email}">
                                 </div>
 
                                 <!-- senha -->

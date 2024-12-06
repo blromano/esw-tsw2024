@@ -32,7 +32,7 @@
 
                 <!-- Botão de voltar -->
                 <div class="mb-3" style="position: absolute; margin-top: 5%; margin-left: 5%;">
-                    <a href="index.html"> &lt; Home</a>
+                    <a href="index.jsp"> &lt; Home</a>
                 </div>
 
                 <!-- parte inteira do registro -->
