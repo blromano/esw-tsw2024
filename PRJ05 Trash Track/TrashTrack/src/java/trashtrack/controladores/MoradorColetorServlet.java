@@ -26,8 +26,8 @@ import java.sql.Date;
  *
  * @author User
  */
-@WebServlet(name = "MoradoresColetoresServlet", urlPatterns = {"/processaMoradorColetor"})
-public class MoradoresColetoresServlet extends HttpServlet {
+@WebServlet(name = "MoradorColetorServlet", urlPatterns = {"/processaMoradorColetor"})
+public class MoradorColetorServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
