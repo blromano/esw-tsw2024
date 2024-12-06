@@ -152,4 +152,29 @@ public class MoradoresColetoresDAO extends DAO<MoradorColetor>{
         return moradorColetor;
         
     }
+    
+    public MoradorColetor buscarPorEmail(String email) throws SQLException {
+    String sql = "SELECT * FROM moradores_coletores WHERE MOC_EMAIL = ?";
+    try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+        stmt.setString(1, email); 
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                MoradorColetor mc = new MoradorColetor();
+                mc.setId(rs.getInt("MOC_ID"));
+                mc.setEmail(rs.getString("MOC_EMAIL"));
+                mc.setSenha(rs.getString("MOC_SENHA"));
+                mc.setNome(rs.getString("MOC_NOME"));
+                mc.setCpf(rs.getString("MOC_CPF"));
+                mc.setDataNascimento(rs.getDate("MOC_DATA_NASCIMENTO"));
+                mc.setQuantidadeLixoColetado(rs.getInt("MOC_QUANTIDADE_LIXO_COLETADO"));
+                mc.setQuantidadeLixoReciclado(rs.getInt("MOC_QUANTIDADE_LIXO_RECICLADO"));
+                mc.setPontuacao(rs.getInt("MOC_PONTUACAO"));
+                mc.setAtivo(rs.getBoolean("MOC_ATIVO"));
+                return mc;
+            }
+        }
+    }
+    return null;
+    }
 }
