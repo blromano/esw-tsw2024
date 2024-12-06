@@ -4,9 +4,8 @@
  */
 package back.Servlets;
 
-import back.dao.DenunciaDAO;
-import back.dao.StatusDAO;
-import back.entidades.Status;
+import back.dao.DenunciaDAO ;
+import back.entidades.Denuncia ;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,15 +14,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author nicho
  */
-@WebServlet(name = "GraficoGerenteServlet", urlPatterns = {"/pGraficoGerente"})
-public class GraficoGerenteServlet extends HttpServlet {
+@WebServlet(name = "VisualizarDenunciaServlet", urlPatterns = {"/pVisualizarDenuncia"})
+public class VisualizarDenunciaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,79 +35,26 @@ public class GraficoGerenteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String retorno = "{" ;
-        String tipos =  null ;
+        String denuncia = request.getParameter("id") ;
+        DenunciaDAO dao = null ;
+        Denuncia den = null ;
+        
         try {
             
-            retorno = retorno.concat(contarStatus()) ;
-            tipos = contarTipos() ;
-            
-            if (tipos != null) {
-                retorno = retorno.concat(", ") ;
-                retorno = retorno.concat(tipos) ;
-            }
+            dao = new DenunciaDAO() ;
+            den = dao.selecionarPorID(denuncia) ;
             
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         
-        retorno = retorno.concat("}") ;
-        try (PrintWriter out = response.getWriter()) {
-            out.write(retorno);
-        }
+        String saida = "{" + den.toString() + "}" ;
         
+        try (PrintWriter out = response.getWriter()) {
+            out.print(saida);
+        }
     }
 
-    private String contarStatus() throws SQLException{
-        String retorno = null;
-        StatusDAO sta = null ;
-        DenunciaDAO den = null ;
-        
-        
-        List<Status> status = null;
-        List<Integer> valores = new ArrayList<>() ;
-        
-        sta = new StatusDAO() ;
-        den = new DenunciaDAO() ;
-        
-        status = sta.selecionarTodos() ;
-            
-        for (Status s : status) {
-            valores.add(den.countDenunciasPorStatus(s)) ;
-        }
-        
-        for (int i = 0 ; i < status.size(); i++) {
-            retorno = retorno.concat(status.get(i).getStatus() + ": " + valores.get(i));
-            if (i < status.size()-1){
-                retorno = retorno.concat(", ") ;
-            }
-        }
-        
-        sta.fecharConexao();
-        den.fecharConexao();
-        
-        return retorno ;
-    }
-    
-    private String contarTipos () throws SQLException {
-        String retorno = null ;
-        DenunciaDAO den = new DenunciaDAO() ;
-        
-        List<String> tipos = den.todosTipos() ;
-        
-        for (String s : tipos) {
-            retorno = retorno.concat( s +": " + den.contarPorTipo(s)) ;
-            if (tipos.indexOf(s) < tipos.size() -1) {
-                retorno = retorno.concat(", ") ;
-            }
-        }
-        
-        den.fecharConexao();
-        
-        return retorno ;
-        
-    }
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
