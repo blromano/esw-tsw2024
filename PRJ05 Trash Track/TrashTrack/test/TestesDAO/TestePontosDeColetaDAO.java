@@ -25,8 +25,8 @@ public class TestePontosDeColetaDAO {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         
         MoradorColetor moradorColetor = new MoradorColetor();
-        moradorColetor.setId(2);
-        moradorColetor.setEmail("AAAAAAAAAAA");
+        moradorColetor.setId(1);
+        moradorColetor.setEmail("DASDADASDASD");
         moradorColetor.setSenha("senha");
         moradorColetor.setNome("TesteMorador");
         moradorColetor.setCpf("123123123");
@@ -37,8 +37,11 @@ public class TestePontosDeColetaDAO {
         moradorColetor.setQuantidadeLixoReciclado(5);
         
         Coordenada coordenada = new Coordenada();
-        coordenada.setLongitude(-21.827400);
-        coordenada.setLatitude(-46.905896);
+        
+        //Coordenadas de sao joao 
+        
+        coordenada.setLatitude(-21.831483392479154);
+        coordenada.setLongitude(-46.89219365740519);
         
         PontoDeColeta pontoDeColeta = new PontoDeColeta();
         pontoDeColeta.setBairro("bairro");
