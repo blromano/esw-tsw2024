@@ -23,7 +23,7 @@
 
   <nav class="container-fluid">
     <a href="index.jsp"><img src="img/seta.svg" alt="seta" id="seta"></a>
-    <button type="button" class="btn-select-criar" id="btn-lista">Seleção de pontos</button>
+    <button type="button" class="btn-select-lista" id="btn-lista">Seleção de pontos</button>
     <button class="perfil "><img src="img/perfil.svg" alt="perfil"></button>
   </nav>
 
@@ -49,7 +49,7 @@
         <h2>120</h2>
       </div>
 
-      <a href="modal_editar_info.html" target="self">Editar Informações</a>
+      <button class="btn-info">Editar Informações</button>
       <br>
       <h2 id="tipo-usu">Sou Coletor</h2>
       <label class="switch" id="alterarUsuarios" >
@@ -58,6 +58,58 @@
     </label>
     </div>
   </div>
+  
+  <!-- Modal editar Informações do Usuario -->
+
+  <div id="fade"></div>
+  <div id="ModalInfo">
+  
+    <div>
+      <h3 class="title">Editar Informações</h3>
+      <button class="btn-close-info"><img src="img/x.png" alt="X"></button>
+    </div>
+
+    <div class="modalBodyInfo">
+
+      <form action="">
+
+        <label for="nome_completo"> Nome Completo</label>
+        <br>
+        <input type="text" id="nome_completo" >
+
+        <br>
+
+        <label for="email" class="form-label" > Email</label>
+        <br>
+        <input type="email" id="nome_completo" >
+
+
+        <div class="form-group">
+
+          <label for="password">Senha Antiga</label>
+          <input type="password" id="password" placeholder="" class="senha">
+          <img src="img/eye-close.png" alt="" id="eyeicon" class="botao-senha" onclick="mostrarsenha()">
+
+        </div>
+            
+        <div class="form-group">
+
+          <label for="password2" class="cinza">Nova Senha</label>
+          <input type="password" id="password2" placeholder="" class="senha">
+          <img src="img/eye-close.png" alt="" class="botao-senha" id="eyeicon2" onclick="confirmarsenha()">
+
+        </div>
+
+
+      </form>
+
+      <div class="container-footer" >
+        <button class="container-button" id="editar">Salvar</button>
+      </div>
+    </div>
+
+  </div>
+
 
     <!--Modal Lista de pontos-->
 
@@ -70,7 +122,12 @@
     <div id="modalBodyLista">
 
       <div id="lista">
-        
+          <div class="ponto">
+          <img  src="img/pontoOrganico.png" alt="ponto">
+          <div class="ende">R. David de Carvalho, 1055 - Vila Valentin</div>
+          <button class="btn-coleta"><img id="coleta" src="img/coletar.png" alt="coleta"></button>
+          <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+        </div>
       </div>
 
       <h4 class="title">Meus Pontos</h4>
@@ -80,6 +137,31 @@
       </div>
     </div>
   </div>
+    
+   <!-- Modal filtro da lista de ponto -->
+
+  <div id="modalFiltro" >
+  
+    <div id="modalHeaderFiltro">
+      <h4 class="title">Filtros</h4>      
+    </div>
+    
+    <div id="modalBodyFiltro" >
+      
+      <ul class="filtros">
+        <li><label><input type="checkbox"> Organico</label></li>
+        <li><label><input type="checkbox">Eletrônico </label></li>
+        <li><label><input type="checkbox"> Reciclável</label></li>
+        <li><label><input type="checkbox"> Óleo</label></li>  
+      </ul> 
+    </div>
+
+    <div class="container-footer" >
+      <button class="container-button" id="filtrar">Filtrar</button>
+    </div>
+
+  </div>
+
 
   <!--ModalRanking-->
 
