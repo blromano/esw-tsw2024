@@ -5,7 +5,6 @@ const idMoradorColetor = dadosMoradorColetor.id;
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-  
 
   map = new Map(document.getElementById("map"), {
     center: { lat: -21.97777788538838, lng: -46.78949514952139 }, //Coordenadas para iniciar em São Joao.
@@ -17,7 +16,29 @@ async function initMap() {
     fullscreenControl: false //se quiserem colocar fullscreen só deixar isso true
   });
 
-  listarPontosNoMapa(event);
+  $.ajax("processaPontoDeColeta", {
+    data: {
+      acao: "listarPontosMapa",
+    },
+    dataType: "json"
+  })
+  .done((data) => {
+      
+    data.forEach(pontoDeColeta => {
+        
+      new AdvancedMarkerElement({
+        map: map,
+        position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
+        //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
+        title: `${pontoDeColeta.tipoDeLixo}` 
+      });
+
+      console.log( pontoDeColeta );
+    });
+  })
+  .fail((jqXHR, textStatus, errorThrown) => {
+    console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+  }); 
 
 }
 
@@ -351,30 +372,7 @@ $(document).ready( function() {
 /* Função para Listar os pontos */
 
 function listarPontosNoMapa ( event ) {
-  $.ajax("processaPontoDeColeta", {
-    data: {
-      acao: "listarPontosMapa",
-    },
-    dataType: "json"
-  })
-  .done((data) => {
-      
-    data.forEach(pontoDeColeta => {
-        
-      new AdvancedMarkerElement({
-        map: map,
-        position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
-        //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
-        title: `${pontoDeColeta.tipoDeLixo}` 
-      });
-
-      console.log( pontoDeColeta );
-    });
-    })
-    .fail((jqXHR, textStatus, errorThrown) => {
-      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
-    }); 
-
+  initMap();
 }
 
 function listarPontos(event) {
