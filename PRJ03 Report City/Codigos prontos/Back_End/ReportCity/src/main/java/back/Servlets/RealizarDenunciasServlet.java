@@ -9,28 +9,31 @@ import back.entidades.Cidadao;
 import back.entidades.Denuncia ;
 import back.entidades.Status;
 import java.sql.Date ;
-import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.Part;
 import java.io.File;
-import java.util.List;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import java.io.IOException;
 
 /**
  *
  * @author nicho
  */
 @WebServlet(name = "RealizarDenunciasServlet", urlPatterns = {"/pRealizarDenuncias"})
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+    maxFileSize = 1024 * 1024 * 10,      // 10MB
+    maxRequestSize = 1024 * 1024 * 50    // 50MB
+)
 public class RealizarDenunciasServlet extends HttpServlet {
 
+    private static final String UPLOAD_DIR = "uploads";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -79,9 +82,10 @@ public class RealizarDenunciasServlet extends HttpServlet {
             den.setCreated(new Date(System.currentTimeMillis()));
             den.setUpdated(new Date(System.currentTimeMillis()));
             
-            den = ReceberImagem(request, response, den) ;
+            ReceberImagem(request, response, den) ;
             
             dao.salvar(den);
+            den.getImagem().salvarImagem();
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -99,32 +103,45 @@ public class RealizarDenunciasServlet extends HttpServlet {
             
         }
     }
-    
-    private Denuncia ReceberImagem (HttpServletRequest request, HttpServletResponse response, Denuncia den) 
-            throws ServletException{
-        
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        ServletFileUpload upload = new ServletFileUpload(factory);
-        
-        // Perguntar para o Professor david se ele 
-        //faz alguma ideia de como resolver o erro que está aparecendo
-        /*List<FileItem> items = upload.parseRequest(request) ;
-        
-        for (FileItem item : items) {
-            if (!item.isFormField()) {
-                String fileName = item.getName();
-                String contentType = item.getContentType();
-                
-            } else {
-                //campos normais
-                String campo = item.getFieldName();
-                String valor = item.getString();
-            }
+
+ 
+    protected void ReceberImagem(HttpServletRequest request, HttpServletResponse response, Denuncia den)
+            throws ServletException, IOException {
+        // Determinar o caminho real do diretório de uploads
+        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
+
+        // Criar o diretório de uploads, se não existir
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
         }
-        */
-        return den ;
+
+        try {
+            // Processar cada parte enviada pelo formulário
+            for (Part part : request.getParts()) {
+                String fileName = extractFileName(part);
+                if (fileName != null && !fileName.isEmpty()) {
+                    den.getImagem().setCaminho(uploadPath + File.separator + fileName);
+                    
+                }
+            }
+        } catch (Exception e) {
+            response.getWriter().println("Erro ao enviar arquivo: " + e.getMessage());
+        }
     }
 
+    // Extrair o nome do arquivo da parte
+    private String extractFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        for (String content : contentDisposition.split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf("=") + 2, content.length() - 1);
+            }
+        }
+        return null;
+    }
+
+  
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
