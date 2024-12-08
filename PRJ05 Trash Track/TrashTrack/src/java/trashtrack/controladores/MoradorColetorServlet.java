@@ -4,6 +4,8 @@
  */
 package trashtrack.controladores;
 
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,9 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import trashtrack.dao.MoradoresColetoresDAO;
 import trashtrack.entidades.MoradorColetor;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet(name = "MoradorColetorServlet", urlPatterns = {"/processaMoradorColetor"})
 public class MoradorColetorServlet extends HttpServlet {
@@ -26,6 +30,7 @@ public class MoradorColetorServlet extends HttpServlet {
         String acao = request.getParameter("acao");
         MoradoresColetoresDAO dao = null;
         RequestDispatcher disp = null;
+        Jsonb jb = JsonbBuilder.create();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
@@ -49,9 +54,6 @@ public class MoradorColetorServlet extends HttpServlet {
                     disp = request.getRequestDispatcher("cadastro.jsp");
                 } else if (!isCPFValido(cpf)) {
                     request.setAttribute("errorMessage", "CPF inválido.");
-                    disp = request.getRequestDispatcher("cadastro.jsp");
-                } else if (existeEmailOuCPF(dao, email, cpf)) { // Verifica se já existe o e-mail ou CPF
-                    request.setAttribute("errorMessage", "E-mail ou CPF já estão associados a uma conta.");
                     disp = request.getRequestDispatcher("cadastro.jsp");
                 } else {
                     // Criando o objeto MoradorColetor
@@ -80,16 +82,23 @@ public class MoradorColetorServlet extends HttpServlet {
                 String senha = request.getParameter("senha");
                 
                 // Verificação de credenciais no banco de dados
-                MoradorColetor mc = dao.buscarPorEmail(email);
-
-                if (mc != null && mc.getSenha().equals(senha)) {
-                    request.getSession().setAttribute("usuarioLogado", mc);
-                    disp = request.getRequestDispatcher("mapa.html");
-                } else {
-                    // Credenciais inválidas
-                    request.setAttribute("errorMessage", "E-mail ou senha incorretos.");
-                    disp = request.getRequestDispatcher("login.jsp");
+                List<MoradorColetor> lista = dao.listarTodos();
+                MoradorColetor mc = null;
+                
+                for (MoradorColetor moradorColetorLista : lista) {
+                    
+                    if ( moradorColetorLista.getEmail().equals(email) ) {
+                        
+                        if ( moradorColetorLista.getSenha().equals(senha) ) {
+                            mc = moradorColetorLista;
+                            break;
+                        }
+                    }
+                    
                 }
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson(mc));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,22 +130,6 @@ public class MoradorColetorServlet extends HttpServlet {
     // Método para validar o formato do CPF
     private boolean isCPFValido(String cpf) {
         return cpf != null && cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
-    }
-
-    // Método para verificar duplicidade de e-mail ou CPF
-    private boolean existeEmailOuCPF(MoradoresColetoresDAO dao, String email, String cpf) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM moradores_coletores WHERE MOC_EMAIL = ? OR MOC_CPF = ?";
-        try (var connection = dao.getConnection();
-             var stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, email);
-            stmt.setString(2, cpf);
-            try (var rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;  // Retorna true se encontrar duplicidade
-                }
-            }
-        }
-        return false;  // Retorna false se não encontrar duplicidade
     }
 
     @Override

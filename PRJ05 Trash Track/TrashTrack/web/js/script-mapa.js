@@ -1,3 +1,48 @@
+const dadosMoradorColetor = JSON.parse(sessionStorage.getItem("dadosMoradorColetor"));
+const idMoradorColetor = dadosMoradorColetor.id;
+
+//Funcao de iniciar o mapa - FAVOR NAO MEXER QUE EH ELA QUE INICIA O MAPA
+async function initMap() {
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+
+  map = new Map(document.getElementById("map"), {
+    center: { lat: -21.97777788538838, lng: -46.78949514952139 }, //Coordenadas para iniciar em São Joao.
+    zoom: 15, //zoom do mapa
+    zoomControl: false, //tirei os botoes de zoom
+    streetViewControl: false, //tirei o streetview , o bonequinho que vc pode ver a rua dps a gnt conversa disso se coloca ou nao
+    mapTypeControl: false, //eh feio e tirei :D
+    mapId: "d5458e9d958b668e", //favor nao mexer nisso que se n para de funfar
+    fullscreenControl: false //se quiserem colocar fullscreen só deixar isso true
+  });
+
+  $.ajax("processaPontoDeColeta", {
+    data: {
+      acao: "listarPontosMapa",
+    },
+    dataType: "json"
+  })
+  .done((data) => {
+      
+    data.forEach(pontoDeColeta => {
+        
+      new AdvancedMarkerElement({
+        map: map,
+        position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
+        //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
+        title: `${pontoDeColeta.tipoDeLixo}` 
+      });
+
+      console.log( pontoDeColeta );
+    });
+  })
+  .fail((jqXHR, textStatus, errorThrown) => {
+    console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+  }); 
+
+}
+
+
 /* Abrir Perfil*/
 
 const btnOpen = document.querySelector('button.perfil');
@@ -24,7 +69,9 @@ let tipoUsuario = "coletor";
 const toggle = document.getElementById("toggle");
 const texto = document.getElementById("tipo-usu");
 const contador = document.getElementById("cont");
-const lixos = document.getElementById('cont-lixos')
+const lixos = document.getElementById('cont-lixos');
+const btn_coleta = document.querySelectorAll(".btn-coleta");  
+const btn_criar = document.getElementById("btn-criar");
 
 toggle.addEventListener('click', function() {
   if (toggle.classList.contains('active')) {
@@ -34,7 +81,17 @@ toggle.addEventListener('click', function() {
       texto.style.color = '#3ACC97';
       contador.style.borderColor = '#3ACC97';
       lixos.textContent = 'Lixos Coletados';
+
+      // Muda botão de coleta
+      btn_coleta.forEach(button => {
+        button.style.visibility  = 'visible';  
+      });
+
+      btn_criar.style.visibility = 'visible';  
+      btn_criar.style.visibility = 'hidden';  
+      
       tipoUsuario = "coletor";
+      
   } else {
       toggle.classList.add('active');
       toggle.textContent = 'Desativar';
@@ -42,12 +99,82 @@ toggle.addEventListener('click', function() {
       texto.style.color = '#3AB6CC';
       contador.style.borderColor = '#3AB6CC';
       lixos.textContent = 'Lixos Reciclados';
+      
+      btn_coleta.forEach(button => {
+        button.style.visibility  = 'hidden';  
+      });
+
+      btn_criar.style.visibility = 'hidden';  
+      btn_criar.style.visibility = 'visible';  
+
       tipoUsuario = "morador";
   }
 
   listarPontos(event);
 
 });
+
+/* Modal de editar Informações*/
+let eyeicon = document.getElementById('eyeicon');
+let password = document.getElementById('password');
+let eyeicon2 = document.getElementById('eyeicon2');
+let password2 = document.getElementById('password2');
+
+// botao mostrar senha 
+
+mostrarsenha = function(){
+  if(password.type === "password"){
+    password.type = "text";
+    eyeicon.src = "img/eye-open.png";
+  }
+  else{
+    password.type = "password";
+    eyeicon.src = "img/eye-close.png";
+  }
+};
+
+confirmarsenha = function(){
+  if(password2.type === "password"){
+    password2.type = "text";
+    eyeicon2.src = "img/eye-open.png";
+  }
+  else{
+    password2.type = "password";
+    eyeicon2.src = "img/eye-close.png";
+  }
+};
+
+/* Abrir Modal de editar informações */
+const btnOpenInfo = document.querySelector('button.btn-info');
+const btnCLoseInfo = document.querySelector('button.btn-close-info');
+const modalInfo = document.querySelector('#ModalInfo');
+const fade = document.querySelector('#fade');
+const btnSaveInfo = document.querySelector('button.editar');
+[btnOpenInfo].forEach((ev) =>{
+  ev.addEventListener('click', function() {
+    var modalInfo = document.querySelector('#ModalInfo');
+    if (modalInfo.style.display === "block") {
+      modalInfo.style.display = "none";
+    } else {
+      modalInfo.style.display = "block";
+    }});
+    ev.addEventListener('click', function() {
+      var fade = document.querySelector('#fade');
+      if (fade.style.display === "block") {
+        fade.style.display = "none";
+      } else {
+        fade.style.display = "block";
+      }});
+});
+document.querySelector('button.btn-close-info').addEventListener('click', function() {
+  document.querySelector('#ModalInfo').style.display = "none";
+  document.querySelector('#fade').style.display = "none";
+});
+document.querySelector('button#editar').addEventListener('click', function() {
+  document.querySelector('#ModalInfo').style.display = "none";
+  document.querySelector('#fade').style.display = "none";
+});
+
 
 
 /* Abrir Lista de pontos */
@@ -68,6 +195,22 @@ ev.addEventListener('click', function() {
 
 document.querySelector('button.btn-close-lista').addEventListener('click', function() {
   document.querySelector('#modalLista').style.display = "none";
+});
+
+/* Abrir Filtros*/ 
+const btnFiltros = document.querySelector('button.btn-filtro');
+const modalFiltro = document.querySelector('#modalFiltro');
+[btnFiltros].forEach((ev) =>{
+  ev.addEventListener('click', function() {
+    var modalFiltro = document.querySelector('#modalFiltro');
+    if (modalFiltro.style.display === "block") {
+      modalFiltro.style.display = "none";
+    } else {
+      modalFiltro.style.display = "block";
+    }});
+});
+document.getElementById('filtrar').addEventListener('click', function() {
+  document.querySelector('#modalFiltro').style.display = "none";
 });
 
 /* Abrir Raking */
@@ -118,69 +261,84 @@ $(document).ready( function() {
   $('#formularioCriarPonto').on("submit", function(event) {
 
     event.preventDefault();
-
-    let idMoradorColetor = $('input[name="idMoradorColetor"]').val();
     let tipoDeLixo = $('input[name="tipoLixo"]:checked').val();
     let rua = $('input[name="rua"]').val();
     let numero = $('input[name="numero"]').val();
     let bairro = $('input[name="bairro"]').val();
     let cidade = $('input[name="cidade"]').val();
     let complemento = $('input[name="complemento"]').val();
+    let longitude;
+    let latitude;
+
+    let enderecoCompleto = rua + ' ' + numero + ', ' + bairro + ', ' + cidade;
     
-    /* INSERIR COORDENADAS */
-    /*
-      let longitude = ...
-      let latitude = ...
+    const geocoder = new google.maps.Geocoder();
 
-      OBTER UTILIZANDO: https://developers.google.com/maps/documentation/javascript/geocoding?hl=pt-br (ESPERANDO API DO SAMUEL)
-    */
+    geocoder.geocode( { address: enderecoCompleto }, function (results, status) {
 
-    if ( idMoradorColetor && tipoDeLixo && rua && numero && bairro && cidade && complemento ){
+      if (status === 'OK') {
 
-      if ( !complemento ) {
-        complemento = " ";
+        let location = results[0].geometry.location;
+        longitude = location.lng();
+        latitude = location.lat();
+
+        if ( tipoDeLixo && rua && numero && bairro && cidade && complemento ) {
+
+          if ( !complemento ) {
+            complemento = " ";
+          }
+    
+          console.log(latitude);
+          console.log(longitude);
+    
+          $.ajax("processaPontoDeColeta", {
+    
+            data: {
+              acao: "inserir",
+              idMoradorColetor: idMoradorColetor,
+              tipoDeLixo: tipoDeLixo,
+              rua: rua,
+              numero: numero,
+              bairro: bairro,
+              cidade: cidade,
+              complemento: complemento,
+              longitude: longitude,
+              latitude: latitude
+            },
+      
+            dataType: "json"
+      
+          }).done((data) => {
+    
+            listarPontosNoMapa(event);
+            listarPontos(event);
+    
+          }).fail((jqXHR, textStatus, errorThrown) => {
+    
+            console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+    
+          });
+    
+        } else {
+    
+          alert("Não deixe nenhum campo em branco");
+    
+        }
+    
+        $('#modalCriar').css( "display", "none" );
+
+      } else {
+        alert('Endereco não encontrado: ' + status);
       }
 
-      $.ajax("processaPontoDeColeta", {
+    });
 
-        data: {
-          acao: "inserir",
-          idMoradorColetor: idMoradorColetor,
-          tipoDeLixo: tipoDeLixo,
-          rua: rua,
-          numero: numero,
-          bairro: bairro,
-          cidade: cidade,
-          complemento: complemento,
-          longitude: longitude,
-          latitude: latitude
-        },
-  
-        dataType: "json"
-  
-      }).done((data) => {
-
-        /* reexibir pontos de coleta no mapa */
-        listarPontos(event);
-
-      }).fail((jqXHR, textStatus, errorThrown) => {
-
-        console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
-
-      });
-
-    } else {
-
-      alert("Não deixe nenhum campo em branco");
-
-    }
-
-    $('#modalCriar').css( "display", "none" );
-
-  })
+  });
 
   /* EXCLUINDO PONTO DE COLETA */
-  $('.btn-denuncia').on('click', function() {
+  $('.btn-denuncia').on('click', function(event) {
+
+    event.preventDefault();
 
     const $divPonto = $(this).closest('.ponto');
     const idPonto = $divPonto.data("idPonto");
@@ -198,7 +356,7 @@ $(document).ready( function() {
 
     }).done((data) => {
 
-      /* reexibir pontos de coleta no mapa */
+      listarPontosNoMapa(event);
       listarPontos(event);
 
     }).fail((jqXHR, textStatus, errorThrown) => {
@@ -207,100 +365,100 @@ $(document).ready( function() {
 
     });
 
-  })
+  });
 
-})
+});
 
 /* Função para Listar os pontos */
-function listarPontos( event ) {
+
+function listarPontosNoMapa ( event ) {
+  initMap();
+}
+
+function listarPontos(event) {
 
   $.ajax("processaPontoDeColeta", {
-      data: {
-          acao: "listar",
-          idMoradorColetor: idMoradorColetor
-      },
-      dataType: "json"
-  })
-  .done((data) => {
 
-      let $listaDePontos = $("#lista");
-      $listaDePontos.html("");
+    data: {
+        acao: "listar",
+        idMoradorColetor: idMoradorColetor
+    },
+    dataType: "json"
 
-      data.forEach(pontoDeColeta => {
+  }).done((data) => {
 
-        if (tipoUsuario == "coletor") {
+    let $listaDePontos = $("#lista");
+    $listaDePontos.html("");
 
-          $listaDePontos.append (
-            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-              <img  src="img/pontoOrganico.png" alt="ponto"> 
-              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-            </div>`
-          );
+    data.forEach(pontoDeColeta => {
 
-        } else {
+      if (tipoUsuario == "coletor") {
 
-          $listaDePontos.append (
-            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-            </div>`
-          );
+        $listaDePontos.append (
+          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+            <img  src="img/pontoOrganico.png" alt="ponto"> 
+            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+          </div>`
+        );
 
-        }
+      } else {
 
-          
+        $listaDePontos.append (
+          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+          </div>`
+        );
 
-      });
+      }
+    });
 
-  })
-  .fail((jqXHR, textStatus, errorThrown) => {
-      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+  }).fail((jqXHR, textStatus, errorThrown) => {
+    console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
 
   $.ajax("processaPontoDeColeta", {
-      data: {
-          acao: "listarPontosProprios",
-          idMoradorColetor: idMoradorColetor
-      },
-      dataType: "json"
-  })
-  .done((data) => {
 
-      let $listaDePontosProprios = $("#lista-meus");
-      $listaDePontosProprios.html("");
+    data: {
+        acao: "listarPontosProprios",
+        idMoradorColetor: idMoradorColetor
+    },
+    dataType: "json"
 
-      data.forEach(pontoDeColeta => {
+  }).done((data) => {
 
-        if (tipoUsuario == "coletor") {
+    let $listaDePontosProprios = $("#lista-meus");
+    $listaDePontosProprios.html("");
 
-          $listaDePontosProprios.append (
-            `<div class="ponto">
-              <img id="ponto" src="img/pontoOleo.png" alt="ponto">
-              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-            </div>`
-          );
+    data.forEach(pontoDeColeta => {
 
-        } else {
+      if (tipoUsuario == "coletor") {
 
-          $listaDePontosProprios.append (
-            `<div class="ponto">
-              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-            </div>`
-          );
+        $listaDePontosProprios.append (
+          `<div class="ponto">
+            <img id="ponto" src="img/pontoOleo.png" alt="ponto">
+            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+          </div>`
+        );
 
-        }
+      } else {
 
-          
+        $listaDePontosProprios.append (
+          `<div class="ponto">
+            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+          </div>`
+        );
 
-      });
+      }
 
-  })
-  .fail((jqXHR, textStatus, errorThrown) => {
+    });
+
+  }).fail((jqXHR, textStatus, errorThrown) => {
       console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
 

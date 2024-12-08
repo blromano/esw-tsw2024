@@ -143,6 +143,12 @@ public class PontoDeColetaServlet extends HttpServlet {
                 PrintWriter pw = response.getWriter();
                 pw.print(jb.toJson(listaProprios));
                 
+            } else if( acao.equals("listarPontosMapa")) {
+                
+                List<PontoDeColeta> lista = dao.listarTodos();
+                PrintWriter pw = response.getWriter();
+                pw.print(jb.toJson(lista));
+                
             }
         } catch ( SQLException exc ) {
             

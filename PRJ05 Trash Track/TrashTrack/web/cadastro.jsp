@@ -47,8 +47,7 @@
                             </div>
                         </c:if>
                         
-                        <form method="post" action="${cp}/processaMoradorColetor">
-                            <input name="acao" type="hidden" value="inserir"/>
+                        <form method="post" id="btnCadastro">
                             <h2>Cadastro</h2>
                             <p class="cinza">Se torne um membro e aproveite dos benefícios!</p>
 

@@ -47,7 +47,7 @@
                 <div class="d-flex justify-content-center align-items-center flex-grow-1">
 
                     <div class="login-container text-left">
-                            <form method="post" action="${cp}/processaMoradorColetor">
+                        <form method="post" id="btnLogin">
                             <input name="acao" type="hidden" value="login"/>
                                 <h2>Login</h2>
                                 <p class="cinza">Se você ja é um membro do TrashTrack você ja pode realizar seu login.</p>
@@ -91,6 +91,9 @@
 
     <!-- Script do JavaScript do Bootstrap (opcional, mas recomendado) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script Cadastro/Login-->
+    <script src="js/script-cadastro-login.js"></script>
 </body>
 </html>
 
