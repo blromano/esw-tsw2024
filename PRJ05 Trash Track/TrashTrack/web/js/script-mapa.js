@@ -1,4 +1,4 @@
-/* 
+
 const dadosMoradorColetor = JSON.parse(sessionStorage.getItem("dadosMoradorColetor"));
 const idMoradorColetor = dadosMoradorColetor.id;
 
@@ -23,7 +23,7 @@ async function initMap() {
 }
 
 
-Abrir Perfil*/
+//Abrir Perfil
 
 const btnOpen = document.querySelector('button.perfil');
 const btnCLose = document.querySelector('button.btn-close-perfil');
