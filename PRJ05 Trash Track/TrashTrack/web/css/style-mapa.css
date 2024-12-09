@@ -62,19 +62,23 @@ body{
     box-shadow: 4px 4px 20px 1px #dfdede;
 }
 
-#modalHeaderPerfil{
+#modalHeaderPerfil {
     height: 20px;
-    width: 260px;
+    width: 100%;
     border: none;
-
-    p{
-        font-size: 12px;
-        font-weight: 500;
-        float: left;
-        margin: 0px 0px 0px 78px;
-    }
-
+    display: flex; /* Usa flexbox para centralizar */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; /* Centraliza horizontalmente */
 }
+
+#modalHeaderPerfil p {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0; /* Remove margens padrão */
+}
+
+
+
 
 /*Style button close - se aplica a todos os botoes de fechar dos modais*/
 

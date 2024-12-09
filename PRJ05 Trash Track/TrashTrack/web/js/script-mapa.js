@@ -18,7 +18,7 @@ async function initMap() {
 
   $.ajax("processaPontoDeColeta", {
     data: {
-      acao: "listarPontosMapa",
+      acao: "listarPontosMapa"
     },
     dataType: "json"
   })
@@ -33,7 +33,7 @@ async function initMap() {
         title: `${pontoDeColeta.tipoDeLixo}` 
       });
 
-      console.log( pontoDeColeta );
+      //console.log( pontoDeColeta );
     });
   })
   .fail((jqXHR, textStatus, errorThrown) => {
@@ -91,6 +91,8 @@ toggle.addEventListener('click', function() {
       btn_criar.style.visibility = 'hidden';  
       
       tipoUsuario = "coletor";
+      //Lixo coletado no modo coletor
+      $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoColetado);
       
   } else {
       toggle.classList.add('active');
@@ -108,6 +110,8 @@ toggle.addEventListener('click', function() {
       btn_criar.style.visibility = 'visible';  
 
       tipoUsuario = "morador";
+      //Lixo reciclado no modo morador
+      $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoReciclado);
   }
 
   listarPontos(event);
@@ -256,6 +260,11 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
 $(document).ready( function() {
 
   listarPontos(event); // Listando pela primeira vez
+  
+  // Inicializar as informações do perfil do usuário
+  $("#modalPerfilNome").html("Olá, " + dadosMoradorColetor.nome); 
+  $("#modalPerfilEmail").html(dadosMoradorColetor.email);
+  $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoColetado);
 
   /* CRIANDO PONTO DE COLETA */
   $('#formularioCriarPonto').on("submit", function(event) {

@@ -30,14 +30,14 @@
   <!--ModalPerfil-->
 
   <div id="modalPerfil">
-    <div id="modalHeaderPerfil">
-      <p>email@gmail.com</p>
+      <div id="modalHeaderPerfil">
+      <p id="modalPerfilEmail">email@gmail.com</p>
       <button class="btn-close-perfil"><img src="img/x.png" alt="X"></button>
     </div>
 
     <div id="modalBodyPerfil">
       <img  class="foto" src="img/perfil.svg" alt="perfil">
-      <h4 class="nome">Olá, Nome</h4>
+      <h4 class="nome" id="modalPerfilNome">Olá, Nome</h4>
 
       <div class="Ranking">
         <img class="trofeu" src="img/trofeu.png" alt="trofeu">
@@ -46,7 +46,7 @@
 
       <div id="cont">
         <p id="cont-lixos">Lixos Coletados</p>
-        <h2>120</h2>
+        <h2 id="modalPerfilLixosColetados">120</h2>
       </div>
 
       <button class="btn-info">Editar Informações</button>
@@ -75,13 +75,13 @@
 
         <label for="nome_completo"> Nome Completo</label>
         <br>
-        <input type="text" id="nome_completo" >
+        <input type="text" id="nomeEditarInformacoes" >
 
         <br>
 
         <label for="email" class="form-label" > Email</label>
         <br>
-        <input type="email" id="nome_completo" >
+        <input type="email" id="emailEditarInformacoes" >
 
 
         <div class="form-group">
