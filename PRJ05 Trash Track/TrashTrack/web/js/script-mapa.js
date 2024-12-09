@@ -1,3 +1,4 @@
+/* 
 const dadosMoradorColetor = JSON.parse(sessionStorage.getItem("dadosMoradorColetor"));
 const idMoradorColetor = dadosMoradorColetor.id;
 
@@ -44,7 +45,7 @@ async function initMap() {
 }
 
 
-/* Abrir Perfil*/
+Abrir Perfil*/
 
 const btnOpen = document.querySelector('button.perfil');
 const btnCLose = document.querySelector('button.btn-close-perfil');
@@ -73,6 +74,7 @@ const contador = document.getElementById("cont");
 const lixos = document.getElementById('cont-lixos');
 const btn_coleta = document.querySelectorAll(".btn-coleta");  
 const btn_criar = document.getElementById("btn-criar");
+const meusPontos =document.getElementById("lista-meus")
 
 toggle.addEventListener('click', function() {
   if (toggle.classList.contains('active')) {
@@ -88,9 +90,15 @@ toggle.addEventListener('click', function() {
         button.style.visibility  = 'visible';  
       });
 
+      // Oculta botão de criar
       btn_criar.style.visibility = 'visible';  
-      btn_criar.style.visibility = 'hidden';  
-      
+      btn_criar.style.visibility = 'hidden'; 
+
+      // Oculta meus Pontos
+      meusPontos.style.visibility = 'visible';  
+      meusPontos.style.visibility = 'hidden';  
+
+
       tipoUsuario = "coletor";
       //Lixo coletado no modo coletor
       $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoColetado);
@@ -109,6 +117,9 @@ toggle.addEventListener('click', function() {
 
       btn_criar.style.visibility = 'hidden';  
       btn_criar.style.visibility = 'visible';  
+
+      meusPontos.style.visibility = 'hidden';  
+      meusPontos.style.visibility = 'visible';  
 
       tipoUsuario = "morador";
       //Lixo reciclado no modo morador
@@ -155,6 +166,7 @@ const btnCLoseInfo = document.querySelector('button.btn-close-info');
 const modalInfo = document.querySelector('#ModalInfo');
 const fade = document.querySelector('#fade');
 const btnSaveInfo = document.querySelector('button.editar');
+
 [btnOpenInfo].forEach((ev) =>{
   ev.addEventListener('click', function() {
     var modalInfo = document.querySelector('#ModalInfo');
@@ -171,10 +183,12 @@ const btnSaveInfo = document.querySelector('button.editar');
         fade.style.display = "block";
       }});
 });
+
 document.querySelector('button.btn-close-info').addEventListener('click', function() {
   document.querySelector('#ModalInfo').style.display = "none";
   document.querySelector('#fade').style.display = "none";
 });
+
 document.querySelector('button#editar').addEventListener('click', function() {
   document.querySelector('#ModalInfo').style.display = "none";
   document.querySelector('#fade').style.display = "none";
@@ -182,7 +196,52 @@ document.querySelector('button#editar').addEventListener('click', function() {
 
 
 
-/* Abrir Lista de pontos */
+/* Abrir Modal de confirmar coleta */
+
+const btnColetar = document.querySelector('button.btn-coleta');
+const btnCLoseColeta = document.querySelector('button.btn-close-coleta');
+const modalColeta = document.querySelector('#modalColeta');
+const fadeColeta = document.querySelector('#fadeColeta');
+
+// botões sim e não
+const btnColetado = document.querySelector('button#btnColetado');
+const btnNaoColetado = document.querySelector('button#btnNaoColetado');
+
+[btnColetar].forEach((ev) =>{
+  ev.addEventListener('click', function() {
+    var modalColeta = document.querySelector('#modalColeta');
+    if (modalColeta.style.display === "block") {
+      modalColeta.style.display = "none";
+    } else {
+      modalColeta.style.display = "block";
+    }});
+    ev.addEventListener('click', function() {
+      var fade = document.querySelector('#fadeColeta');
+      if (fade.style.display === "block") {
+        fade.style.display = "none";
+      } else {
+        fade.style.display = "block";
+      }});
+});
+
+document.querySelector('button.btn-close-coleta').addEventListener('click', function() {
+document.querySelector('#modalColeta').style.display = "none";
+document.querySelector('#fadeColeta').style.display = "none";
+});
+
+document.querySelector('button#btnColetado').addEventListener('click', function() {
+document.querySelector('#modalColeta').style.display = "none";
+document.querySelector('#fadeColeta').style.display = "none";
+});
+
+document.querySelector('button#btnNaoColetado').addEventListener('click', function() {
+  document.querySelector('#modalColeta').style.display = "none";
+  document.querySelector('#fadeColeta').style.display = "none";
+});
+
+
+
+ /*Abrir Lista de pontos */
 
 const btnOpenLista = document.querySelector('button#btn-lista');
 const btnCLoseLista = document.querySelector('button.btn-close-lista');
