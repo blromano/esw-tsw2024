@@ -71,23 +71,23 @@
 
     <div class="modalBodyInfo">
 
-      <form action="">
+      <form id="formularioEditarInformacoes">
 
         <label for="nome_completo"> Nome Completo</label>
         <br>
-        <input type="text" id="nomeEditarInformacoes" >
+        <input type="text" id="nomeEditarInformacoes" name="nomeEditarInformacoes" >
 
         <br>
 
         <label for="email" class="form-label" > Email</label>
         <br>
-        <input type="email" id="emailEditarInformacoes" >
+        <input type="email" id="emailEditarInformacoes" name="emailEditarInformacoes" >
 
 
         <div class="form-group">
 
           <label for="password">Senha Antiga</label>
-          <input type="password" id="password" placeholder="" class="senha">
+          <input type="password" id="password" placeholder="" class="senha" name="senhaAntigaEditarInformacoes">
           <img src="img/eye-close.png" alt="" id="eyeicon" class="botao-senha" onclick="mostrarsenha()">
 
         </div>
@@ -95,17 +95,17 @@
         <div class="form-group">
 
           <label for="password2" class="cinza">Nova Senha</label>
-          <input type="password" id="password2" placeholder="" class="senha">
+          <input type="password" id="password2" placeholder="" class="senha" name="senhaNovaEditarInformacoes">
           <img src="img/eye-close.png" alt="" class="botao-senha" id="eyeicon2" onclick="confirmarsenha()">
 
         </div>
 
+        <div class="container-footer">
+            <button class="container-button" id="editar" type="submit">Salvar</button>
+        </div>
 
       </form>
 
-      <div class="container-footer" >
-        <button class="container-button" id="editar">Salvar</button>
-      </div>
     </div>
 
   </div>

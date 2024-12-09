@@ -3,6 +3,7 @@ const idMoradorColetor = dadosMoradorColetor.id;
 
 //Funcao de iniciar o mapa - FAVOR NAO MEXER QUE EH ELA QUE INICIA O MAPA
 async function initMap() {
+    console.log(dadosMoradorColetor);
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
@@ -265,6 +266,10 @@ $(document).ready( function() {
   $("#modalPerfilNome").html("Olá, " + dadosMoradorColetor.nome); 
   $("#modalPerfilEmail").html(dadosMoradorColetor.email);
   $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoColetado);
+  
+  // Inicializar as informações do perfil do usuário na seção editar
+  $("#nomeEditarInformacoes").val(dadosMoradorColetor.nome);
+  $("#emailEditarInformacoes").val(dadosMoradorColetor.email);
 
   /* CRIANDO PONTO DE COLETA */
   $('#formularioCriarPonto').on("submit", function(event) {
@@ -470,5 +475,40 @@ function listarPontos(event) {
   }).fail((jqXHR, textStatus, errorThrown) => {
       console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
-
+  
+  $("#formularioEditarInformacoes").on("submit", function (event) {
+      
+     event.preventDefault();
+     
+     let id = dadosMoradorColetor.id;
+     let nome = $('input[name="nomeEditarInformacoes"]').val();
+     let email = $('input[name="emailEditarInformacoes"]').val();
+     let senhaAntiga = $('input[name="senhaAntigaEditarInformacoes"]').val();
+     let senhaNova = $('input[name="senhaNovaEditarInformacoes"]').val();
+     
+     $.ajax("processaMoradorColetor", {
+         method: "POST",
+         data:{
+             acao: "atualizar",
+             id : id,
+             nome: nome,
+             email: email,
+             senhaAntiga: senhaAntiga,
+             senhaNova: senhaNova
+         },
+         dataType: "text"
+     }).done( (data) => {
+         if ( data === "OK" ) {
+             window.location.replace("index.jsp");
+         } else {
+             alert("Erro ao Atualizar Informações");
+         }
+     }).fail( ( jqXHR, textStatus, errorThrown ) => {
+         console.log("Erro na requisição");
+         console.log("Código de status: " + jqXHR.status);
+         console.log("Erro: " + errorThrown); 
+         console.log(jqXHR.responseText);
+     });
+     
+  });
 }
