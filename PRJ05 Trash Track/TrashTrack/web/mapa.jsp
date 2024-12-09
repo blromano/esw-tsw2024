@@ -130,9 +130,8 @@
         </div>
       </div>
 
-      <h4 class="title">Meus Pontos</h4>
-      
       <div id="lista-meus" >
+        <h4 class="title">Meus Pontos</h4>
         
       </div>
     </div>
@@ -160,6 +159,24 @@
       <button class="container-button" id="filtrar">Filtrar</button>
     </div>
 
+  </div>
+
+  <!-- Modal Coleta de Ponto (Ativado pelo Botão de Coletar da Lista) -->
+
+  <div id="fadeColeta"></div>
+    <div id="modalColeta">
+        <div>
+          <h4 class="title">Marcar como Coletado?</h4>
+          <button class="btn-close-coleta"><img src="img/x.png" alt="X"></button>
+        </div>
+
+        <div class="container-footer">
+          <button type="button" class="container-button" id="btnColetado">Sim</button>  <!-- Ponto foi coletado -->
+          <button type="button" class="container-button" id="btnNaoColetado">Não</button> <!-- Ponto não foi coletado -->
+        </div>
+            
+        </div>
+    </div>
   </div>
 
 
