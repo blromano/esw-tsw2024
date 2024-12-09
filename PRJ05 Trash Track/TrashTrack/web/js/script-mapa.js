@@ -3,7 +3,7 @@ const idMoradorColetor = dadosMoradorColetor.id;
 
 //Funcao de iniciar o mapa - FAVOR NAO MEXER QUE EH ELA QUE INICIA O MAPA
 async function initMap() {
-    console.log(dadosMoradorColetor);
+  console.log(dadosMoradorColetor);
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
@@ -17,29 +17,7 @@ async function initMap() {
     fullscreenControl: false //se quiserem colocar fullscreen só deixar isso true
   });
 
-  $.ajax("processaPontoDeColeta", {
-    data: {
-      acao: "listarPontosMapa"
-    },
-    dataType: "json"
-  })
-  .done((data) => {
-      
-    data.forEach(pontoDeColeta => {
-        
-      new AdvancedMarkerElement({
-        map: map,
-        position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
-        //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
-        title: `${pontoDeColeta.tipoDeLixo}` 
-      });
-
-      //console.log( pontoDeColeta );
-    });
-  })
-  .fail((jqXHR, textStatus, errorThrown) => {
-    console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
-  }); 
+    listarPontosNoMapa();
 
 }
 
@@ -385,8 +363,33 @@ $(document).ready( function() {
 
 /* Função para Listar os pontos */
 
-function listarPontosNoMapa ( event ) {
-  initMap();
+async function listarPontosNoMapa ( event ) {
+    
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+    
+    $.ajax("processaPontoDeColeta", {
+      data: {
+        acao: "listarPontosMapa"
+      },
+      dataType: "json"
+    })
+    .done((data) => {
+
+      data.forEach(pontoDeColeta => {
+
+        new AdvancedMarkerElement({
+          map: map,
+          position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
+          //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
+          title: `${pontoDeColeta.tipoDeLixo}` 
+        });
+
+        console.log( pontoDeColeta );
+      });
+    })
+    .fail((jqXHR, textStatus, errorThrown) => {
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+    }); 
 }
 
 function listarPontos(event) {
@@ -512,3 +515,4 @@ function listarPontos(event) {
      
   });
 }
+
