@@ -619,6 +619,7 @@ input:checked + .slider:before {
     left: 0;
     padding: 24px 40px 24px 50px;
     width: calc(100% - 40px);
+    z-index: 2;
 }
 
 .btn-ranking{
@@ -627,7 +628,7 @@ input:checked + .slider:before {
     float: right;
     margin-right: 64px;
     padding: 0;
-    z-index: 2;
+    
     
     & img{
         width: 42px;
@@ -642,7 +643,7 @@ input:checked + .slider:before {
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: -1; /* Fica abaixo da interface */
+  z-index: 1; /* Fica abaixo da interface */
 }
 
 #interface {
