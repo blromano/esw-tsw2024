@@ -60,6 +60,57 @@ body {
   }
 }
 
+/* Modal de consultar denuncia */
+
+form>div>input{
+  height: 50px;
+  
+}
+
+form>div{
+ padding: 5px;
+  
+}
+
+/* Botão Modal */
+
+.btn-salvar{
+  width: 100%;
+  --bs-btn-bg: #3ACC97;
+  --bs-btn-hover-bg: #2dac7d;
+  --bs-btn-border-color: none;
+  --bs-btn-hover-border-color: none;
+  height: 50px;
+
+}
+
+.btn-salvar-red{
+  width: 100%;
+  --bs-btn-bg: #FE4A49;
+  --bs-btn-hover-bg: #df4242;
+  --bs-btn-border-color: none;
+  --bs-btn-hover-border-color: none;
+  height: 50px;
+
+}
+
+/* Botão lista */
+
+.btn-consultar{
+  width: 200px;
+  --bs-btn-bg: #3ACC97;
+  --bs-btn-hover-bg: #2dac7d;
+  --bs-btn-border-color: none;
+  --bs-btn-hover-border-color: none;
+  height: 32px;
+}
+
+
+.btn-salvar:hover, .btn-consultar:hover{
+  --bs-btn-bg: #2fa87c;
+}
+
+
 /* Modal de notificação */
 
 .notificacao-pop-up-dropdown{

@@ -114,7 +114,7 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 for (PontoDeColeta pontoDeColeta : lista) {
                     
-                    if ( pontoDeColeta.getMorador().getId() != id ) {
+                    if ( pontoDeColeta.getMorador().getId() != id && !pontoDeColeta.isDesativado() && !pontoDeColeta.isColetado() ) {
                         listaNaoProprios.add(pontoDeColeta);
                     }
                     
@@ -134,7 +134,7 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 for (PontoDeColeta pontoDeColeta : lista) {
                     
-                    if ( pontoDeColeta.getMorador().getId() == id ) {
+                    if ( pontoDeColeta.getMorador().getId() == id && !pontoDeColeta.isDesativado() && !pontoDeColeta.isColetado() ) {
                         listaProprios.add(pontoDeColeta);
                     }
                     
@@ -146,8 +146,34 @@ public class PontoDeColetaServlet extends HttpServlet {
             } else if( acao.equals("listarPontosMapa")) {
                 
                 List<PontoDeColeta> lista = dao.listarTodos();
+                
+                List<PontoDeColeta> listaAtivos = new ArrayList<>();
+                for( PontoDeColeta pontoDeColeta : lista ) {
+                    
+                    if ( !pontoDeColeta.isColetado() && !pontoDeColeta.isDesativado() ) {
+                        listaAtivos.add( pontoDeColeta );
+                    }
+                    
+                }
+                
                 PrintWriter pw = response.getWriter();
-                pw.print(jb.toJson(lista));
+                pw.print(jb.toJson(listaAtivos));
+                
+            } else if (acao.equals("marcarColetado")){
+                
+                //Caso for coletado no mapa ele vai sumir
+                
+                String idPonto = request.getParameter("idPonto");
+                
+                int id = Integer.parseInt(idPonto);
+                System.out.println(id);
+                
+                PontoDeColeta pontoDeColeta = dao.obterPorId(id);
+                
+                pontoDeColeta.setColetado(true);
+                
+                dao.atualizar( pontoDeColeta );
+                response.getWriter().write("OK");
                 
             }
         } catch ( SQLException exc ) {

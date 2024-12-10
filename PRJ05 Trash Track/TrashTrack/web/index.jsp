@@ -11,6 +11,7 @@
   <!-- Link do CSS Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style-index.css">
+  <link rel="stylesheet" href="css/style-sobre-informativa.css">
 </head>
 
 <body>
@@ -32,7 +33,23 @@
               <div class="d-flex align-items-center gap-3">
                   <ul class="navbar-nav mb-2 mb-lg-0">
                       <li class="nav-item">
-                          <img src="img/Sino.png" alt="Notification logo" width="20" height="20" class="logo">
+                          <img src="img/Sino.png" alt="Notification logo" width="20" height="20" class="logo" onclick="abrirNotificacao()">
+                            <!-- Dropdown Notificação -->
+                            <div class="notificacao-pop-up-dropdown" id="notificacao-pop-up-dropdown">
+  
+                              <div class="notificacao-pop-up-dropdown-header">
+                                <h5>Notificações</h5>
+                                <img src="img/x.png" alt="Botao Fechar" width="20" height="20" id="botaoNotificacao" onclick="fecharNotificacao()">
+                              </div>
+  
+                              <ul class="notificacao-pop-up-dropdown-list">
+                                <li>Seu lixo foi coletado!</li>
+                                <li>Seu lixo foi coletado!</li>
+                                <li>Sua denuncia foi enviada.</li>
+                                <li>Você subiu no Ranking!</li>
+                              </ul>
+  
+                            </div>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" aria-current="page" href="cadastro.jsp">Cadastro</a>
@@ -170,20 +187,74 @@
                   </div>
               </div> </br></br>
               <div class="duvidas">
-                <a href="modal_enviar_duvida.html"><button class="btn btn-success">Enviar Dúvida</button></a>
+                <button type="button" class="btn btn-primary btn-salvar" data-bs-toggle="modal" data-bs-target="#exampleModal">Enviar Dúvida</button>
               </div>
               
+      </div>
     </div>
-    </div>
+
+    <!-- Modal Enviar Duvidas -->
+
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+  
+                  <!-- header modal -->
+                  <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Enviar Duvida</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+  
+                  <!-- corpo modal -->
+                  <div class="modal-body">
+                        
+                          <!-- forms -->
+                      <form action="">
+  
+                          <!-- Email -->
+                          <div class="">
+  
+                              <label for="email" class="form-label" >Email</label>
+                              <input type="email" id="email" class="form-control shadow-sm">
+  
+                          </div>
+  
+                          <!-- Dúvida -->
+                          <div >
+  
+                              <label for="password" class="form-label">Dúvida</label>
+                              <input type="text" id="duvida" placeholder="Informe sua Dúvida" class="form-control shadow-sm">
+                              
+  
+                          </div>
+  
+                      </form>
+ 
+                      <!-- footer modal-->
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-primary btn-salvar-modal">Enviar</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
 
     <!-- Footer -->
     <footer class="fixed-bottom" style="position: relative; background-color: #3ACC97; height: 5rem;"></footer>
+    
+    <script src="js/notificacao.js"></script>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Script do JavaScript do Bootstrap (opcional, mas recomendado) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    
     
 </body>
 </html>

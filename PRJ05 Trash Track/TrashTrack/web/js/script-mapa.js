@@ -1,8 +1,10 @@
+
 const dadosMoradorColetor = JSON.parse(sessionStorage.getItem("dadosMoradorColetor"));
 const idMoradorColetor = dadosMoradorColetor.id;
 
 //Funcao de iniciar o mapa - FAVOR NAO MEXER QUE EH ELA QUE INICIA O MAPA
 async function initMap() {
+  console.log(dadosMoradorColetor);
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
@@ -16,34 +18,13 @@ async function initMap() {
     fullscreenControl: false //se quiserem colocar fullscreen só deixar isso true
   });
 
-  $.ajax("processaPontoDeColeta", {
-    data: {
-      acao: "listarPontosMapa",
-    },
-    dataType: "json"
-  })
-  .done((data) => {
-      
-    data.forEach(pontoDeColeta => {
-        
-      new AdvancedMarkerElement({
-        map: map,
-        position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
-        //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
-        title: `${pontoDeColeta.tipoDeLixo}` 
-      });
-
-      console.log( pontoDeColeta );
-    });
-  })
-  .fail((jqXHR, textStatus, errorThrown) => {
-    console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
-  }); 
+    listarPontosNoMapa();
 
 }
 
 
-/* Abrir Perfil*/
+
+/* Abrir Perfil */
 
 const btnOpen = document.querySelector('button.perfil');
 const btnCLose = document.querySelector('button.btn-close-perfil');
@@ -70,8 +51,9 @@ const toggle = document.getElementById("toggle");
 const texto = document.getElementById("tipo-usu");
 const contador = document.getElementById("cont");
 const lixos = document.getElementById('cont-lixos');
-const btn_coleta = document.querySelectorAll(".btn-coleta");  
+const btn_coleta = document.querySelectorAll("btn-coleta");  
 const btn_criar = document.getElementById("btn-criar");
+const meusPontos =document.getElementById("lista-meus")
 
 toggle.addEventListener('click', function() {
   if (toggle.classList.contains('active')) {
@@ -87,10 +69,18 @@ toggle.addEventListener('click', function() {
         button.style.visibility  = 'visible';  
       });
 
+      // Oculta botão de criar
       btn_criar.style.visibility = 'visible';  
-      btn_criar.style.visibility = 'hidden';  
-      
+      btn_criar.style.visibility = 'hidden'; 
+
+      // Oculta meus Pontos
+      meusPontos.style.visibility = 'visible';  
+      meusPontos.style.visibility = 'hidden';  
+
+
       tipoUsuario = "coletor";
+      //Lixo coletado no modo coletor
+      $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoColetado);
       
   } else {
       toggle.classList.add('active');
@@ -107,7 +97,12 @@ toggle.addEventListener('click', function() {
       btn_criar.style.visibility = 'hidden';  
       btn_criar.style.visibility = 'visible';  
 
+      meusPontos.style.visibility = 'hidden';  
+      meusPontos.style.visibility = 'visible';  
+
       tipoUsuario = "morador";
+      //Lixo reciclado no modo morador
+      $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoReciclado);
   }
 
   listarPontos(event);
@@ -150,6 +145,7 @@ const btnCLoseInfo = document.querySelector('button.btn-close-info');
 const modalInfo = document.querySelector('#ModalInfo');
 const fade = document.querySelector('#fade');
 const btnSaveInfo = document.querySelector('button.editar');
+
 [btnOpenInfo].forEach((ev) =>{
   ev.addEventListener('click', function() {
     var modalInfo = document.querySelector('#ModalInfo');
@@ -166,10 +162,12 @@ const btnSaveInfo = document.querySelector('button.editar');
         fade.style.display = "block";
       }});
 });
+
 document.querySelector('button.btn-close-info').addEventListener('click', function() {
   document.querySelector('#ModalInfo').style.display = "none";
   document.querySelector('#fade').style.display = "none";
 });
+
 document.querySelector('button#editar').addEventListener('click', function() {
   document.querySelector('#ModalInfo').style.display = "none";
   document.querySelector('#fade').style.display = "none";
@@ -177,7 +175,52 @@ document.querySelector('button#editar').addEventListener('click', function() {
 
 
 
-/* Abrir Lista de pontos */
+/* Abrir Modal de confirmar coleta */
+
+const btnColetar = document.querySelector('button.btn-coleta');
+const btnCLoseColeta = document.querySelector('button.btn-close-coleta');
+const modalColeta = document.querySelector('#modalColeta');
+const fadeColeta = document.querySelector('#fadeColeta');
+
+// botões sim e não
+const btnColetado = document.querySelector('button#btnColetado');
+const btnNaoColetado = document.querySelector('button#btnNaoColetado');
+
+[btnColetar].forEach((ev) =>{
+  ev.addEventListener('click', function() {
+    var modalColeta = document.querySelector('#modalColeta');
+    if (modalColeta.style.display === "block") {
+      modalColeta.style.display = "none";
+    } else {
+      modalColeta.style.display = "block";
+    }});
+    ev.addEventListener('click', function() {
+      var fade = document.querySelector('#fadeColeta');
+      if (fade.style.display === "block") {
+        fade.style.display = "none";
+      } else {
+        fade.style.display = "block";
+      }});
+});
+
+document.querySelector('button.btn-close-coleta').addEventListener('click', function() {
+document.querySelector('#modalColeta').style.display = "none";
+document.querySelector('#fadeColeta').style.display = "none";
+});
+
+document.querySelector('button#btnColetado').addEventListener('click', function() {
+document.querySelector('#modalColeta').style.display = "none";
+document.querySelector('#fadeColeta').style.display = "none";
+});
+
+document.querySelector('button#btnNaoColetado').addEventListener('click', function() {
+  document.querySelector('#modalColeta').style.display = "none";
+  document.querySelector('#fadeColeta').style.display = "none";
+});
+
+
+
+ /*Abrir Lista de pontos */
 
 const btnOpenLista = document.querySelector('button#btn-lista');
 const btnCLoseLista = document.querySelector('button.btn-close-lista');
@@ -253,9 +296,20 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
   document.querySelector('#modalCriar').style.display = "none";
 });
 
+/* Abrir Excluir Ponto */
+
 $(document).ready( function() {
 
   listarPontos(event); // Listando pela primeira vez
+  
+  // Inicializar as informações do perfil do usuário
+  $("#modalPerfilNome").html("Olá, " + dadosMoradorColetor.nome); 
+  $("#modalPerfilEmail").html(dadosMoradorColetor.email);
+  $("#modalPerfilLixosColetados").html(dadosMoradorColetor.quantidadeLixoColetado);
+  
+  // Inicializar as informações do perfil do usuário na seção editar
+  $("#nomeEditarInformacoes").val(dadosMoradorColetor.nome);
+  $("#emailEditarInformacoes").val(dadosMoradorColetor.email);
 
   /* CRIANDO PONTO DE COLETA */
   $('#formularioCriarPonto').on("submit", function(event) {
@@ -282,7 +336,7 @@ $(document).ready( function() {
         longitude = location.lng();
         latitude = location.lat();
 
-        if ( tipoDeLixo && rua && numero && bairro && cidade && complemento ) {
+        if ( tipoDeLixo && rua && numero && bairro && cidade ) {
 
           if ( !complemento ) {
             complemento = " ";
@@ -310,8 +364,7 @@ $(document).ready( function() {
       
           }).done((data) => {
     
-            listarPontosNoMapa(event);
-            listarPontos(event);
+            location.reload(true);
     
           }).fail((jqXHR, textStatus, errorThrown) => {
     
@@ -335,15 +388,63 @@ $(document).ready( function() {
 
   });
 
-  /* EXCLUINDO PONTO DE COLETA */
-  $('.btn-denuncia').on('click', function(event) {
+  /* BOTÃO EXCLUIR PONTO DE COLETA */
+  $('.btn-excluir').on('click', function(event) {
 
-    event.preventDefault();
+    $ponto = $(this).closest('.ponto');
+    idParaExcluir = $ponto.data('idPonto');
 
-    const $divPonto = $(this).closest('.ponto');
-    const idPonto = $divPonto.data("idPonto");
+    $('#ModalExcluirPonto').css( "display", "block" );
+    $('#ModalExcluirPonto').attr('data-idPonto', idParaExcluir);
 
-    /* DISPARAR MODAL CONFIRMANDO - SE NEGAR, APENAS DE 'return;' - SE ACEITAR, APENAS CONTINUAR */
+  });
+
+  $('#botaoConfirmarExclusao').on('click', function(event) {
+
+    let idPonto = $("ModalExcluirPonto").data("idPonto");
+
+    $.ajax("processaPontoDeColeta", {
+
+      data: {
+        acao: "excluir",
+        idPonto: idPonto
+      },
+
+      dataType: "json"
+
+    }).done((data) => {
+
+      location.reload(true);
+
+    }).fail((jqXHR, textStatus, errorThrown) => {
+
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+
+    });
+
+    $('#ModalExcluirPonto').css( "display", "none" );
+
+  })
+
+  $('#botaoCancelarExclusao').on('click', function(event) {
+    $('#ModalExcluirPonto').css( "display", "none" );
+  })
+
+  /*$('.btn-excluir').on('click', function(event) {
+
+    let $divPonto = $(this).closest('.ponto');
+    let idPonto = $divPonto.data("idPonto");
+
+    console.log(idPonto);
+
+    $('#ModalExcluirPonto').css( "display", "block" );
+    $('#idPontoParaExclusao').val( idPonto );
+
+  });
+
+  $('#botaoConfirmarExclusao').on('click', function(event) {
+
+    let idPonto = $('#idPontoParaExclusao').val();
 
     $.ajax("processaPontoDeColeta", {
 
@@ -356,8 +457,7 @@ $(document).ready( function() {
 
     }).done((data) => {
 
-      listarPontosNoMapa(event);
-      listarPontos(event);
+      location.reload(true);
 
     }).fail((jqXHR, textStatus, errorThrown) => {
 
@@ -365,18 +465,89 @@ $(document).ready( function() {
 
     });
 
+    $('#ModalExcluirPonto').css( "display", "none" );
+
   });
+
+  $('#botaoCancelarExclusao').on('click', function(event) {
+    $('#ModalExcluirPonto').css( "display", "none" );
+  });*/
+
+  /* EDITAR INFORMAÇÕES FORMULÁRIO*/
+  $("#formularioEditarInformacoes").on("submit", function (event) {
+      
+    event.preventDefault();
+    
+    let id = dadosMoradorColetor.id;
+    let nome = $('input[name="nomeEditarInformacoes"]').val();
+    let email = $('input[name="emailEditarInformacoes"]').val();
+    let senhaAntiga = $('input[name="senhaAntigaEditarInformacoes"]').val();
+    let senhaNova = $('input[name="senhaNovaEditarInformacoes"]').val();
+    
+    $.ajax("processaMoradorColetor", {
+        method: "POST",
+        data:{
+            acao: "atualizar",
+            id : id,
+            nome: nome,
+            email: email,
+            senhaAntiga: senhaAntiga,
+            senhaNova: senhaNova
+        },
+        dataType: "text"
+    }).done( (data) => {
+        if ( data === "OK" ) {
+            window.location.replace("index.jsp");
+        } else {
+            alert("Erro ao Atualizar Informações");
+        }
+    }).fail( ( jqXHR, textStatus, errorThrown ) => {
+        console.log("Erro na requisição");
+        console.log("Código de status: " + jqXHR.status);
+        console.log("Erro: " + errorThrown); 
+        console.log(jqXHR.responseText);
+    });
+    
+ });
 
 });
 
 /* Função para Listar os pontos */
 
-function listarPontosNoMapa ( event ) {
-  initMap();
+async function listarPontosNoMapa ( event ) {
+    
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+    
+    $.ajax("processaPontoDeColeta", {
+      data: {
+        acao: "listarPontosMapa"
+      },
+      dataType: "json"
+    })
+    .done((data) => {
+
+      data.forEach(pontoDeColeta => {
+          
+          //Se ele nao estiver coletado ele nao aparece no mapa.
+          if(!pontoDeColeta.coletado){
+              new AdvancedMarkerElement({
+            map: map,
+            position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
+            //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
+            title: `${pontoDeColeta.tipoDeLixo}` 
+        });
+          }
+        console.log( pontoDeColeta );
+      });
+    })
+    .fail((jqXHR, textStatus, errorThrown) => {
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+    }); 
 }
 
 function listarPontos(event) {
 
+  /* Listagem de pontos */
   $.ajax("processaPontoDeColeta", {
 
     data: {
@@ -390,34 +561,48 @@ function listarPontos(event) {
     let $listaDePontos = $("#lista");
     $listaDePontos.html("");
 
-    data.forEach(pontoDeColeta => {
+    if ( Object.keys(data).length === 0 ) {
 
-      if (tipoUsuario == "coletor") {
+      $listaDePontos.append (
+        `<div class="ponto">
+          <div class="ende">Não há Pontos de Coleta disponíveis no momento</div>
+        </div>`
+      );
 
-        $listaDePontos.append (
-          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-            <img  src="img/pontoOrganico.png" alt="ponto"> 
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-          </div>`
-        );
+    } else {
 
-      } else {
+      data.forEach(pontoDeColeta => {
 
-        $listaDePontos.append (
-          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-          </div>`
-        );
+        if (tipoUsuario == "coletor") {
+  
+          $listaDePontos.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}" >
+              <img  src="img/pontoOrganico.png" alt="ponto" > 
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-coleta"><img id="coleta" src="img/coletar.png" alt="coleta" onclick="marcarComoColetado(${JSON.stringify(pontoDeColeta.id)})"></button>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        } else {
+  
+          $listaDePontos.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        }
+      });
 
-      }
-    });
+    }
 
   }).fail((jqXHR, textStatus, errorThrown) => {
     console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
 
+  /* Listagem de Pontos Próprios */
   $.ajax("processaPontoDeColeta", {
 
     data: {
@@ -431,35 +616,78 @@ function listarPontos(event) {
     let $listaDePontosProprios = $("#lista-meus");
     $listaDePontosProprios.html("");
 
-    data.forEach(pontoDeColeta => {
+    if ( Object.keys(data).length === 0 ) {
 
-      if (tipoUsuario == "coletor") {
+      $listaDePontosProprios.append (
+        `<div class="ponto">
+          <div class="ende">Não há Pontos de Coleta próprios cadastrados</div>
+        </div>`
+      );
 
-        $listaDePontosProprios.append (
-          `<div class="ponto">
-            <img id="ponto" src="img/pontoOleo.png" alt="ponto">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-          </div>`
-        );
+    } else {
 
-      } else {
+      data.forEach(pontoDeColeta => {
 
-        $listaDePontosProprios.append (
-          `<div class="ponto">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-          </div>`
-        );
+        if (tipoUsuario == "coletor") {
+  
+          $listaDePontosProprios.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <img id="ponto" src="img/pontoOleo.png" alt="ponto">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        } else {
+  
+          $listaDePontosProprios.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        }
+  
+      });
 
-      }
-
-    });
+    }
 
   }).fail((jqXHR, textStatus, errorThrown) => {
       console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
-
 }
+
+function marcarComoColetado(idPonto, event) {
+    // console.log(idPonto);
+
+    if (confirm("Marcar ponto como coletado ?") == true) {
+        console.log(idPonto);
+
+        $.ajax("processaPontoDeColeta", {
+            data: {
+                acao: "marcarColetado",
+                idPonto: idPonto
+            },
+            dataType: "text"
+        })
+        .done((data) => {
+            
+            if ( data === "OK" ) {
+                window.location.reload();
+            }
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+            console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+        });
+    } else {
+        alert('Houve um erro ao marcar o ponto como coletado!');
+    }
+}
+
+  
+  
+
+

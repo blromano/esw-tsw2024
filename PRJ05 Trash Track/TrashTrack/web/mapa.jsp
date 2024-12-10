@@ -30,14 +30,14 @@
   <!--ModalPerfil-->
 
   <div id="modalPerfil">
-    <div id="modalHeaderPerfil">
-      <p>email@gmail.com</p>
+      <div id="modalHeaderPerfil">
+      <p id="modalPerfilEmail">email@gmail.com</p>
       <button class="btn-close-perfil"><img src="img/x.png" alt="X"></button>
     </div>
 
     <div id="modalBodyPerfil">
       <img  class="foto" src="img/perfil.svg" alt="perfil">
-      <h4 class="nome">Olá, Nome</h4>
+      <h4 class="nome" id="modalPerfilNome">Olá, Nome</h4>
 
       <div class="Ranking">
         <img class="trofeu" src="img/trofeu.png" alt="trofeu">
@@ -46,7 +46,7 @@
 
       <div id="cont">
         <p id="cont-lixos">Lixos Coletados</p>
-        <h2>120</h2>
+        <h2 id="modalPerfilLixosColetados">120</h2>
       </div>
 
       <button class="btn-info">Editar Informações</button>
@@ -71,23 +71,23 @@
 
     <div class="modalBodyInfo">
 
-      <form action="">
+      <form id="formularioEditarInformacoes">
 
         <label for="nome_completo"> Nome Completo</label>
         <br>
-        <input type="text" id="nome_completo" >
+        <input type="text" id="nomeEditarInformacoes" name="nomeEditarInformacoes" >
 
         <br>
 
         <label for="email" class="form-label" > Email</label>
         <br>
-        <input type="email" id="nome_completo" >
+        <input type="email" id="emailEditarInformacoes" name="emailEditarInformacoes" >
 
 
         <div class="form-group">
 
           <label for="password">Senha Antiga</label>
-          <input type="password" id="password" placeholder="" class="senha">
+          <input type="password" id="password" placeholder="" class="senha" name="senhaAntigaEditarInformacoes">
           <img src="img/eye-close.png" alt="" id="eyeicon" class="botao-senha" onclick="mostrarsenha()">
 
         </div>
@@ -95,17 +95,41 @@
         <div class="form-group">
 
           <label for="password2" class="cinza">Nova Senha</label>
-          <input type="password" id="password2" placeholder="" class="senha">
+          <input type="password" id="password2" placeholder="" class="senha" name="senhaNovaEditarInformacoes">
           <img src="img/eye-close.png" alt="" class="botao-senha" id="eyeicon2" onclick="confirmarsenha()">
 
         </div>
 
+        <div class="container-footer">
+            <button class="container-button" id="editar" type="submit">Salvar</button>
+        </div>
 
       </form>
 
-      <div class="container-footer" >
-        <button class="container-button" id="editar">Salvar</button>
+    </div>
+
+  </div>
+
+  <!-- MODAL EXCLUIR PONTO PRÓPRIO -->
+  <div id="ModalExcluirPonto">
+  
+    <input type="hidden" name="idPonto" value="" id="idPontoParaExclusao">
+
+    <div>
+      <h3 class="title">Tem Certeza Disso?</h3>
+      <button class="btn-close-info"><img src="img/x.png" alt="X"></button>
+    </div>
+
+    <div class="modalBodyInfo">
+
+      <div class="container-footer">
+          <button class="container-button" id="botaoConfirmarExclusao">Confirmar</button>
       </div>
+
+      <div class="container-footer">
+        <button class="container-button" id="botaoCancelarExclusao">Cancelar</button>
+      </div>
+
     </div>
 
   </div>
@@ -120,7 +144,7 @@
       <button class="btn-filtro"><img src="img/filtro.png" alt="filtro"></button>
     </div>
     <div id="modalBodyLista">
-
+        <!-- PELO AMOR DE DEUS SAMUEL EH AQ Q EH PRA VC FAZER AS COISA  -->
       <div id="lista">
           <div class="ponto">
           <img  src="img/pontoOrganico.png" alt="ponto">
@@ -130,9 +154,8 @@
         </div>
       </div>
 
-      <h4 class="title">Meus Pontos</h4>
-      
       <div id="lista-meus" >
+        <h4 class="title">Meus Pontos</h4>
         
       </div>
     </div>
@@ -160,6 +183,25 @@
       <button class="container-button" id="filtrar">Filtrar</button>
     </div>
 
+  </div>
+
+  <!-- Modal Coleta de Ponto (Ativado pelo Botão de Coletar da Lista) -->
+  
+  <!-- Nunca aparece nao sei pq  -->
+  <div id="fadeColeta"></div>
+    <div id="modalColeta">
+        <div>
+          <h4 class="title">Marcar como Coletado?</h4>
+          <button class="btn-close-coleta"><img src="img/x.png" alt="X"></button>
+        </div>
+
+        <div class="container-footer">
+          <button type="button" class="container-button" id="btnColetado">Sim</button>  <!-- Ponto foi coletado -->
+          <button type="button" class="container-button" id="btnNaoColetado">Não</button> <!-- Ponto não foi coletado -->
+        </div>
+            
+        </div>
+    </div>
   </div>
 
 

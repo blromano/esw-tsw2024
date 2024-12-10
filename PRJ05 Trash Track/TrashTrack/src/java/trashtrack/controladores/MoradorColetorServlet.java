@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.sql.Date;
 
 @WebServlet(name = "MoradorColetorServlet", urlPatterns = {"/processaMoradorColetor"})
 public class MoradorColetorServlet extends HttpServlet {
@@ -63,7 +64,7 @@ public class MoradorColetorServlet extends HttpServlet {
                     mc.setSenha(senha); // Armazenando a senha diretamente (não seguro para produção)
                     mc.setNome(nome);
                     mc.setCpf(cpf);
-                    mc.setDataNascimento(java.sql.Date.valueOf(dataNascimentoLocal));
+                    mc.setDataNascimento(Date.valueOf(dataNascimentoLocal));
                     mc.setQuantidadeLixoColetado(0);
                     mc.setQuantidadeLixoReciclado(0);
                     mc.setPontuacao(0);
@@ -99,6 +100,29 @@ public class MoradorColetorServlet extends HttpServlet {
                     response.setContentType("application/json");
                     PrintWriter pw = response.getWriter();
                     pw.print(jb.toJson(mc));
+            } else if ( acao.equals("atualizar") ) {
+                
+                int id = Integer.parseInt(request.getParameter("id"));
+                String nome = request.getParameter("nome");
+                String email = request.getParameter("email");
+                String senhaAntiga = request.getParameter("senhaAntiga");
+                String senhaNova = request.getParameter("senhaNova");
+                
+                MoradorColetor mc = dao.obterPorId(id);
+                
+                if ( mc != null ) {
+                    if ( mc.getSenha().equals(senhaAntiga) ) {
+                        
+                        mc.setId(id);
+                        mc.setEmail(email);
+                        mc.setSenha(senhaNova);
+                        mc.setNome(nome);
+                        
+                        dao.atualizar(mc);
+                        response.getWriter().write("OK");
+                    }
+                }
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();
