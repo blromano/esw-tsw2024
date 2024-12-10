@@ -1,4 +1,4 @@
-/* 
+
 const dadosMoradorColetor = JSON.parse(sessionStorage.getItem("dadosMoradorColetor"));
 const idMoradorColetor = dadosMoradorColetor.id;
 
@@ -23,7 +23,8 @@ async function initMap() {
 }
 
 
-Abrir Perfil*/
+
+/* Abrir Perfil */
 
 const btnOpen = document.querySelector('button.perfil');
 const btnCLose = document.querySelector('button.btn-close-perfil');
@@ -50,7 +51,7 @@ const toggle = document.getElementById("toggle");
 const texto = document.getElementById("tipo-usu");
 const contador = document.getElementById("cont");
 const lixos = document.getElementById('cont-lixos');
-const btn_coleta = document.querySelectorAll(".btn-coleta");  
+const btn_coleta = document.querySelectorAll("btn-coleta");  
 const btn_criar = document.getElementById("btn-criar");
 const meusPontos =document.getElementById("lista-meus")
 
@@ -295,6 +296,8 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
   document.querySelector('#modalCriar').style.display = "none";
 });
 
+/* Abrir Excluir Ponto */
+
 $(document).ready( function() {
 
   listarPontos(event); // Listando pela primeira vez
@@ -333,7 +336,7 @@ $(document).ready( function() {
         longitude = location.lng();
         latitude = location.lat();
 
-        if ( tipoDeLixo && rua && numero && bairro && cidade && complemento ) {
+        if ( tipoDeLixo && rua && numero && bairro && cidade ) {
 
           if ( !complemento ) {
             complemento = " ";
@@ -361,8 +364,7 @@ $(document).ready( function() {
       
           }).done((data) => {
     
-            listarPontosNoMapa(event);
-            listarPontos(event);
+            location.reload(true);
     
           }).fail((jqXHR, textStatus, errorThrown) => {
     
@@ -386,15 +388,63 @@ $(document).ready( function() {
 
   });
 
-  /* EXCLUINDO PONTO DE COLETA */
-  $('.btn-denuncia').on('click', function(event) {
+  /* BOTÃO EXCLUIR PONTO DE COLETA */
+  $('.btn-excluir').on('click', function(event) {
 
-    event.preventDefault();
+    $ponto = $(this).closest('.ponto');
+    idParaExcluir = $ponto.data('idPonto');
 
-    const $divPonto = $(this).closest('.ponto');
-    const idPonto = $divPonto.data("idPonto");
+    $('#ModalExcluirPonto').css( "display", "block" );
+    $('#ModalExcluirPonto').attr('data-idPonto', idParaExcluir);
 
-    /* DISPARAR MODAL CONFIRMANDO - SE NEGAR, APENAS DE 'return;' - SE ACEITAR, APENAS CONTINUAR */
+  });
+
+  $('#botaoConfirmarExclusao').on('click', function(event) {
+
+    let idPonto = $("ModalExcluirPonto").data("idPonto");
+
+    $.ajax("processaPontoDeColeta", {
+
+      data: {
+        acao: "excluir",
+        idPonto: idPonto
+      },
+
+      dataType: "json"
+
+    }).done((data) => {
+
+      location.reload(true);
+
+    }).fail((jqXHR, textStatus, errorThrown) => {
+
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+
+    });
+
+    $('#ModalExcluirPonto').css( "display", "none" );
+
+  })
+
+  $('#botaoCancelarExclusao').on('click', function(event) {
+    $('#ModalExcluirPonto').css( "display", "none" );
+  })
+
+  /*$('.btn-excluir').on('click', function(event) {
+
+    let $divPonto = $(this).closest('.ponto');
+    let idPonto = $divPonto.data("idPonto");
+
+    console.log(idPonto);
+
+    $('#ModalExcluirPonto').css( "display", "block" );
+    $('#idPontoParaExclusao').val( idPonto );
+
+  });
+
+  $('#botaoConfirmarExclusao').on('click', function(event) {
+
+    let idPonto = $('#idPontoParaExclusao').val();
 
     $.ajax("processaPontoDeColeta", {
 
@@ -407,8 +457,7 @@ $(document).ready( function() {
 
     }).done((data) => {
 
-      listarPontosNoMapa(event);
-      listarPontos(event);
+      location.reload(true);
 
     }).fail((jqXHR, textStatus, errorThrown) => {
 
@@ -416,7 +465,50 @@ $(document).ready( function() {
 
     });
 
+    $('#ModalExcluirPonto').css( "display", "none" );
+
   });
+
+  $('#botaoCancelarExclusao').on('click', function(event) {
+    $('#ModalExcluirPonto').css( "display", "none" );
+  });*/
+
+  /* EDITAR INFORMAÇÕES FORMULÁRIO*/
+  $("#formularioEditarInformacoes").on("submit", function (event) {
+      
+    event.preventDefault();
+    
+    let id = dadosMoradorColetor.id;
+    let nome = $('input[name="nomeEditarInformacoes"]').val();
+    let email = $('input[name="emailEditarInformacoes"]').val();
+    let senhaAntiga = $('input[name="senhaAntigaEditarInformacoes"]').val();
+    let senhaNova = $('input[name="senhaNovaEditarInformacoes"]').val();
+    
+    $.ajax("processaMoradorColetor", {
+        method: "POST",
+        data:{
+            acao: "atualizar",
+            id : id,
+            nome: nome,
+            email: email,
+            senhaAntiga: senhaAntiga,
+            senhaNova: senhaNova
+        },
+        dataType: "text"
+    }).done( (data) => {
+        if ( data === "OK" ) {
+            window.location.replace("index.jsp");
+        } else {
+            alert("Erro ao Atualizar Informações");
+        }
+    }).fail( ( jqXHR, textStatus, errorThrown ) => {
+        console.log("Erro na requisição");
+        console.log("Código de status: " + jqXHR.status);
+        console.log("Erro: " + errorThrown); 
+        console.log(jqXHR.responseText);
+    });
+    
+ });
 
 });
 
@@ -435,14 +527,16 @@ async function listarPontosNoMapa ( event ) {
     .done((data) => {
 
       data.forEach(pontoDeColeta => {
-
-        new AdvancedMarkerElement({
-          map: map,
-          position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
-          //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
-          title: `${pontoDeColeta.tipoDeLixo}` 
+          
+          //Se ele nao estiver coletado ele nao aparece no mapa.
+          if(!pontoDeColeta.coletado){
+              new AdvancedMarkerElement({
+            map: map,
+            position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
+            //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
+            title: `${pontoDeColeta.tipoDeLixo}` 
         });
-
+          }
         console.log( pontoDeColeta );
       });
     })
@@ -453,6 +547,7 @@ async function listarPontosNoMapa ( event ) {
 
 function listarPontos(event) {
 
+  /* Listagem de pontos */
   $.ajax("processaPontoDeColeta", {
 
     data: {
@@ -466,34 +561,48 @@ function listarPontos(event) {
     let $listaDePontos = $("#lista");
     $listaDePontos.html("");
 
-    data.forEach(pontoDeColeta => {
+    if ( Object.keys(data).length === 0 ) {
 
-      if (tipoUsuario == "coletor") {
+      $listaDePontos.append (
+        `<div class="ponto">
+          <div class="ende">Não há Pontos de Coleta disponíveis no momento</div>
+        </div>`
+      );
 
-        $listaDePontos.append (
-          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-            <img  src="img/pontoOrganico.png" alt="ponto"> 
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-          </div>`
-        );
+    } else {
 
-      } else {
+      data.forEach(pontoDeColeta => {
 
-        $listaDePontos.append (
-          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-          </div>`
-        );
+        if (tipoUsuario == "coletor") {
+  
+          $listaDePontos.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <img  src="img/pontoOrganico.png" alt="ponto"> 
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-coleta"><img id="coleta" src="img/coletar.png" alt="coleta"></button>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        } else {
+  
+          $listaDePontos.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        }
+      });
 
-      }
-    });
+    }
 
   }).fail((jqXHR, textStatus, errorThrown) => {
     console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
 
+  /* Listagem de Pontos Próprios */
   $.ajax("processaPontoDeColeta", {
 
     data: {
@@ -507,71 +616,50 @@ function listarPontos(event) {
     let $listaDePontosProprios = $("#lista-meus");
     $listaDePontosProprios.html("");
 
-    data.forEach(pontoDeColeta => {
+    if ( Object.keys(data).length === 0 ) {
 
-      if (tipoUsuario == "coletor") {
+      $listaDePontosProprios.append (
+        `<div class="ponto">
+          <div class="ende">Não há Pontos de Coleta próprios cadastrados</div>
+        </div>`
+      );
 
-        $listaDePontosProprios.append (
-          `<div class="ponto">
-            <img id="ponto" src="img/pontoOleo.png" alt="ponto">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-          </div>`
-        );
+    } else {
 
-      } else {
+      data.forEach(pontoDeColeta => {
 
-        $listaDePontosProprios.append (
-          `<div class="ponto">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-          </div>`
-        );
+        if (tipoUsuario == "coletor") {
+  
+          $listaDePontosProprios.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <img id="ponto" src="img/pontoOleo.png" alt="ponto">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        } else {
+  
+          $listaDePontosProprios.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        }
+  
+      });
 
-      }
-
-    });
+    }
 
   }).fail((jqXHR, textStatus, errorThrown) => {
       console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
-  
-  $("#formularioEditarInformacoes").on("submit", function (event) {
-      
-     event.preventDefault();
-     
-     let id = dadosMoradorColetor.id;
-     let nome = $('input[name="nomeEditarInformacoes"]').val();
-     let email = $('input[name="emailEditarInformacoes"]').val();
-     let senhaAntiga = $('input[name="senhaAntigaEditarInformacoes"]').val();
-     let senhaNova = $('input[name="senhaNovaEditarInformacoes"]').val();
-     
-     $.ajax("processaMoradorColetor", {
-         method: "POST",
-         data:{
-             acao: "atualizar",
-             id : id,
-             nome: nome,
-             email: email,
-             senhaAntiga: senhaAntiga,
-             senhaNova: senhaNova
-         },
-         dataType: "text"
-     }).done( (data) => {
-         if ( data === "OK" ) {
-             window.location.replace("index.jsp");
-         } else {
-             alert("Erro ao Atualizar Informações");
-         }
-     }).fail( ( jqXHR, textStatus, errorThrown ) => {
-         console.log("Erro na requisição");
-         console.log("Código de status: " + jqXHR.status);
-         console.log("Erro: " + errorThrown); 
-         console.log(jqXHR.responseText);
-     });
-     
-  });
 }
+  
+  
+
 

@@ -122,3 +122,40 @@ div.custom-card {
     font-weight: bolder;
 }
 
+/* Modal enviar duvidas */
+
+form>div>input{
+    height: 50px;
+    
+}
+
+form>div{
+   padding: 5px;
+    
+}
+
+.btn-salvar{
+    width: 20%;
+    --bs-btn-bg: #3ACC97;
+    --bs-btn-hover-bg: #2dac7d;
+    --bs-btn-border-color: none;
+    --bs-btn-hover-border-color: none;
+    height: 50px;
+    margin-bottom: 30px;
+
+
+}
+.btn-salvar-modal{
+    width: 100%;
+    --bs-btn-bg: #3ACC97;
+    --bs-btn-hover-bg: #2dac7d;
+    --bs-btn-border-color: none;
+    --bs-btn-hover-border-color: none;
+    height: 50px;
+
+}
+
+.btn-salvar:hover, .btn-salvar-modal:hover{
+    --bs-btn-bg: #2fa87c;
+}
+
