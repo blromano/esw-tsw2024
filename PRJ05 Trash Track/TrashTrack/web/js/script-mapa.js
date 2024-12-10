@@ -295,6 +295,8 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
   document.querySelector('#modalCriar').style.display = "none";
 });
 
+/* Abrir Excluir Ponto */
+
 $(document).ready( function() {
 
   listarPontos(event); // Listando pela primeira vez
@@ -361,8 +363,7 @@ $(document).ready( function() {
       
           }).done((data) => {
     
-            listarPontosNoMapa(event);
-            listarPontos(event);
+            location.reload(true);
     
           }).fail((jqXHR, textStatus, errorThrown) => {
     
@@ -386,15 +387,63 @@ $(document).ready( function() {
 
   });
 
-  /* EXCLUINDO PONTO DE COLETA */
-  $('.btn-denuncia').on('click', function(event) {
+  /* BOTÃO EXCLUIR PONTO DE COLETA */
+  $('.btn-excluir').on('click', function(event) {
 
-    event.preventDefault();
+    $ponto = $(this).closest('.ponto');
+    idParaExcluir = $ponto.data('idPonto');
 
-    const $divPonto = $(this).closest('.ponto');
-    const idPonto = $divPonto.data("idPonto");
+    $('#ModalExcluirPonto').css( "display", "block" );
+    $('#ModalExcluirPonto').attr('data-idPonto', idParaExcluir);
 
-    /* DISPARAR MODAL CONFIRMANDO - SE NEGAR, APENAS DE 'return;' - SE ACEITAR, APENAS CONTINUAR */
+  });
+
+  $('#botaoConfirmarExclusao').on('click', function(event) {
+
+    let idPonto = $("ModalExcluirPonto").data("idPonto");
+
+    $.ajax("processaPontoDeColeta", {
+
+      data: {
+        acao: "excluir",
+        idPonto: idPonto
+      },
+
+      dataType: "json"
+
+    }).done((data) => {
+
+      location.reload(true);
+
+    }).fail((jqXHR, textStatus, errorThrown) => {
+
+      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+
+    });
+
+    $('#ModalExcluirPonto').css( "display", "none" );
+
+  })
+
+  $('#botaoCancelarExclusao').on('click', function(event) {
+    $('#ModalExcluirPonto').css( "display", "none" );
+  })
+
+  /*$('.btn-excluir').on('click', function(event) {
+
+    let $divPonto = $(this).closest('.ponto');
+    let idPonto = $divPonto.data("idPonto");
+
+    console.log(idPonto);
+
+    $('#ModalExcluirPonto').css( "display", "block" );
+    $('#idPontoParaExclusao').val( idPonto );
+
+  });
+
+  $('#botaoConfirmarExclusao').on('click', function(event) {
+
+    let idPonto = $('#idPontoParaExclusao').val();
 
     $.ajax("processaPontoDeColeta", {
 
@@ -407,8 +456,7 @@ $(document).ready( function() {
 
     }).done((data) => {
 
-      listarPontosNoMapa(event);
-      listarPontos(event);
+      location.reload(true);
 
     }).fail((jqXHR, textStatus, errorThrown) => {
 
@@ -416,7 +464,13 @@ $(document).ready( function() {
 
     });
 
+    $('#ModalExcluirPonto').css( "display", "none" );
+
   });
+
+  $('#botaoCancelarExclusao').on('click', function(event) {
+    $('#ModalExcluirPonto').css( "display", "none" );
+  });*/
 
   /* EDITAR INFORMAÇÕES FORMULÁRIO*/
   $("#formularioEditarInformacoes").on("submit", function (event) {
@@ -576,7 +630,7 @@ function listarPontos(event) {
         if (tipoUsuario == "coletor") {
   
           $listaDePontosProprios.append (
-            `<div class="ponto">
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
               <img id="ponto" src="img/pontoOleo.png" alt="ponto">
               <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
               <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
@@ -587,7 +641,7 @@ function listarPontos(event) {
         } else {
   
           $listaDePontosProprios.append (
-            `<div class="ponto">
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
               <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
               <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
               <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>

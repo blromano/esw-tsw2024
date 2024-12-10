@@ -110,6 +110,30 @@
 
   </div>
 
+  <!-- MODAL EXCLUIR PONTO PRÓPRIO -->
+  <div id="ModalExcluirPonto">
+  
+    <input type="hidden" name="idPonto" value="" id="idPontoParaExclusao">
+
+    <div>
+      <h3 class="title">Tem Certeza Disso?</h3>
+      <button class="btn-close-info"><img src="img/x.png" alt="X"></button>
+    </div>
+
+    <div class="modalBodyInfo">
+
+      <div class="container-footer">
+          <button class="container-button" id="botaoConfirmarExclusao">Confirmar</button>
+      </div>
+
+      <div class="container-footer">
+        <button class="container-button" id="botaoCancelarExclusao">Cancelar</button>
+      </div>
+
+    </div>
+
+  </div>
+
 
     <!--Modal Lista de pontos-->
 
