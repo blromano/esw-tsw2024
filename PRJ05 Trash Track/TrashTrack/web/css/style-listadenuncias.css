@@ -75,6 +75,7 @@ form>div{
 /* Botão Modal */
 
 .btn-salvar{
+  width: 100%;
   --bs-btn-bg: #3ACC97;
   --bs-btn-hover-bg: #2dac7d;
   --bs-btn-border-color: none;

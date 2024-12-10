@@ -23,7 +23,8 @@ async function initMap() {
 }
 
 
-//Abrir Perfil
+
+/* Abrir Perfil */
 
 const btnOpen = document.querySelector('button.perfil');
 const btnCLose = document.querySelector('button.btn-close-perfil');
@@ -50,7 +51,7 @@ const toggle = document.getElementById("toggle");
 const texto = document.getElementById("tipo-usu");
 const contador = document.getElementById("cont");
 const lixos = document.getElementById('cont-lixos');
-const btn_coleta = document.querySelectorAll(".btn-coleta");  
+const btn_coleta = document.querySelectorAll("btn-coleta");  
 const btn_criar = document.getElementById("btn-criar");
 const meusPontos =document.getElementById("lista-meus")
 

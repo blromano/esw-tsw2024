@@ -170,11 +170,62 @@
                   </div>
               </div> </br></br>
               <div class="duvidas">
-                <a href="modal_enviar_duvida.html"><button class="btn btn-success">Enviar Dúvida</button></a>
+                <button type="button" class="btn btn-primary btn-salvar" data-bs-toggle="modal" data-bs-target="#exampleModal">Enviar Dúvida</button>
               </div>
               
+      </div>
     </div>
-    </div>
+
+    <!-- Modal Enviar Duvidas -->
+
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+  
+                  <!-- header modal -->
+                  <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Enviar Duvida</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+  
+                  <!-- corpo modal -->
+                  <div class="modal-body">
+                        
+                          <!-- forms -->
+                      <form action="">
+  
+                          <!-- Email -->
+                          <div class="">
+  
+                              <label for="email" class="form-label" >Email</label>
+                              <input type="email" id="email" class="form-control shadow-sm">
+  
+                          </div>
+  
+                          <!-- Dúvida -->
+                          <div >
+  
+                              <label for="password" class="form-label">Dúvida</label>
+                              <input type="text" id="duvida" placeholder="Informe sua Dúvida" class="form-control shadow-sm">
+                              
+  
+                          </div>
+  
+                      </form>
+ 
+                      <!-- footer modal-->
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-primary btn-salvar-modal">Enviar</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
 
     <!-- Footer -->
     <footer class="fixed-bottom" style="position: relative; background-color: #3ACC97; height: 5rem;"></footer>
