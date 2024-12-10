@@ -576,10 +576,10 @@ function listarPontos(event) {
         if (tipoUsuario == "coletor") {
   
           $listaDePontos.append (
-            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-              <img  src="img/pontoOrganico.png" alt="ponto"> 
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}" >
+              <img  src="img/pontoOrganico.png" alt="ponto" > 
               <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-              <button class="btn-coleta"><img id="coleta" src="img/coletar.png" alt="coleta"></button>
+              <button class="btn-coleta"><img id="coleta" src="img/coletar.png" alt="coleta" onclick="marcarComoColetado(${JSON.stringify(pontoDeColeta.id)})"></button>
               <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
             </div>`
           );
@@ -659,6 +659,34 @@ function listarPontos(event) {
       console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
 }
+
+function marcarComoColetado(idPonto, event) {
+    // console.log(idPonto);
+
+    if (confirm("Marcar ponto como coletado ?") == true) {
+        console.log(idPonto);
+
+        $.ajax("processaPontoDeColeta", {
+            data: {
+                acao: "marcarColetado",
+                idPonto: idPonto
+            },
+            dataType: "text"
+        })
+        .done((data) => {
+            
+            if ( data === "OK" ) {
+                window.location.reload();
+            }
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+            console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+        });
+    } else {
+        alert('Houve um erro ao marcar o ponto como coletado!');
+    }
+}
+
   
   
 

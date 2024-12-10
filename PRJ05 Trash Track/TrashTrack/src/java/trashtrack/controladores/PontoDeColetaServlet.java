@@ -166,12 +166,14 @@ public class PontoDeColetaServlet extends HttpServlet {
                 String idPonto = request.getParameter("idPonto");
                 
                 int id = Integer.parseInt(idPonto);
+                System.out.println(id);
                 
                 PontoDeColeta pontoDeColeta = dao.obterPorId(id);
                 
                 pontoDeColeta.setColetado(true);
                 
                 dao.atualizar( pontoDeColeta );
+                response.getWriter().write("OK");
                 
             }
         } catch ( SQLException exc ) {

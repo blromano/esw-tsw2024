@@ -186,7 +186,8 @@
   </div>
 
   <!-- Modal Coleta de Ponto (Ativado pelo Botão de Coletar da Lista) -->
-
+  
+  <!-- Nunca aparece nao sei pq  -->
   <div id="fadeColeta"></div>
     <div id="modalColeta">
         <div>
