@@ -470,7 +470,7 @@ function listarPontos(event) {
     if ( Object.keys(data).length === 0 ) {
 
       $listaDePontos.append (
-        `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+        `<div class="ponto">
           <div class="ende">Não há Pontos de Coleta disponíveis no momento</div>
         </div>`
       );
