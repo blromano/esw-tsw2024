@@ -53,7 +53,7 @@ const contador = document.getElementById("cont");
 const lixos = document.getElementById('cont-lixos');
 const btn_coleta = document.querySelectorAll("btn-coleta");  
 const btn_criar = document.getElementById("btn-criar");
-const meusPontos =document.getElementById("lista-meus")
+const meusPontos =document.getElementById("lista-meus");
 
 toggle.addEventListener('click', function() {
   if (toggle.classList.contains('active')) {
@@ -425,7 +425,78 @@ $(document).ready( function() {
     });
     
   });
+  
+  /*EXIBIR MODAL DE EDITAR PONTO*/
+  
+  $('body').on('click', '.btn-editar', function (e) {
+    e.preventDefault();
 
+    const modal = $('#modalEditar');
+    if (modal.length) {
+     
+        // Exibe o modal
+        modal.css('display', 'block');
+    }
+
+   });
+   
+    /*EDITAR PONTO*/
+    
+    $('body').on('click', '.btn-close-editar', function () {
+        $('#modalEditar').css('display', 'none');
+    });
+
+    $('#formularioEditarPonto').on("submit", function(event) {
+
+    event.preventDefault();
+    
+    let tipoDeLixo = $('input[name="tipoLixo"]:checked').val();
+    let rua = $('input[name="rua"]').val();
+    let numero = $('input[name="numero"]').val();
+    let bairro = $('input[name="bairro"]').val();
+    let cidade = $('input[name="cidade"]').val();
+    let complemento = $('input[name="complemento"]').val();
+    let longitude;
+    let latitude;
+    
+    //como pegar a long e lati
+
+          $.ajax("processaPontoDeColeta", {
+            method: "POST",
+            data: {
+              acao: "atualizar",
+              idMoradorColetor: idMoradorColetor,
+              tipoDeLixo: tipoDeLixo,
+              rua: rua,
+              numero: numero,
+              bairro: bairro,
+              cidade: cidade,
+              complemento: complemento
+            },
+
+            dataType: "text"
+        }).done( (data) => {
+        if ( data === "OK" ) {
+            window.location.replace("index.jsp");
+        } else {
+            alert("Erro ao Atualizar Informações");
+        }
+    }).fail( ( jqXHR, textStatus, errorThrown ) => {
+        console.log("Erro na requisição");
+        console.log("Código de status: " + jqXHR.status);
+        console.log("Erro: " + errorThrown); 
+        console.log(jqXHR.responseText);
+    });
+      
+
+    
+     $('#modalEditar').css( "display", "none" );
+
+});
+
+
+
+    
   /* DESATIVAR PONTO */
   $('body').on('click', '.btn-excluir', function (e) {
 
@@ -584,7 +655,7 @@ function listarPontos(event) {
               <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
             </div>`
           );
-  
+ 
         } else {
   
           $listaDePontosProprios.append (
@@ -594,7 +665,7 @@ function listarPontos(event) {
               <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
             </div>`
           );
-  
+            
         }
   
       });

@@ -305,7 +305,78 @@
           </div>
 
           <div class="container-footer">
-            <input type="submit" class="container-button" value="Criar Ponto de Coleta"></button>
+            <input type="submit" class="container-button" value="Criar Ponto de Coleta">
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+  
+  <!--Modal Editar Ponto de Coleta-->
+
+  <div id="modalEditar">
+    <div id="modalHeaderCriar">
+      <h4 class="title">Editar ponto de Coleta</h4>
+      <button class="btn-close-editar"><img src="img/x.png" alt="X"></button>
+    </div>
+
+    <div id="modalBodyCriar">
+
+      <form id="formularioEditarPonto" action="">
+
+        <input type="hidden" name="idMoradorColetor" value=""> <!-- COLOCAR VARIAVEL DE ID DO MORADOR DENTRO DO PARAMETRO 'value' -->
+
+        <div class="checkbox-container">
+
+          <div>
+              <input type="radio" id="organico" value="OR" name="tipoLixo" class="checkers">
+              <label for="organico">Organico</label>
+          </div>
+          <div>
+              <input type="radio" id="eletronico" value="EL" name="tipoLixo" class="checkers">
+              <label for="eletronico">Eletrônico</label>
+          </div>
+          <div>
+              <input type="radio" id="reciclavel" value="RE" name="tipoLixo" class="checkers">
+              <label for="reciclavel">Reciclável</label>
+          </div>
+          <div>
+              <input type="radio" id="oleo" value="OL" name="tipoLixo" class="checkers">
+              <label for="oleo">Óleo</label>
+          </div>
+
+          <h4 class="title">Endereço</h4>
+          <br>
+
+          <div>
+            <label for="rua">Rua</label>
+            <input id="rua" name="rua" type="text">
+          </div>
+
+          <div>
+            <label for="numero">Número</label>
+            <input id="numero" name="numero" type="text">
+          </div>
+
+          <div>
+            <label for="bairro">Bairro</label>
+            <input id="bairro" name="bairro" type="text">
+          </div>
+
+          <div>
+            <label for="cidade">Cidade</label>
+            <input id="cidade" name="cidade" type="text">
+          </div>
+
+          <div>
+            <label for="complemento">Complemento</label>
+            <input id="complemento" name="complemento" type="text">
+          </div>
+
+          <div class="container-footer">
+            <input type="submit" class="container-button" value="Salvar Edicao">
           </div>
 
         </div>
