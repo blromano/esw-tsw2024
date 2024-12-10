@@ -91,7 +91,7 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 dao.salvar(pdc);
                 
-            } else if ( acao.equals("excluir") ) {
+            } else if ( acao.equals("desativar") ) {
                 
                 String idPonto = request.getParameter("idPonto");
                 
@@ -159,7 +159,7 @@ public class PontoDeColetaServlet extends HttpServlet {
                 PrintWriter pw = response.getWriter();
                 pw.print(jb.toJson(listaAtivos));
                 
-            } else if (acao.equals("marcarColetado")){
+            } else if ( acao.equals("marcarColetado")  ){
                 
                 //Caso for coletado no mapa ele vai sumir
                 

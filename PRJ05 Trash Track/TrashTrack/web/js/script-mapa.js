@@ -296,8 +296,7 @@ document.querySelector('button.btn-close-criar').addEventListener('click', funct
   document.querySelector('#modalCriar').style.display = "none";
 });
 
-/* Abrir Excluir Ponto */
-
+/* JQuery */
 $(document).ready( function() {
 
   listarPontos(event); // Listando pela primeira vez
@@ -364,6 +363,7 @@ $(document).ready( function() {
       
           }).done((data) => {
     
+            console.log("DEVERIA TER RECARREGADO A PAGINA");
             location.reload(true);
     
           }).fail((jqXHR, textStatus, errorThrown) => {
@@ -387,91 +387,6 @@ $(document).ready( function() {
     });
 
   });
-
-  /* BOTÃO EXCLUIR PONTO DE COLETA */
-  $('.btn-excluir').on('click', function(event) {
-
-    $ponto = $(this).closest('.ponto');
-    idParaExcluir = $ponto.data('idPonto');
-
-    $('#ModalExcluirPonto').css( "display", "block" );
-    $('#ModalExcluirPonto').attr('data-idPonto', idParaExcluir);
-
-  });
-
-  $('#botaoConfirmarExclusao').on('click', function(event) {
-
-    let idPonto = $("ModalExcluirPonto").data("idPonto");
-
-    $.ajax("processaPontoDeColeta", {
-
-      data: {
-        acao: "excluir",
-        idPonto: idPonto
-      },
-
-      dataType: "json"
-
-    }).done((data) => {
-
-      location.reload(true);
-
-    }).fail((jqXHR, textStatus, errorThrown) => {
-
-      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
-
-    });
-
-    $('#ModalExcluirPonto').css( "display", "none" );
-
-  })
-
-  $('#botaoCancelarExclusao').on('click', function(event) {
-    $('#ModalExcluirPonto').css( "display", "none" );
-  })
-
-  /*$('.btn-excluir').on('click', function(event) {
-
-    let $divPonto = $(this).closest('.ponto');
-    let idPonto = $divPonto.data("idPonto");
-
-    console.log(idPonto);
-
-    $('#ModalExcluirPonto').css( "display", "block" );
-    $('#idPontoParaExclusao').val( idPonto );
-
-  });
-
-  $('#botaoConfirmarExclusao').on('click', function(event) {
-
-    let idPonto = $('#idPontoParaExclusao').val();
-
-    $.ajax("processaPontoDeColeta", {
-
-      data: {
-        acao: "deletar",
-        idPonto: idPonto
-      },
-
-      dataType: "json"
-
-    }).done((data) => {
-
-      location.reload(true);
-
-    }).fail((jqXHR, textStatus, errorThrown) => {
-
-      console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
-
-    });
-
-    $('#ModalExcluirPonto').css( "display", "none" );
-
-  });
-
-  $('#botaoCancelarExclusao').on('click', function(event) {
-    $('#ModalExcluirPonto').css( "display", "none" );
-  });*/
 
   /* EDITAR INFORMAÇÕES FORMULÁRIO*/
   $("#formularioEditarInformacoes").on("submit", function (event) {
@@ -508,7 +423,32 @@ $(document).ready( function() {
         console.log(jqXHR.responseText);
     });
     
- });
+  });
+
+  $('body').on('click', '.btn-excluir', function (e) {
+
+    idPonto = $(this).closest('.ponto').data('idponto');
+
+    if ( window.confirm( "Tem Certeza Disso?" ) ) {
+    
+      $.ajax("processaPontoDeColeta", {
+
+        data: {
+          acao: "desativar",
+          idPonto: idPonto
+        },
+    
+        dataType: "json"
+    
+      }).done( () => {
+        window.location.reload(true);
+      }).fail((jqXHR, textStatus, errorThrown) => {
+        console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+      });
+
+    }
+
+  });
 
 });
 
@@ -686,8 +626,3 @@ function marcarComoColetado(idPonto, event) {
         alert('Houve um erro ao marcar o ponto como coletado!');
     }
 }
-
-  
-  
-
-
