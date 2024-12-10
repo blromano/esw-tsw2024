@@ -11,6 +11,7 @@
   <!-- Link do CSS Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style-index.css">
+  <link rel="stylesheet" href="css/style-sobre-informativa.css">
 </head>
 
 <body>
@@ -32,7 +33,23 @@
               <div class="d-flex align-items-center gap-3">
                   <ul class="navbar-nav mb-2 mb-lg-0">
                       <li class="nav-item">
-                          <img src="img/Sino.png" alt="Notification logo" width="20" height="20" class="logo">
+                          <img src="img/Sino.png" alt="Notification logo" width="20" height="20" class="logo" onclick="abrirNotificacao()">
+                            <!-- Dropdown Notificação -->
+                            <div class="notificacao-pop-up-dropdown" id="notificacao-pop-up-dropdown">
+  
+                              <div class="notificacao-pop-up-dropdown-header">
+                                <h5>Notificações</h5>
+                                <img src="img/x.png" alt="Botao Fechar" width="20" height="20" id="botaoNotificacao" onclick="fecharNotificacao()">
+                              </div>
+  
+                              <ul class="notificacao-pop-up-dropdown-list">
+                                <li>Seu lixo foi coletado!</li>
+                                <li>Seu lixo foi coletado!</li>
+                                <li>Sua denuncia foi enviada.</li>
+                                <li>Você subiu no Ranking!</li>
+                              </ul>
+  
+                            </div>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" aria-current="page" href="cadastro.jsp">Cadastro</a>
@@ -178,12 +195,15 @@
 
     <!-- Footer -->
     <footer class="fixed-bottom" style="position: relative; background-color: #3ACC97; height: 5rem;"></footer>
+    
+    <script src="js/notificacao.js"></script>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Script do JavaScript do Bootstrap (opcional, mas recomendado) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    
     
 </body>
 </html>
