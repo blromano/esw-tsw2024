@@ -139,8 +139,8 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
             moradorColetor.setQuantidadeLixoReciclado( rs.getInt( "MOC_QUANTIDADE_LIXO_RECICLADO" ) );
             
             Coordenada coordenadaDoPonto = new Coordenada();
-            coordenadaDoPonto.setLatitude(rs.getDouble( "PON_COORDENADA_X" ) );
-            coordenadaDoPonto.setLongitude( rs.getDouble( "PON_COORDENADA_Y" ) );
+            coordenadaDoPonto.setLongitude(rs.getDouble( "PON_COORDENADA_X" ) );
+            coordenadaDoPonto.setLatitude( rs.getDouble( "PON_COORDENADA_Y" ) );
             
             PontoDeColeta pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );
@@ -215,8 +215,8 @@ public class PontosDeColetaDAO extends DAO<PontoDeColeta>{
             moradorColetor.setQuantidadeLixoReciclado( rs.getInt( "MOC_QUANTIDADE_LIXO_RECICLADO" ) );
             
             Coordenada coordenadaDoPonto = new Coordenada();
-            coordenadaDoPonto.setLatitude( rs.getDouble( "PON_COORDENADA_X" ) );
-            coordenadaDoPonto.setLongitude( rs.getDouble( "PON_COORDENADA_Y" ) );
+            coordenadaDoPonto.setLongitude( rs.getDouble( "PON_COORDENADA_X" ) );
+            coordenadaDoPonto.setLatitude( rs.getDouble( "PON_COORDENADA_Y" ) );
             
             pontoDeColeta = new PontoDeColeta();
             pontoDeColeta.setId( rs.getInt( "PON_ID" ) );

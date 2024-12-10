@@ -455,6 +455,7 @@ async function listarPontosNoMapa ( event ) {
 
 function listarPontos(event) {
 
+  /* Listagem de pontos */
   $.ajax("processaPontoDeColeta", {
 
     data: {
@@ -468,34 +469,47 @@ function listarPontos(event) {
     let $listaDePontos = $("#lista");
     $listaDePontos.html("");
 
-    data.forEach(pontoDeColeta => {
+    if ( Object.keys(data).length === 0 ) {
 
-      if (tipoUsuario == "coletor") {
+      $listaDePontos.append (
+        `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+          <div class="ende">Não há Pontos de Coleta disponíveis no momento</div>
+        </div>`
+      );
 
-        $listaDePontos.append (
-          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-            <img  src="img/pontoOrganico.png" alt="ponto"> 
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-          </div>`
-        );
+    } else {
 
-      } else {
+      data.forEach(pontoDeColeta => {
 
-        $listaDePontos.append (
-          `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
-          </div>`
-        );
+        if (tipoUsuario == "coletor") {
+  
+          $listaDePontos.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <img  src="img/pontoOrganico.png" alt="ponto"> 
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        } else {
+  
+          $listaDePontos.append (
+            `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        }
+      });
 
-      }
-    });
+    }
 
   }).fail((jqXHR, textStatus, errorThrown) => {
     console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
 
+  /* Listagem de Pontos Próprios */
   $.ajax("processaPontoDeColeta", {
 
     data: {
@@ -509,32 +523,44 @@ function listarPontos(event) {
     let $listaDePontosProprios = $("#lista-meus");
     $listaDePontosProprios.html("");
 
-    data.forEach(pontoDeColeta => {
+    if ( Object.keys(data).length === 0 ) {
 
-      if (tipoUsuario == "coletor") {
+      $listaDePontosProprios.append (
+        `<div class="ponto">
+          <div class="ende">Não há Pontos de Coleta próprios cadastrados</div>
+        </div>`
+      );
 
-        $listaDePontosProprios.append (
-          `<div class="ponto">
-            <img id="ponto" src="img/pontoOleo.png" alt="ponto">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-          </div>`
-        );
+    } else {
 
-      } else {
+      data.forEach(pontoDeColeta => {
 
-        $listaDePontosProprios.append (
-          `<div class="ponto">
-            <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
-            <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
-            <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
-          </div>`
-        );
+        if (tipoUsuario == "coletor") {
+  
+          $listaDePontosProprios.append (
+            `<div class="ponto">
+              <img id="ponto" src="img/pontoOleo.png" alt="ponto">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        } else {
+  
+          $listaDePontosProprios.append (
+            `<div class="ponto">
+              <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-editar"><img src="img/editar.png" alt="denuncia"></button>
+              <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
+            </div>`
+          );
+  
+        }
+  
+      });
 
-      }
-
-    });
+    }
 
   }).fail((jqXHR, textStatus, errorThrown) => {
       console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
