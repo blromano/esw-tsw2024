@@ -399,6 +399,7 @@ input:checked + .slider:before {
         border: none;
         display: inline-block; 
         text-align: center; 
+        cursor: pointer;
     }
 
     .btn-denuncia > img{

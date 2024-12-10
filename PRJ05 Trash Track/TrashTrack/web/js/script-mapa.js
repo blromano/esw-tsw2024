@@ -487,6 +487,7 @@ function listarPontos(event) {
             `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
               <img  src="img/pontoOrganico.png" alt="ponto"> 
               <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-coleta"><img id="coleta" src="img/coletar.png" alt="coleta"></button>
               <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
             </div>`
           );
