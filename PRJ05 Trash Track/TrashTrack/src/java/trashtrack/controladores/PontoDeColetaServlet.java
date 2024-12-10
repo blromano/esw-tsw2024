@@ -149,6 +149,20 @@ public class PontoDeColetaServlet extends HttpServlet {
                 PrintWriter pw = response.getWriter();
                 pw.print(jb.toJson(lista));
                 
+            } else if (acao.equals("marcarColetado")){
+                
+                //Caso for coletado no mapa ele vai sumir
+                
+                String idPonto = request.getParameter("idPonto");
+                
+                int id = Integer.parseInt(idPonto);
+                
+                PontoDeColeta pontoDeColeta = dao.obterPorId(id);
+                
+                pontoDeColeta.setColetado(true);
+                
+                dao.atualizar( pontoDeColeta );
+                
             }
         } catch ( SQLException exc ) {
             
