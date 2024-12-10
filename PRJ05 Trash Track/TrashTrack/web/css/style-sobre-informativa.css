@@ -131,3 +131,11 @@ div.custom-card {
     border-bottom: 1px solid rgba(128, 128, 128, 0.349);
     margin-top: 4px;
   }
+  
+  #notificacoes{
+      display: none;
+  }
+  
+  #usuarioLogado{
+      display: none;
+  }

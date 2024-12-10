@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import trashtrack.dao.NotificacoesDAO;
 import trashtrack.entidades.MoradorColetor;
 import trashtrack.entidades.Notificacao;
@@ -66,6 +68,22 @@ public class NotificacaoServlet extends HttpServlet {
                 n.setPontoDeColeta(pdc);
                 
                 dao.salvar(n);
+            } else if ( acao.equals("listar") ) {
+                
+                int id = Integer.parseInt(request.getParameter("id"));
+                
+                List<Notificacao> lista = dao.listarTodos();
+                List<Notificacao> listaNotificacaoPropria = new ArrayList<>();
+                
+                
+                for (Notificacao notificacao : lista) {
+                    if ( notificacao.getMoradorColetor().getId() == id ) {
+                        listaNotificacaoPropria.add(notificacao);
+                    }
+                }
+                
+                PrintWriter pw = response.getWriter();
+                pw.print(jb.toJson(listaNotificacaoPropria)); 
             }
             
         } catch ( SQLException e ) {

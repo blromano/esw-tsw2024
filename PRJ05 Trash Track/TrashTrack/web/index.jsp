@@ -32,7 +32,7 @@
               </ul>
               <div class="d-flex align-items-center gap-3">
                   <ul class="navbar-nav mb-2 mb-lg-0">
-                      <li class="nav-item">
+                      <li class="nav-item" id="notificacoes">
                           <img src="img/Sino.png" alt="Notification logo" width="20" height="20" class="logo" onclick="abrirNotificacao()">
                             <!-- Dropdown Notificação -->
                             <div class="notificacao-pop-up-dropdown" id="notificacao-pop-up-dropdown">
@@ -42,20 +42,18 @@
                                 <img src="img/x.png" alt="Botao Fechar" width="20" height="20" id="botaoNotificacao" onclick="fecharNotificacao()">
                               </div>
   
-                              <ul class="notificacao-pop-up-dropdown-list">
-                                <li>Seu lixo foi coletado!</li>
-                                <li>Seu lixo foi coletado!</li>
-                                <li>Sua denuncia foi enviada.</li>
-                                <li>Você subiu no Ranking!</li>
-                              </ul>
+                              <ul class="notificacao-pop-up-dropdown-list" id="listaNotificacoes"></ul>
   
                             </div>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="cadastroLogin">
                           <a class="nav-link" aria-current="page" href="cadastro.jsp">Cadastro</a>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="login">
                           <a href="login.jsp"> <button class="btn btn-outline-success" type="submit">Entrar</button> </a>
+                      </li>
+                      <li class="nav-item" id="usuarioLogado">
+                          <a class="nav-link active" aria-current="page" href="mapa.jsp"><p id="usuarioLogadoTexto"></p></a>
                       </li>
                   </ul>
               </div>
@@ -134,7 +132,7 @@
                         Como fazemos para realizar o Cadastro de um novo ponto de coleta?
                     </button>
                   </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                  <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         Selecionando a aba de "Criar Pontos de Coleta" você pode criar um novo ponto de coleta! Lá você deve informar o tipo de lixo cadastrado e pronto! Seu lixo estará disponivel para qualquer coletor!
                     </div>
@@ -247,14 +245,13 @@
     <!-- Footer -->
     <footer class="fixed-bottom" style="position: relative; background-color: #3ACC97; height: 5rem;"></footer>
     
-    <script src="js/notificacao.js"></script>
-
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Script do JavaScript do Bootstrap (opcional, mas recomendado) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     
+    <script src="js/script-notificacao.js"></script>
     
 </body>
 </html>
