@@ -333,7 +333,7 @@ $(document).ready( function() {
         longitude = location.lng();
         latitude = location.lat();
 
-        if ( tipoDeLixo && rua && numero && bairro && cidade && complemento ) {
+        if ( tipoDeLixo && rua && numero && bairro && cidade ) {
 
           if ( !complemento ) {
             complemento = " ";
