@@ -120,7 +120,7 @@
       <button class="btn-filtro"><img src="img/filtro.png" alt="filtro"></button>
     </div>
     <div id="modalBodyLista">
-
+        <!-- PELO AMOR DE DEUS SAMUEL EH AQ Q EH PRA VC FAZER AS COISA  -->
       <div id="lista">
           <div class="ponto">
           <img  src="img/pontoOrganico.png" alt="ponto">

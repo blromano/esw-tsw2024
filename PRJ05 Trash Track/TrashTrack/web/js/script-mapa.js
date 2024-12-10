@@ -472,14 +472,16 @@ async function listarPontosNoMapa ( event ) {
     .done((data) => {
 
       data.forEach(pontoDeColeta => {
-
-        new AdvancedMarkerElement({
-          map: map,
-          position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
-          //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
-          title: `${pontoDeColeta.tipoDeLixo}` 
+          
+          //Se ele nao estiver coletado ele nao aparece no mapa.
+          if(!pontoDeColeta.coletado){
+              new AdvancedMarkerElement({
+            map: map,
+            position: { lat: pontoDeColeta.coordenada.latitude, lng: pontoDeColeta.coordenada.longitude },
+            //Title eh oq acontece no hover do marker (ponto) deixei o tipo de lixo só por enquanto.
+            title: `${pontoDeColeta.tipoDeLixo}` 
         });
-
+          }
         console.log( pontoDeColeta );
       });
     })
@@ -522,6 +524,7 @@ function listarPontos(event) {
             `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
               <img  src="img/pontoOrganico.png" alt="ponto"> 
               <div class="ende">${pontoDeColeta.rua}, ${pontoDeColeta.numero} - ${pontoDeColeta.bairro}</div>
+              <button class="btn-coleta"><img id="coleta" src="img/coletar.png" alt="coleta"></button>
               <button class="btn-denuncia"><img id="denuncia" src="img/denuncia.png" alt="denuncia"></button>
             </div>`
           );
