@@ -71,12 +71,13 @@
                     <!--Botão - Insira seu email-->
                     <div class="row align-items-center my-5">
                         <div class="col-md-6"> 
-                            <form class="form-inline" action="${cp}/login.jsp"><span style="font-size: 15px;">Email</span>
+                            <form class="form-inline" action="${cp}/login.jsp">
+                                <span style="font-size: 15px;">Email</span>
                                 <input type="hidden" name="acao" value="paginaLogin">
-                                <div class="input-group"> 
-                                    <input type="email" name="email" class="form-control" placeholder="Insira seu Email..."/>
+                                <div class="input-group" style="display: flex; align-items: center"> 
+                                    <input type="email" name="email" class="form-control" placeholder="Insira seu Email..." style="height: 38px; border-radius: 0.25rem"/>
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-outline-success">
+                                        <button type="submit" class="btn btn-outline-success" style="height: 38px; border-radius: 0.25rem">
                                             Login
                                         </button>
                                     </div>
