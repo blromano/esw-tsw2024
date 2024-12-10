@@ -91,6 +91,8 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 dao.salvar(pdc);
                 
+                response.getWriter().write("OK");
+                
             } else if ( acao.equals("desativar") ) {
                 
                 String idPonto = request.getParameter("idPonto");
@@ -102,6 +104,8 @@ public class PontoDeColetaServlet extends HttpServlet {
                 pontoDeColeta.setDesativado(true);
                 
                 dao.atualizar( pontoDeColeta );
+                
+                response.getWriter().write("OK");
                 
             } else if ( acao.equals("listar") ) {
                 

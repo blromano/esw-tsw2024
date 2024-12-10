@@ -358,13 +358,14 @@ $(document).ready( function() {
               longitude: longitude,
               latitude: latitude
             },
-      
-            dataType: "json"
+
+            dataType: "text"
       
           }).done((data) => {
-    
-            console.log("DEVERIA TER RECARREGADO A PAGINA");
-            location.reload(true);
+
+            if ( data === "OK" ) {
+              window.location.reload(true);
+            }
     
           }).fail((jqXHR, textStatus, errorThrown) => {
     
@@ -425,6 +426,7 @@ $(document).ready( function() {
     
   });
 
+  /* DESATIVAR PONTO */
   $('body').on('click', '.btn-excluir', function (e) {
 
     idPonto = $(this).closest('.ponto').data('idponto');
@@ -438,10 +440,14 @@ $(document).ready( function() {
           idPonto: idPonto
         },
     
-        dataType: "json"
+        dataType: "text"
     
-      }).done( () => {
-        window.location.reload(true);
+      }).done( (data) => {
+
+        if ( data === "OK" ) {
+          window.location.reload(true);
+        }
+
       }).fail((jqXHR, textStatus, errorThrown) => {
         console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
       });
