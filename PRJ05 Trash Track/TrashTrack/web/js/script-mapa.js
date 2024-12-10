@@ -334,7 +334,7 @@ $(document).ready( function() {
         longitude = location.lng();
         latitude = location.lat();
 
-        if ( tipoDeLixo && rua && numero && bairro && cidade && complemento ) {
+        if ( tipoDeLixo && rua && numero && bairro && cidade ) {
 
           if ( !complemento ) {
             complemento = " ";
@@ -419,6 +419,43 @@ $(document).ready( function() {
 
   });
 
+  /* EDITAR INFORMAÇÕES FORMULÁRIO*/
+  $("#formularioEditarInformacoes").on("submit", function (event) {
+      
+    event.preventDefault();
+    
+    let id = dadosMoradorColetor.id;
+    let nome = $('input[name="nomeEditarInformacoes"]').val();
+    let email = $('input[name="emailEditarInformacoes"]').val();
+    let senhaAntiga = $('input[name="senhaAntigaEditarInformacoes"]').val();
+    let senhaNova = $('input[name="senhaNovaEditarInformacoes"]').val();
+    
+    $.ajax("processaMoradorColetor", {
+        method: "POST",
+        data:{
+            acao: "atualizar",
+            id : id,
+            nome: nome,
+            email: email,
+            senhaAntiga: senhaAntiga,
+            senhaNova: senhaNova
+        },
+        dataType: "text"
+    }).done( (data) => {
+        if ( data === "OK" ) {
+            window.location.replace("index.jsp");
+        } else {
+            alert("Erro ao Atualizar Informações");
+        }
+    }).fail( ( jqXHR, textStatus, errorThrown ) => {
+        console.log("Erro na requisição");
+        console.log("Código de status: " + jqXHR.status);
+        console.log("Erro: " + errorThrown); 
+        console.log(jqXHR.responseText);
+    });
+    
+ });
+
 });
 
 /* Função para Listar os pontos */
@@ -473,7 +510,7 @@ function listarPontos(event) {
     if ( Object.keys(data).length === 0 ) {
 
       $listaDePontos.append (
-        `<div class="ponto" data-idPonto="${pontoDeColeta.id}">
+        `<div class="ponto">
           <div class="ende">Não há Pontos de Coleta disponíveis no momento</div>
         </div>`
       );
@@ -567,41 +604,8 @@ function listarPontos(event) {
   }).fail((jqXHR, textStatus, errorThrown) => {
       console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
   });
-  
-  $("#formularioEditarInformacoes").on("submit", function (event) {
-      
-     event.preventDefault();
-     
-     let id = dadosMoradorColetor.id;
-     let nome = $('input[name="nomeEditarInformacoes"]').val();
-     let email = $('input[name="emailEditarInformacoes"]').val();
-     let senhaAntiga = $('input[name="senhaAntigaEditarInformacoes"]').val();
-     let senhaNova = $('input[name="senhaNovaEditarInformacoes"]').val();
-     
-     $.ajax("processaMoradorColetor", {
-         method: "POST",
-         data:{
-             acao: "atualizar",
-             id : id,
-             nome: nome,
-             email: email,
-             senhaAntiga: senhaAntiga,
-             senhaNova: senhaNova
-         },
-         dataType: "text"
-     }).done( (data) => {
-         if ( data === "OK" ) {
-             window.location.replace("index.jsp");
-         } else {
-             alert("Erro ao Atualizar Informações");
-         }
-     }).fail( ( jqXHR, textStatus, errorThrown ) => {
-         console.log("Erro na requisição");
-         console.log("Código de status: " + jqXHR.status);
-         console.log("Erro: " + errorThrown); 
-         console.log(jqXHR.responseText);
-     });
-     
-  });
 }
+  
+  
+
 
