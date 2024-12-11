@@ -41,11 +41,10 @@
                     <div class="login-container text-left">
 
                         <!-- Exibição de mensagens de erro -->
-                        <c:if test="${not empty errorMessage}">
-                            <div class="alert alert-danger" role="alert">
-                                ${errorMessage}
+                        
+                        <div class="alert alert-danger" role="alert" id="caixaErro">
+                                <p id="mensagemErro"></p>
                             </div>
-                        </c:if>
                         
                         <form method="post" id="btnCadastro">
                             <h2>Cadastro</h2>

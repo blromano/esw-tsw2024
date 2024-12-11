@@ -82,13 +82,13 @@ body{
 
 /*Style button close - se aplica a todos os botoes de fechar dos modais*/
 
-.btn-close-perfil, .btn-close-lista, .btn-filtro, .btn-close-ranking, .btn-close-criar, .btn-close-info, .btn-close-coleta {
+.btn-close-perfil, .btn-close-lista, .btn-filtro, .btn-close-ranking, .btn-close-criar, .btn-close-info, .btn-close-coleta, .btn-close-editar {
     background-color: #fff;
     border: none;
     float: inline-end;
 }
 
-.btn-close-perfil> img, .btn-close-lista> img, .btn-close-ranking> img, .btn-close-criar > img, .btn-close-info > img, .btn-close-coleta > img{
+.btn-close-perfil> img, .btn-close-lista> img, .btn-close-ranking> img, .btn-close-criar > img, .btn-close-info > img, .btn-close-coleta > img, .btn-close-editar > img{
     width: 15px;
 }
 
@@ -551,7 +551,23 @@ input:checked + .slider:before {
 }
 
 
-/*Modal Criar Ponto de Coleta*/
+/*Modal Criar e Editar Ponto de Coleta*/
+
+
+#modalEditar{
+    position: fixed;
+    left: 520px;
+    bottom: 100px;
+    background-color: #fff;
+    z-index: 10;
+    max-width: 90%;
+    width: 252px;
+    height: 410px;
+    border-radius: 16px;
+    display: none;
+    padding: 24px;
+    box-shadow: 4px 4px 20px 1px #dfdede;
+}
 
 #modalCriar{
     position: fixed;

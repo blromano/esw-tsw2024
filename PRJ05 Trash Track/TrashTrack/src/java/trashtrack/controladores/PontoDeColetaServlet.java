@@ -93,6 +93,56 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 response.getWriter().write("OK");
                 
+            }else if ( acao.equals("atualizar") ) {
+                
+                String idPonto = request.getParameter("idPonto");
+                
+                int id = Integer.parseInt(idPonto);
+                
+                String tipoDeLixo = request.getParameter("tipoDeLixo");
+                String rua = request.getParameter("rua");
+                String numero = request.getParameter("numero");
+                String cidade = request.getParameter("cidade");
+                String bairro = request.getParameter("bairro");
+                String complemento = request.getParameter("complemento");
+                
+                int idMoradorColetor = Integer.parseInt(request.getParameter("idMoradorColetor"));
+                
+                String longitude = request.getParameter("longitude");
+                String latitude = request.getParameter("latitude");         
+
+                
+                double lat = Double.parseDouble(latitude);
+                double lon = Double.parseDouble(longitude);
+                
+                Coordenada c = new Coordenada();
+                c.setLatitude(lat);
+                c.setLongitude(lon);
+                
+                MoradorColetor mc = new MoradorColetor();
+                mc.setId(idMoradorColetor);
+                
+                PontoDeColeta pdc = dao.obterPorId(id);
+                pdc.setId(id);
+                pdc.setTipoDeLixo(tipoDeLixo);
+                pdc.setRua(rua);
+                pdc.setNumero(numero);
+                pdc.setCidade(cidade);
+                pdc.setBairro(bairro);
+                pdc.setComplemento(complemento);            
+                pdc.setCoordenada(c);
+                
+                pdc.setColetado(false);
+                pdc.setDesativado(false);
+                
+                
+                pdc.setMorador(mc);
+                
+                dao.atualizar(pdc);
+                
+                response.getWriter().write("OK");
+                     
+                
             } else if ( acao.equals("desativar") ) {
                 
                 String idPonto = request.getParameter("idPonto");
@@ -107,7 +157,7 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
                 response.getWriter().write("OK");
                 
-            } else if ( acao.equals("listar") ) {
+            }else if ( acao.equals("listar") ) {
                 
                 String idMoradorColetor = request.getParameter("idMoradorColetor");
                 int id = Integer.parseInt( idMoradorColetor );

@@ -46,10 +46,10 @@ public class TestePontosDeColetaDAO {
         PontoDeColeta pontoDeColeta = new PontoDeColeta();
         pontoDeColeta.setBairro("bairro");
         pontoDeColeta.setCidade("Vargem Grande do Sul");
-        pontoDeColeta.setColetado(true);
+        pontoDeColeta.setColetado(false);
         pontoDeColeta.setComplemento("complemento");
         pontoDeColeta.setCoordenada( coordenada );
-        pontoDeColeta.setDesativado(true);
+        pontoDeColeta.setDesativado(false);
         pontoDeColeta.setMorador( moradorColetor );
         pontoDeColeta.setNumero("123A");
         pontoDeColeta.setRua("Rua");

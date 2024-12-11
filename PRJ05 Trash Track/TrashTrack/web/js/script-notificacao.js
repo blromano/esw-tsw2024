@@ -48,8 +48,12 @@ $(document).ready(function () {
                 $listaNotificacoes.append(`<li>Sem novas notificações</li>`);
             } else {
                 data.forEach(notificacao => {
-                    console.log(data);
-                    $listaNotificacoes.append(`<li>${notificacao.descricao}</li>`);
+                   // console.log(JSON.stringify(notificacao.pontoDeColeta.id));
+                    $listaNotificacoes.append(`<li 
+                        onMouseOver="this.style.color='grey'"
+                        onMouseOut="this.style.color='black'"
+                        onclick="marcarComoColetadoMorador(${JSON.stringify(notificacao.pontoDeColeta.id)})"
+                    >${notificacao.descricao}</li>`);
                 });
             }
         }).fail((jqXHR, textStatus, errorThrown) => {
@@ -61,3 +65,34 @@ $(document).ready(function () {
         
     });
 });
+
+function marcarComoColetadoMorador(idPonto) {
+    
+    
+
+   if (confirm("Marcar ponto como coletado ?") == true) {
+        console.log(idPonto);
+        
+        $.ajax("processaPontoDeColeta", {
+            data: {
+                acao: "marcarColetado",
+                idPonto: idPonto
+            },
+            dataType: "text"
+        })
+        .done((data) => {
+            
+            if ( data === "OK" ) {
+                alert("Seu ponto foi coletado com sucesso!");
+                window.location.reload();
+            }
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+            console.log("Erro: " + errorThrown + "\nStatus: " + textStatus);
+        });
+    } else {
+        alert('Houve um erro ao marcar o ponto como coletado!');
+    }
+         
+     
+}

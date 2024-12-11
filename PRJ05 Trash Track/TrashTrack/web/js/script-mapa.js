@@ -4,7 +4,7 @@ const idMoradorColetor = dadosMoradorColetor.id;
 
 //Funcao de iniciar o mapa - FAVOR NAO MEXER QUE EH ELA QUE INICIA O MAPA
 async function initMap() {
-  console.log(dadosMoradorColetor);
+  //console.log(dadosMoradorColetor);
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
@@ -53,7 +53,7 @@ const contador = document.getElementById("cont");
 const lixos = document.getElementById('cont-lixos');
 const btn_coleta = document.querySelectorAll("btn-coleta");  
 const btn_criar = document.getElementById("btn-criar");
-const meusPontos =document.getElementById("lista-meus")
+const meusPontos =document.getElementById("lista-meus");
 
 toggle.addEventListener('click', function() {
   if (toggle.classList.contains('active')) {
@@ -410,21 +410,131 @@ $(document).ready( function() {
             senhaAntiga: senhaAntiga,
             senhaNova: senhaNova
         },
-        dataType: "text"
+        dataType: "json"
     }).done( (data) => {
-        if ( data === "OK" ) {
-            window.location.replace("index.jsp");
+        if ( data !== null ) {
+            if (data === "InvalidoSenha"){
+                alert("Senha Inválida!");
+                window.location.reload();
+            } else if (data === "InvalidoVazio"){
+                alert("Sem Campos Vazios!");
+                window.location.reload();
+            } else {
+                console.log(data);
+                sessionStorage.setItem("dadosMoradorColetor",JSON.stringify(data));
+                window.location.replace("index.jsp");
+            }
         } else {
+            console.log(data);
             alert("Erro ao Atualizar Informações");
         }
     }).fail( ( jqXHR, textStatus, errorThrown ) => {
         console.log("Erro na requisição");
         console.log("Código de status: " + jqXHR.status);
         console.log("Erro: " + errorThrown); 
-        console.log(jqXHR.responseText);
+        console.log(jqXHR.responseText);      
     });
     
   });
+  
+  /*EXIBIR MODAL DE EDITAR PONTO*/
+  
+  $('body').on('click', '.btn-editar', function (e) {
+    e.preventDefault();
+
+    const modal = $('#modalEditar');
+    if (modal.length) {
+     
+        // Exibe o modal
+        modal.css('display', 'block');
+    }
+
+   });
+   
+    /*EDITAR PONTO*/
+    
+    $('body').on('click', '.btn-close-editar', function () {
+        $('#modalEditar').css('display', 'none');
+    });
+
+    $('#formularioEditarPonto').on("submit", function(event) {
+    
+    event.preventDefault();
+    
+    let tipoDeLixo = $('input[name="tipoLixo"]:checked').val();
+    let rua = $('input[name="rua"]').val();
+    let numero = $('input[name="numero"]').val();
+    let bairro = $('input[name="bairro"]').val();
+    let cidade = $('input[name="cidade"]').val();
+    let complemento = $('input[name="complemento"]').val();
+    let longitude;
+    let latitude;
+
+    let enderecoCompleto = rua + ' ' + numero + ', ' + bairro + ', ' + cidade;
+    
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode( { address: enderecoCompleto }, function (results, status) {
+
+      if (status === 'OK') {
+
+        let location = results[0].geometry.location;
+        longitude = location.lng();
+        latitude = location.lat();
+
+        if ( tipoDeLixo && rua && numero && bairro && cidade ) {
+
+          if ( !complemento ) {
+            complemento = " ";
+          }
+    
+          console.log("Latitude: ", $('input[name="latitude"]').val());
+          console.log("Longitude: ", $('input[name="longitude"]').val());
+
+          $.ajax("processaPontoDeColeta", {
+            method: "POST", 
+            data: {
+              acao: "atualizar",
+              idMoradorColetor: idMoradorColetor,
+              tipoDeLixo: tipoDeLixo,
+              rua: rua,
+              numero: numero,
+              bairro: bairro,
+              cidade: cidade,
+              complemento: complemento,
+              longitude: longitude,
+              latitude: latitude
+            },
+
+        dataType: "text"
+      
+          }).done( (data) => {
+        if ( data === "OK" ) {
+            window.location.replace("mapa.jsp");
+        } else {
+            alert("Erro ao Atualizar Ponto");
+        }
+    }).fail( ( jqXHR, textStatus, errorThrown ) => {
+        console.log("Erro na requisição");
+        console.log("Código de status: " + jqXHR.status);
+        console.log("Erro: " + errorThrown); 
+        console.log(jqXHR.responseText);      
+    });
+    
+    
+        } 
+    
+        $('#modalEditar').css( "display", "none" );
+
+      } else {
+        alert('Endereco não encontrado: ' + status);
+      }
+
+    });
+
+
+});
+
 
   /* DESATIVAR PONTO */
   $('body').on('click', '.btn-excluir', function (e) {
@@ -584,7 +694,7 @@ function listarPontos(event) {
               <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
             </div>`
           );
-  
+ 
         } else {
   
           $listaDePontosProprios.append (
@@ -594,7 +704,7 @@ function listarPontos(event) {
               <button class="btn-excluir"><img src="img/excluir.png" alt="denuncia"></button>
             </div>`
           );
-  
+            
         }
   
       });

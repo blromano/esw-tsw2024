@@ -39,7 +39,7 @@ public class TesteNotificacoesDAO {
         moradorColetor.setQuantidadeLixoReciclado(5);
         
         MoradorColetor moradorColetor2 = new MoradorColetor();
-        moradorColetor2.setId(3);
+        moradorColetor2.setId(2);
         moradorColetor2.setEmail("BBBBBBBBB");
         moradorColetor2.setSenha("senhaaaa");
         moradorColetor2.setNome("TesteMorador2");
@@ -55,7 +55,7 @@ public class TesteNotificacoesDAO {
         coordenada.setLatitude(-46.905896);
         
         PontoDeColeta pontoDeColeta = new PontoDeColeta();
-        pontoDeColeta.setId(3);
+        pontoDeColeta.setId(24);
         pontoDeColeta.setBairro("bairro");
         pontoDeColeta.setCidade("Vargem Grande do Sul");
         pontoDeColeta.setColetado(true);
@@ -86,7 +86,7 @@ public class TesteNotificacoesDAO {
             
             dao = new NotificacoesDAO();
          
-            dao.excluir(notificacao);
+            dao.salvar(notificacao);
             
         } catch (SQLException exc) {
             exc.printStackTrace();
