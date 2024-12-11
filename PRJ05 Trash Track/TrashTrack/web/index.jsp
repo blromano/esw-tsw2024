@@ -254,5 +254,7 @@
     
     <script src="js/script-notificacao.js"></script>
     
+    <script src="js/script-redirecionamento.js"></script>
+    
 </body>
 </html>
