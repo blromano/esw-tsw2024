@@ -4,7 +4,7 @@ const idMoradorColetor = dadosMoradorColetor.id;
 
 //Funcao de iniciar o mapa - FAVOR NAO MEXER QUE EH ELA QUE INICIA O MAPA
 async function initMap() {
-  console.log(dadosMoradorColetor);
+  //console.log(dadosMoradorColetor);
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
@@ -410,11 +410,22 @@ $(document).ready( function() {
             senhaAntiga: senhaAntiga,
             senhaNova: senhaNova
         },
-        dataType: "text"
+        dataType: "json"
     }).done( (data) => {
-        if ( data === "OK" ) {
-            window.location.replace("index.jsp");
+        if ( data !== null ) {
+            if (data === "InvalidoSenha"){
+                window.alert("Senha Inválida!");
+                window.location.reload();
+            } else if (data === "InvalidoVazio"){
+                window.alert("Sem Campos Vazios!");
+                window.location.reload();
+            } else {
+                console.log(data);
+                sessionStorage.setItem("dadosMoradorColetor",JSON.stringify(data));
+                window.location.replace("index.jsp");
+            }
         } else {
+            console.log(data);
             alert("Erro ao Atualizar Informações");
         }
     }).fail( ( jqXHR, textStatus, errorThrown ) => {

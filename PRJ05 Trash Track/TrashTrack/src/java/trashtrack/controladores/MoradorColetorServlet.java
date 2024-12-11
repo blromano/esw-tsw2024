@@ -108,21 +108,36 @@ public class MoradorColetorServlet extends HttpServlet {
                 String senhaAntiga = request.getParameter("senhaAntiga");
                 String senhaNova = request.getParameter("senhaNova");
                 
-                MoradorColetor mc = dao.obterPorId(id);
-                
-                if ( mc != null ) {
-                    if ( mc.getSenha().equals(senhaAntiga) ) {
-                        
-                        mc.setId(id);
-                        mc.setEmail(email);
-                        mc.setSenha(senhaNova);
-                        mc.setNome(nome);
-                        
-                        dao.atualizar(mc);
-                        response.getWriter().write("OK");
+                if ( nome.isBlank() || email.isBlank() || senhaAntiga.isBlank() || senhaNova.isBlank() ) {
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson("InvalidoVazio"));
+                } else {
+                    
+                    MoradorColetor mc = dao.obterPorId(id);
+                    
+                    if ( mc != null ) {
+                        if ( mc.getSenha().equals(senhaAntiga) ) {
+
+                            mc.setId(id);
+                            mc.setEmail(email);
+                            mc.setSenha(senhaNova);
+                            mc.setNome(nome);
+
+                            dao.atualizar(mc);
+
+                            mc = dao.obterPorId(id);
+
+                            response.setContentType("application/json");
+                            PrintWriter pw = response.getWriter();
+                            pw.print(jb.toJson(mc));
+                        } else {
+                            response.setContentType("application/json");
+                            PrintWriter pw = response.getWriter();
+                            pw.print(jb.toJson("InvalidoSenha"));
+                        } 
                     }
                 }
-                
             }
         } catch (SQLException e) {
             e.printStackTrace();
