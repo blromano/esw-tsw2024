@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle do Administrador</title>
+    <link rel="stylesheet" href="ListaDenuncias.css">
+    <script src="ListaDenuncias.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Menu Lateral -->
+        <nav class="sidebar">
+            <div class="sidebar-item" onclick="mostrarSessao('denuncias')">Lista de Denúncias</div>
+            <div class="sidebar-item" onclick="mostrarSessao('usuarios')">Lista de Usuários</div>
+        </nav>
+
+        <!-- Área de Conteúdo -->
+        <div class="content">
+            <!-- Top-bar -->
+            <div class="top-bar">
+                <div class="user-profile">
+                    <span>Administrador</span> | <a href="#" onclick="sair()">Sair</a>
+                </div>
+            </div>
+
+            <!-- Lista de Denúncias -->
+            <div id="denuncias" class="section active">
+                <div class="section-title">Lista de Denúncias</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Denúncia</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="status pendente"></div></td>
+                            <td>Denúncia 1</td>
+                            <td>
+                                <button class="status-button" onclick="alterarStatus()">Alterar Status</button>
+                                <button class="suspender" onclick="mostrarPopup('suspender')">Suspender</button>
+                                <button class="banir" onclick="mostrarPopup('banir')">Banir</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="status resolvido-amarelo"></div></td>
+                            <td>Denúncia 2</td>
+                            <td>
+                                <button class="status-button" onclick="alterarStatus()">Alterar Status</button>
+                                <button class="suspender" onclick="mostrarPopup('suspender')">Suspender</button>
+                                <button class="banir" onclick="mostrarPopup('banir')">Banir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Lista de Usuários -->
+            <div id="usuarios" class="section">
+                <div class="section-title">Lista de Usuários</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="status resolvido-amarelo"></div></td>
+                            <td>Usuário Suspenso 1</td>
+                        </tr>
+                        <tr>
+                            <td><div class="status resolvido"></div></td>
+                            <td>Usuário Banido 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div id="popup-title"></div>
+            <input type="text" id="searchUser" placeholder="Buscar Usuário">
+            <button onclick="confirmarAction()">Confirmar</button>
+            <button onclick="fecharPopup()">Fechar</button>
+        </div>
+    </div>
+</body>
+</html>
