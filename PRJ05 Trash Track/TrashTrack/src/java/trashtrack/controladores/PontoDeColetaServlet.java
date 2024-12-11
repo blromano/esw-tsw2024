@@ -96,6 +96,7 @@ public class PontoDeColetaServlet extends HttpServlet {
             }else if ( acao.equals("atualizar") ) {
                 
                 String idPonto = request.getParameter("idPonto");
+                
                 int id = Integer.parseInt(idPonto);
                 
                 String tipoDeLixo = request.getParameter("tipoDeLixo");
@@ -105,31 +106,36 @@ public class PontoDeColetaServlet extends HttpServlet {
                 String bairro = request.getParameter("bairro");
                 String complemento = request.getParameter("complemento");
                 
+                int idMoradorColetor = Integer.parseInt(request.getParameter("idMoradorColetor"));
+                
                 String longitude = request.getParameter("longitude");
-                String latitude = request.getParameter("latitude");
+                String latitude = request.getParameter("latitude");         
+
                 
                 double lat = Double.parseDouble(latitude);
                 double lon = Double.parseDouble(longitude);
                 
                 Coordenada c = new Coordenada();
-                
                 c.setLatitude(lat);
                 c.setLongitude(lon);
                 
-                MoradoresColetoresDAO daoMc = new MoradoresColetoresDAO();
-                MoradorColetor mc = daoMc.obterPorId(id);
-               
-                PontoDeColeta pdc = dao.obterPorId(id);               
+                MoradorColetor mc = new MoradorColetor();
+                mc.setId(idMoradorColetor);
                 
+                PontoDeColeta pdc = dao.obterPorId(id);
+                pdc.setId(id);
                 pdc.setTipoDeLixo(tipoDeLixo);
                 pdc.setRua(rua);
                 pdc.setNumero(numero);
                 pdc.setCidade(cidade);
                 pdc.setBairro(bairro);
-                pdc.setComplemento(complemento);
+                pdc.setComplemento(complemento);            
                 pdc.setCoordenada(c);
+                
                 pdc.setColetado(false);
                 pdc.setDesativado(false);
+                
+                
                 pdc.setMorador(mc);
                 
                 dao.atualizar(pdc);

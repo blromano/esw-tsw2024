@@ -432,7 +432,7 @@ $(document).ready( function() {
         console.log("Erro na requisição");
         console.log("Código de status: " + jqXHR.status);
         console.log("Erro: " + errorThrown); 
-        console.log(jqXHR.responseText);
+        console.log(jqXHR.responseText);      
     });
     
   });
@@ -458,7 +458,7 @@ $(document).ready( function() {
     });
 
     $('#formularioEditarPonto').on("submit", function(event) {
-
+    
     event.preventDefault();
     
     let tipoDeLixo = $('input[name="tipoLixo"]:checked').val();
@@ -469,11 +469,30 @@ $(document).ready( function() {
     let complemento = $('input[name="complemento"]').val();
     let longitude;
     let latitude;
+
+    let enderecoCompleto = rua + ' ' + numero + ', ' + bairro + ', ' + cidade;
     
-    //como pegar a long e lati
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode( { address: enderecoCompleto }, function (results, status) {
+
+      if (status === 'OK') {
+
+        let location = results[0].geometry.location;
+        longitude = location.lng();
+        latitude = location.lat();
+
+        if ( tipoDeLixo && rua && numero && bairro && cidade ) {
+
+          if ( !complemento ) {
+            complemento = " ";
+          }
+    
+          console.log("Latitude: ", $('input[name="latitude"]').val());
+          console.log("Longitude: ", $('input[name="longitude"]').val());
 
           $.ajax("processaPontoDeColeta", {
-            method: "POST",
+            method: "POST", 
             data: {
               acao: "atualizar",
               idMoradorColetor: idMoradorColetor,
@@ -482,32 +501,41 @@ $(document).ready( function() {
               numero: numero,
               bairro: bairro,
               cidade: cidade,
-              complemento: complemento
+              complemento: complemento,
+              longitude: longitude,
+              latitude: latitude
             },
 
-            dataType: "text"
-        }).done( (data) => {
+        dataType: "text"
+      
+          }).done( (data) => {
         if ( data === "OK" ) {
-            window.location.replace("index.jsp");
+            window.location.replace("mapa.jsp");
         } else {
-            alert("Erro ao Atualizar Informações");
+            alert("Erro ao Atualizar Ponto");
         }
     }).fail( ( jqXHR, textStatus, errorThrown ) => {
         console.log("Erro na requisição");
         console.log("Código de status: " + jqXHR.status);
         console.log("Erro: " + errorThrown); 
-        console.log(jqXHR.responseText);
+        console.log(jqXHR.responseText);      
     });
-      
-
     
-     $('#modalEditar').css( "display", "none" );
+    
+        } 
+    
+        $('#modalEditar').css( "display", "none" );
+
+      } else {
+        alert('Endereco não encontrado: ' + status);
+      }
+
+    });
+
 
 });
 
 
-
-    
   /* DESATIVAR PONTO */
   $('body').on('click', '.btn-excluir', function (e) {
 
