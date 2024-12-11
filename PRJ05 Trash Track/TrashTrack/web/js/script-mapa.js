@@ -414,10 +414,10 @@ $(document).ready( function() {
     }).done( (data) => {
         if ( data !== null ) {
             if (data === "InvalidoSenha"){
-                window.alert("Senha Inválida!");
+                alert("Senha Inválida!");
                 window.location.reload();
             } else if (data === "InvalidoVazio"){
-                window.alert("Sem Campos Vazios!");
+                alert("Sem Campos Vazios!");
                 window.location.reload();
             } else {
                 console.log(data);

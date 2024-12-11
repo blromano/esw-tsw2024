@@ -45,18 +45,27 @@ public class MoradorColetorServlet extends HttpServlet {
                 String nome = request.getParameter("nome");
                 String cpf = request.getParameter("cpf");
                 String dataNascimento = request.getParameter("dataNascimento");
+                
 
                 // Validações
                 if (!isEmailValido(email)) {
-                    request.setAttribute("errorMessage", "E-mail inválido.");
-                    disp = request.getRequestDispatcher("cadastro.jsp");
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson("InvalidoEmail"));
                 } else if (!senha.equals(confirmarSenha)) {
-                    request.setAttribute("errorMessage", "As senhas não coincidem.");
-                    disp = request.getRequestDispatcher("cadastro.jsp");
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson("InvalidoSenha"));
                 } else if (!isCPFValido(cpf)) {
-                    request.setAttribute("errorMessage", "CPF inválido.");
-                    disp = request.getRequestDispatcher("cadastro.jsp");
-                } else {
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson("InvalidoCPF"));
+                } else if (email.isBlank() || senha.isBlank() || confirmarSenha.isBlank() 
+                           || nome.isBlank() || cpf.isBlank() || dataNascimento.isBlank()){
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson("InvalidoVazio"));
+                }  else {
                     // Criando o objeto MoradorColetor
                     LocalDate dataNascimentoLocal = LocalDate.parse(dataNascimento, dtf);
                     MoradorColetor mc = new MoradorColetor();
@@ -74,8 +83,9 @@ public class MoradorColetorServlet extends HttpServlet {
                     dao.salvar(mc);
 
                     // Redireciona para a página de sucesso
-                    request.setAttribute("successMessage", "Cadastro realizado com sucesso!");
-                    disp = request.getRequestDispatcher("login.jsp");
+                    response.setContentType("application/json");
+                    PrintWriter pw = response.getWriter();
+                    pw.print(jb.toJson(mc));
                 }
             } else if (acao.equals("login")) {
                 // Login de usuário

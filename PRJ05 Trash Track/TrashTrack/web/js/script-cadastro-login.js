@@ -32,6 +32,9 @@
     
     $(document).ready(function () {
         
+        let caixaErro = $("#caixaErro");
+        caixaErro.hide();
+        
         $("#btnCadastro").on("submit", function ( e ) {
             
             e.preventDefault();
@@ -42,6 +45,9 @@
             let cpf = $('input[name="cpf"]').val();
             let senha = $('input[name="senha"]').val();
             let confirmar = $('input[name="confirmarSenha"]').val();
+            
+            let mensagem = $("#mensagemErro");
+            
             
             $.ajax("processaMoradorColetor", {
                 method: "POST",
@@ -54,9 +60,28 @@
                     senha: senha,
                     confirmarSenha: confirmar
                 },
-                dataType: "text"
+                dataType: "json"
             }).done( ( data ) =>  {
-                window.location.replace("login.jsp");
+                if (data !== null){
+                    console.log(data);
+                    if (data === "InvalidoEmail") {
+                        caixaErro.show();
+                        mensagem.html("Email No Formato Inválido");
+                    } else if (data === "InvalidoSenha") {
+                        caixaErro.show();
+                        mensagem.html("Senhas Não Correspondem");
+                    } else if (data === "InvalidoCPF"){
+                        caixaErro.show();
+                        mensagem.html("CPF No Formato Inválido");
+                    } else if (data === "InvalidoVazio") {
+                        caixaErro.show();
+                        mensagem.html("Campos Vazios");
+                    } else {
+                        window.location.replace("login.jsp");
+                    }
+                } else {
+                    alert("Erro ao Cadastrar");
+                }
             }).fail ( ( jqXHR, textStatus, errorThrown ) => {
                 console.log("Erro na requisição");
                 console.log("Código de status: " + jqXHR.status);
