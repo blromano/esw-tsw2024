@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta+ | Meu Perfil</title>
+    <link rel="icon" href="../4.23-Agenda Profissional/img - Agenda Profissional/icon-conecta.svg" type="image/x-icon">
+    <link rel="stylesheet" href="meuPerfil.css">
+    <script src="meuPerfil.js"></script>
+</head>
+<body>
+
+    <div class="background">
+        <div class="profile-container">
+            <div class="sidebar">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/100" alt="Foto do Usuário" class="user-photo">
+                    <p class="user-name">Usuário Teste</p>
+                </div>
+                <div class="menu">
+                    <button class="menu-item active" onclick="showSection('dados')">Meus Dados</button>
+                    <button class="menu-item" onclick="showSection('avaliacoes')">Avaliações Recebidas</button>
+                    <button class="menu-item" onclick="showSection('sair')">Sair</button>
+                </div>
+            </div>
+            <div class="content">
+                <button class="back-button" onclick="goBack()">←</button>
+                <div id="dados" class="content-section active">
+                    <h2>Meus Dados</h2>
+                    <p><strong>Nome:</strong> Usuário Teste 1</p>
+                    <p><strong>Email:</strong> testando@example.com</p>
+                    <p><strong>Telefone:</strong> (00) 12345-6789</p>
+                    <p><strong>Data de Nascimento:</strong> 00/00/0000</p>
+                    <p><strong>Estado:</strong> SP</p>
+                    <p><strong>Cidade:</strong> Osasco</p>
+                    <p><strong>Endereço:</strong> R Exemplo 00</p>
+                    <p><strong>CPF:</strong> 000.000.000-00</p>
+                    <button class="button" onclick="editarInformacoes()">Editar Informações</button>
+                    <button class="button" onclick="alterarSenha()">Alterar Senha</button>
+                </div>
+                <div id="avaliacoes" class="content-section">
+                    <h2>Avaliações Recebidas</h2>
+                    <div class="evaluation-list">
+                        <div class="evaluation-item">
+                            <p><strong>Avaliação 1:</strong> Ótimo serviço, recomendarei!</p>
+                        </div>
+                        <div class="evaluation-item">
+                            <p><strong>Avaliação 2:</strong> Muito bom, sempre atencioso!</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="sair" class="content-section">
+                    <h2>Sair</h2>
+                    <p>Você tem certeza que deseja sair da sua conta?</p>
+                    <button class="button">Sim, Sair</button>
+                    <button class="button" onclick="showSection('dados')">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
