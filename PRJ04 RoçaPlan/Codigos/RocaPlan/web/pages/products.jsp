@@ -38,6 +38,7 @@
 
         <!-- Config  -->
         <script src="${cp}/js/config.js"></script>
+        <script src="${cp}/js/pages/products.js"></script>
     </head>
 
     <body>
@@ -233,105 +234,9 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody id="tbody-produtos">
                                             <tr>
-                                                <td>1</td>
-                                                <td>Abacate</td>
-                                                <td>Fruta</td>
-                                                <td>20</td>
-                                                <td>R$5,00</td>
-                                                <td data-bs-toggle="tooltip" data-bs-title="Editar">
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#editModal">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td data-bs-toggle="tooltip" data-bs-title="Excluir">
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Alface</td>
-                                                <td>Verdura</td>
-                                                <td>60</td>
-                                                <td>R$2,00</td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Banana</td>
-                                                <td>Fruta</td>
-                                                <td>50</td>
-                                                <td>R$10,00</td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Caqui</td>
-                                                <td>Fruta</td>
-                                                <td>10</td>
-                                                <td>R$12,00</td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Maça</td>
-                                                <td>Fruta</td>
-                                                <td>80</td>
-                                                <td>R$20,00</td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
+                                                <td colspan="7">Não há produtos cadastrados.</td>
                                             </tr>
                                         </tbody>
 
@@ -492,20 +397,21 @@
 
                     <div class="modal-body">
                         <div class="row g-4 align-items-center">
+                            <input type="hidden" name="id" />
+                            
                             <div class="col-12 col-md-6 col-lg-4">
                                 <label for="name" class="form-label">Nome</label>
-                                <input type="text" class="form-control" name="name" maxlength="40"
-                                       value="Abacate" required />
+                                <input type="text" class="form-control" name="nome" maxlength="40" required />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
                                 <label for="type" class="form-label">
                                     Tipo
                                 </label>
-                                <select class="form-select" id="type"
+                                <select class="form-select" id="type" name="type"
                                         onchange="showOtherType(this.value, 'edit-other-type')">
                                     <option disabled>Selecione...</option>
-                                    <option selected value="1">Fruta</option>
+                                    <option value="1">Fruta</option>
                                     <option value="2">Grãos</option>
                                     <option value="3">Legume</option>
                                     <option value="4">Verdura</option>
@@ -521,15 +427,14 @@
 
                             <div class="col-12 col-md-6 col-lg-4">
                                 <label for="amount" class="form-label">Quantidade</label>
-                                <input type="number" class="form-control" name="amount" min="0"
-                                       required value="20" />
+                                <input type="number" class="form-control" name="quantidade" min="0"
+                                       required />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
                                 <label for="value" class="form-label">Valor Unitário</label>
-                                <input type="number" class="form-control" name="value" step="0.01"
-                                       min="0"
-                                       required value="5" />
+                                <input type="number" class="form-control" name="valorUnitario" step="0.01"
+                                       min="0" required />
                             </div>
                         </div>
                     </div>
@@ -557,25 +462,5 @@
 
         <!-- Main JS -->
         <script src="${cp}/js/main.js"></script>
-
-        <script>
-            function showOtherType(value, id) {
-                if (value == 5) {
-                    $(`#${id}`).removeClass('d-none');
-
-                    if (id == 'other-type') {
-                        $('#btn-filter-clear').removeClass('col-md-2').addClass('col-md-6');
-                        $('#btn-filter').removeClass('col-md-2').addClass('col-md-6');
-                    }
-                } else {
-                    $(`#${id}`).addClass('d-none');
-
-                    if (id == 'other-type') {
-                        $('#btn-filter-clear').removeClass('col-md-6').addClass('col-md-2');
-                        $('#btn-filter').removeClass('col-md-6').addClass('col-md-2');
-                    }
-                }
-            }
-        </script>
     </body>
 </html>
