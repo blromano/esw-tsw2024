@@ -2,11 +2,11 @@ package conecta.dao;
 
 import conecta.entidades.Cliente;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+//import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ClienteDAO extends DAO<Cliente>{
-
+    
     public ClienteDAO() throws SQLException{
         
         
