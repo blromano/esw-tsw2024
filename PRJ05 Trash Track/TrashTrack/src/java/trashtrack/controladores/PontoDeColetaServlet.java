@@ -95,7 +95,10 @@ public class PontoDeColetaServlet extends HttpServlet {
                 
             }else if ( acao.equals("atualizar") ) {
                 
+                System.out.println("chegou no atualizar");
+                
                 String idPonto = request.getParameter("idPonto");
+                System.out.println("id do ponto:" + idPonto);
                 
                 int id = Integer.parseInt(idPonto);
                 
@@ -106,23 +109,36 @@ public class PontoDeColetaServlet extends HttpServlet {
                 String bairro = request.getParameter("bairro");
                 String complemento = request.getParameter("complemento");
                 
+                System.out.println("leu as entradas");
+                
                 int idMoradorColetor = Integer.parseInt(request.getParameter("idMoradorColetor"));
+                System.out.println("id do ponto:" + idMoradorColetor);
                 
                 String longitude = request.getParameter("longitude");
                 String latitude = request.getParameter("latitude");         
 
+                System.out.println(longitude);
+                System.out.println(latitude);
                 
                 double lat = Double.parseDouble(latitude);
                 double lon = Double.parseDouble(longitude);
+                
+                System.out.println(lat);
+                System.out.println(lon);
                 
                 Coordenada c = new Coordenada();
                 c.setLatitude(lat);
                 c.setLongitude(lon);
                 
+                System.out.println("criou coordenada");
+                
                 MoradorColetor mc = new MoradorColetor();
                 mc.setId(idMoradorColetor);
                 
+                System.out.println("criou morador");
+                
                 PontoDeColeta pdc = dao.obterPorId(id);
+                System.out.println("achou ponto");
                 pdc.setId(id);
                 pdc.setTipoDeLixo(tipoDeLixo);
                 pdc.setRua(rua);
@@ -139,6 +155,7 @@ public class PontoDeColetaServlet extends HttpServlet {
                 pdc.setMorador(mc);
                 
                 dao.atualizar(pdc);
+                System.out.println("atualizou o ponto");
                 
                 response.getWriter().write("OK");
                      

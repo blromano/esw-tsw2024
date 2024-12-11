@@ -331,19 +331,19 @@
         <div class="checkbox-container">
 
           <div>
-              <input type="radio" id="organico" value="OR" name="tipoLixo" class="checkers">
+              <input type="radio" id="organicoEditar" value="OR" name="tipoLixo" class="checkers">
               <label for="organico">Organico</label>
           </div>
           <div>
-              <input type="radio" id="eletronico" value="EL" name="tipoLixo" class="checkers">
+              <input type="radio" id="eletronicoEditar" value="EL" name="tipoLixo" class="checkers">
               <label for="eletronico">Eletrônico</label>
           </div>
           <div>
-              <input type="radio" id="reciclavel" value="RE" name="tipoLixo" class="checkers">
+              <input type="radio" id="reciclavelEditar" value="RE" name="tipoLixo" class="checkers">
               <label for="reciclavel">Reciclável</label>
           </div>
           <div>
-              <input type="radio" id="oleo" value="OL" name="tipoLixo" class="checkers">
+              <input type="radio" id="oleoEditar" value="OL" name="tipoLixo" class="checkers">
               <label for="oleo">Óleo</label>
           </div>
 
@@ -352,27 +352,27 @@
 
           <div>
             <label for="rua">Rua</label>
-            <input id="rua" name="rua" type="text">
+            <input id="ruaEditar" name="ruaEditar" type="text">
           </div>
 
           <div>
             <label for="numero">Número</label>
-            <input id="numero" name="numero" type="text">
+            <input id="numeroEditar" name="numeroEditar" type="text">
           </div>
 
           <div>
-            <label for="bairro">Bairro</label>
-            <input id="bairro" name="bairro" type="text">
+            <label for="bairroEditar">Bairro</label>
+            <input id="bairroEditar" name="bairroEditar" type="text">
           </div>
 
           <div>
             <label for="cidade">Cidade</label>
-            <input id="cidade" name="cidade" type="text">
+            <input id="cidadeEditar" name="cidadeEditar" type="text">
           </div>
 
           <div>
             <label for="complemento">Complemento</label>
-            <input id="complemento" name="complemento" type="text">
+            <input id="complementoEditar" name="complementoEditar" type="text">
           </div>
 
           <div class="container-footer">

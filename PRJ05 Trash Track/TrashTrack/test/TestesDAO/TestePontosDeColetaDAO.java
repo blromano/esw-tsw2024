@@ -25,8 +25,8 @@ public class TestePontosDeColetaDAO {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         
         MoradorColetor moradorColetor = new MoradorColetor();
-        moradorColetor.setId(1);
-        moradorColetor.setEmail("DASDADASDASD");
+        moradorColetor.setId(3);
+        /*moradorColetor.setEmail("DASDADASDASD");
         moradorColetor.setSenha("senha");
         moradorColetor.setNome("TesteMorador");
         moradorColetor.setCpf("123123123");
@@ -34,17 +34,17 @@ public class TestePontosDeColetaDAO {
         moradorColetor.setQuantidadeLixoColetado(6);
         moradorColetor.setPontuacao(7);
         moradorColetor.setAtivo(true);
-        moradorColetor.setQuantidadeLixoReciclado(5);
+        moradorColetor.setQuantidadeLixoReciclado(5);*/
         
         Coordenada coordenada = new Coordenada();
         
         //Coordenadas de sao joao 
         
-        coordenada.setLatitude(-21.831483392479154);
+        coordenada.setLatitude(-21.831483392479155);
         coordenada.setLongitude(-46.89219365740519);
         
         PontoDeColeta pontoDeColeta = new PontoDeColeta();
-        pontoDeColeta.setBairro("bairro");
+        pontoDeColeta.setBairro("testePonto2");
         pontoDeColeta.setCidade("Vargem Grande do Sul");
         pontoDeColeta.setColetado(false);
         pontoDeColeta.setComplemento("complemento");

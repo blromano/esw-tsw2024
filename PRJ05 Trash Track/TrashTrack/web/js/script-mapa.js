@@ -1,6 +1,7 @@
 
 const dadosMoradorColetor = JSON.parse(sessionStorage.getItem("dadosMoradorColetor"));
 const idMoradorColetor = dadosMoradorColetor.id;
+let idPontoColetaEdicao;
 
 //Funcao de iniciar o mapa - FAVOR NAO MEXER QUE EH ELA QUE INICIA O MAPA
 async function initMap() {
@@ -446,15 +447,24 @@ $(document).ready( function() {
     if (modal.length) {
      
         // Exibe o modal
-        modal.css('display', 'block');
+        modal.css('display', 'block');        
     }
 
    });
-   
+       // Adicionar um event listener a todos os botões de editar
+// Delegar evento ao documento para botões criados dinamicamente
+
+
     /*EDITAR PONTO*/
     
     $('body').on('click', '.btn-close-editar', function () {
         $('#modalEditar').css('display', 'none');
+    });
+    
+    $(document).on('click', '.btn-editar', function() {
+    const idPontoEditar = $(this).closest('.ponto').data('idponto');
+    idPontoColetaEdicao = idPontoEditar;
+    console.log('ID do ponto:', idPontoEditar);
     });
 
     $('#formularioEditarPonto').on("submit", function(event) {
@@ -462,13 +472,16 @@ $(document).ready( function() {
     event.preventDefault();
     
     let tipoDeLixo = $('input[name="tipoLixo"]:checked').val();
-    let rua = $('input[name="rua"]').val();
-    let numero = $('input[name="numero"]').val();
-    let bairro = $('input[name="bairro"]').val();
-    let cidade = $('input[name="cidade"]').val();
-    let complemento = $('input[name="complemento"]').val();
+    let rua = $('input[name="ruaEditar"]').val();
+    let numero = $('input[name="numeroEditar"]').val();
+    let bairro = $('input[name="bairroEditar"]').val();
+    let cidade = $('input[name="cidadeEditar"]').val();
+    let complemento = $('input[name="complementoEditar"]').val();
     let longitude;
     let latitude;
+    
+    
+    
 
     let enderecoCompleto = rua + ' ' + numero + ', ' + bairro + ', ' + cidade;
     
@@ -481,6 +494,9 @@ $(document).ready( function() {
         let location = results[0].geometry.location;
         longitude = location.lng();
         latitude = location.lat();
+        
+        console.log(longitude);
+        console.log(latitude);
 
         if ( tipoDeLixo && rua && numero && bairro && cidade ) {
 
@@ -488,13 +504,12 @@ $(document).ready( function() {
             complemento = " ";
           }
     
-          console.log("Latitude: ", $('input[name="latitude"]').val());
-          console.log("Longitude: ", $('input[name="longitude"]').val());
 
           $.ajax("processaPontoDeColeta", {
             method: "POST", 
             data: {
               acao: "atualizar",
+              idPonto: idPontoColetaEdicao,
               idMoradorColetor: idMoradorColetor,
               tipoDeLixo: tipoDeLixo,
               rua: rua,
