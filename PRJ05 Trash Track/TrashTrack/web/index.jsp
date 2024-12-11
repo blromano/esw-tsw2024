@@ -96,7 +96,7 @@
             <!--Imagem Linha 2-->
             <div class="row align-items-center my-5 justify-content-center">
                 <div class="col-md-3 text-left">
-                  <a href="sobre.html"> <img style="width: 250px ;" src="img/NossaHistoria.png" alt="imagemresponsiva" class="img-fluid"> </a>
+                  <a href="sobre.jsp"> <img style="width: 250px ;" src="img/NossaHistoria.png" alt="imagemresponsiva" class="img-fluid"> </a>
                 </div>
             <!--Linha 2 - Sobre o Projeto-->
                 <div class="Titulo col-md-6 text-right">
@@ -109,11 +109,11 @@
             <!--Imagem Esquerda Linha 3-->
                 <div class="row align-items-center d-flex justify-content-center my-5">
                     <div class="col-md-6 text-center">
-                        <a href="informativa.html"> <img style="width: 350px ;" src="img/ApendaComoReciclar.png" alt="imagemresponsiva" class="img-fluid"> </a>
+                        <a href="informativa.jsp"> <img style="width: 350px ;" src="img/ApendaComoReciclar.png" alt="imagemresponsiva" class="img-fluid"> </a>
                     </div>
             <!--Imagem Direita Linha 3-->
                     <div class="Titulo col-md-6 text-center">
-                        <a href="mapa.jsp"> <img style="width: 350px ;" src="img/MapaComPontosDeColeta.png" alt="imagemresponsiva" class="img-fluid"> </a>
+                        <a id="redirecionarMapaLogin" href="login.jsp"> <img style="width: 350px ;" src="img/MapaComPontosDeColeta.png" alt="imagemresponsiva" class="img-fluid"> </a>
                     </div>
                 </div>
 
