@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    background: linear-gradient(262deg, rgb(77, 82, 7) 21%, rgba(207, 194, 13, 0.978) 70%);
+}
+
+
+.container {
+    width: 80%;
+    height: 90vh;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+    background: rgba( 255, 255, 255, 0.55 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+
+
+.form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.form-image img {
+    width: 31rem;
+}
+
+.form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title h1{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #fff;
+}
+
+
+.form-header h1::after {
+    content: '';
+    display: block;
+    width: 250px;
+    height: 3px;
+    background-color: rgb(0, 0, 0);
+    margin: 8px auto;
+    position: absolute;
+    border-radius: 10px;
+}
+
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1px 0;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+.input-box input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.8rem;
+}
+
+.input-box input:hover {
+    background-color: rgb(255, 241, 251);
+}
+
+.input-box input:focus-visible {
+    outline: 1px solid rgb(0, 0, 0);
+}
+
+.input-box label,
+.gender-title h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.input-box input::placeholder {
+    color: #000000be;
+}
+
+.gender-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.62rem;
+    padding: 0 .5rem;
+}
+
+.gender-input {
+    display: flex;
+    align-items: center;
+}
+
+.gender-input input {
+    margin-right: 0.35rem;
+}
+
+.gender-input label {
+    font-size: 0.81rem;
+    font-weight: 600;
+    color: #ffffffc0;
+}
+
+.continue-button button {
+    width: 100%;
+    margin-bottom: 40px;
+    border: none;
+    background: linear-gradient(262deg, rgba(207, 194, 13, 0.978) 21%, rgb(77, 82, 7) 70%);
+    padding: 0.62rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.continue-button button:hover {
+    background-color: rgba(247, 230, 4, 0.978)
+}
+
+.continue-button button a {
+    text-decoration: none;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+@media screen and (max-width: 1330px) {
+    .form-image {
+        display: none;
+    }
+    .container {
+        width: 50%;
+    }
+    .form {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1064px) {
+    .container {
+        width: 90%;
+        height: auto;
+    }
+    .input-group {
+        flex-direction: column;
+        z-index: 5;
+        padding-right: 5rem;
+        max-height: 10rem;
+        overflow-y: scroll;
+        flex-wrap: nowrap;
+    }
+    .gender-inputs {
+        margin-top: 2rem;
+    }
+    .gender-group {
+        flex-direction: column;
+    }
+    .gender-title h6 {
+        margin: 0;
+    }
+    .gender-input {
+        margin-top: 0.5rem;
+    }
+}
+
+.scrollable-form {
+    max-height: 400px; /* Altura máxima da área rolável */
+    overflow-y: auto; /* Habilita a rolagem vertical */
+    padding-right: 10px; /* Espaço para evitar sobreposição do scroll */
+    margin-top: 20px;
+}
+
+.scrollable-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-form::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Cor do scroll */
+    border-radius: 4px;
+}
+
+.scrollable-form::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; /* Cor ao passar o mouse */
+}
+
+#preview {
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
+}

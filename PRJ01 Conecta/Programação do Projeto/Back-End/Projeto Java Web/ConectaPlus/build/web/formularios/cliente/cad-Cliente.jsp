@@ -8,11 +8,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${cp}/../Front-end/Paginas Primarias/UC4.17 - Fazer Cadastro Cliente
-                                /assets/css/cad-Cliente.css">
+    <link rel="stylesheet" href="${cp}/css/cadastro-cliente/style-cadClie.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <link rel="icon" href="../selec-TipoCadastro/img - Fazer Cadastros/icon-conecta.svg" type="image/x-icon">
+    <link rel="icon" href="${cp}/img/icon-conecta.svg" type="image/x-icon">
 
     <title>Conecta+ | Cadastre-se como cliente aqui!</title>
 </head>
@@ -34,7 +33,7 @@
 
     <div class="container">
         <div class="form-image">
-            <img src="assets/img/arte-cadastro.svg" alt="">
+            <img src="${cp}/img/arte-cadastro.svg" alt="">
         </div>
         <div class="form">
             <form method="POST" action="${cp}/tratarCliente">
