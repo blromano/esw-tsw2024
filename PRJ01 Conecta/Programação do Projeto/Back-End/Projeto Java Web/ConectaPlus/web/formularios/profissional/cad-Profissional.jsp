@@ -20,7 +20,7 @@
             $('#cpf').mask('000.000.000-00');
             $('#celular').mask('(00) 00000-0000');
             $('#telComercial').mask('(00) 00000-0000');
-            $('#dataNasc').mask('00/00/0000');
+            $('#dataNasc').mask('0000-00-00');
         });
     </script>
 
@@ -29,7 +29,7 @@
             <img src="${cp}/img/arte-cadastro.svg" alt="">
         </div>
         <div class="form">
-            <form method="POST" action="${cp}/tratarProfissional">
+            <form method="POST" action="${cp}/tratarProfissional" enctype="multipart/form-data">
                 
                 <input name="acao" type="hidden" value="inserir"/>
                 
@@ -49,7 +49,7 @@
 
                         <div class="input-box">
                             <label for="dataNasc">Data de Nascimento</label>
-                            <input id="dataNasc" type="text" name="dataNasc" placeholder="00/00/0000" required>
+                            <input id="dataNasc" type="text" name="dataNasc" placeholder="0000-00-00" required>
                         </div>
                         <div class="input-box">
                             <label for="celular">Celular</label>
@@ -104,7 +104,7 @@
                         <div class="input-box">
                             <label for="fotoPerfil">Envie uma foto de perfil</label>
                             <div class="input-box">
-                            <input type="file" id="fileInput" accept="image/*">
+                            <input type="file" id="fileInput" name="foto" accept="image/*">
                                 <img id="preview" src="" alt="Pré-visualização da imagem" placeholder="envia sua imagem">
                                 </div>
                         </div>

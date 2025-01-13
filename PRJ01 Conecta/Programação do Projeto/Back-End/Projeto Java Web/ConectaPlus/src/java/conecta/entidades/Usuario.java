@@ -10,7 +10,7 @@ public class Usuario {
     private String senha;
     private String contato;
     private String endereco;
-    private String dataNasc;
+    private Date dataNasc;
     private String estado;
     private String cidade;
 
@@ -54,11 +54,11 @@ public class Usuario {
         this.endereco = endereco;
     }
 
-    public String getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
-    public void setDataNasc(String dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
 

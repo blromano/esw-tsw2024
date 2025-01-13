@@ -13,9 +13,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-//import java.time.LocalDate;
-//import java.time.format.DateTimeFormatter;
-//import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.time.LocalDate;
+
 
 
 @WebServlet(name = "Cliente", urlPatterns = {"/tratarCliente"})
@@ -29,7 +32,6 @@ public class ClienteServlet extends HttpServlet {
         ClienteDAO dao = null;
         UsuarioDAO daoU = null;
         RequestDispatcher disp = null;
-        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         
         try{
             
@@ -39,31 +41,42 @@ public class ClienteServlet extends HttpServlet {
             if( acao.equals("inserir" )){
                 
                 String nome = request.getParameter("name");
-                String dataNasc = request.getParameter("dataNasc");
+                String dataNascimento = request.getParameter("dataNasc");
                 String contato = request.getParameter("celular");
+                String endereco = request.getParameter("endereço");
                 String email = request.getParameter("email");
                 String estado = request.getParameter("Estado");
                 String cidade = request.getParameter("cidade");
                 String cpf = request.getParameter("cpf");
                 String senha = request.getParameter("password");
                 
-                Cliente c = new Cliente();
-                c.setCpf(cpf);
+                try{
+                 
+                    Date dataNasc = new SimpleDateFormat("yyyy-MM-dd").parse(dataNascimento);
+                    Cliente c = new Cliente();
+                    c.setCpf(cpf);
                 
-                Usuario u = new Usuario();
-                u.setCidade(cidade);
-                u.setNome(nome);
-                u.setSenha(senha);
-                u.setEmail(email);
-                u.setDataNasc(dataNasc);
-                u.setContato(contato);
-                u.setEstado(estado);
+                    Usuario u = new Usuario();
+                    u.setCidade(cidade);
+                    u.setNome(nome);
+                    u.setSenha(senha);
+                    u.setEmail(email);
+                    u.setDataNasc(dataNasc);
+                    u.setContato(contato);
+                    u.setEndereco(endereco);
+                    u.setEstado(estado);
                 
-                dao.salvar(c);
-                daoU.salvar(u);
+                    dao.salvar(c);
+                    daoU.salvar(u);
+                    
+                } catch ( ParseException pe ){
+                    
+                    System.out.println("Erro de conversao de data");
+                    
+                }           
                 
-                //Colocar o endereço da página de login
-                //disp = request.getRequestDispatcher("")
+                disp = request.getRequestDispatcher(
+                        "/formularios/usuario/login.jsp");
                 
                 
             }

@@ -1,5 +1,7 @@
 package conecta.entidades;
 
+import java.awt.image.BufferedImage;
+
 
 public class Profissional {
 
@@ -7,6 +9,24 @@ public class Profissional {
     private String telCom;
     private String endCom;
     private String cpfCnpj;
+    private BufferedImage foto;
+    private byte[] bytesFoto;
+
+    public byte[] getBytesFoto() {
+        return bytesFoto;
+    }
+
+    public void setBytesFoto(byte[] bytesFoto) {
+        this.bytesFoto = bytesFoto;
+    }
+
+    public BufferedImage getFoto() {
+        return foto;
+    }
+
+    public void setFoto(BufferedImage foto) {
+        this.foto = foto;
+    }
 
     public String getTelCom() {
         return telCom;

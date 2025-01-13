@@ -1,6 +1,7 @@
 package conecta.dao;
 
 import conecta.entidades.Usuario;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +35,8 @@ public class UsuarioDAO extends DAO<Usuario>{
         stmt.setString( 3, obj.getSenha());
         stmt.setString( 4, obj.getContato());
         stmt.setString( 5, obj.getEndereco());
-        stmt.setString( 6, obj.getDataNasc());
+        java.sql.Date dataSql = new java.sql.Date(obj.getDataNasc().getTime());
+        stmt.setDate(6, dataSql);
         stmt.setString( 7, obj.getEstado());
         stmt.setString( 8, obj.getCidade());
         

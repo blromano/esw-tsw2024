@@ -9,13 +9,26 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import javax.imageio.ImageIO;
 
 
 @WebServlet(name = "ProfissionalServlet", urlPatterns = {"/tratarProfissional"})
+
+@MultipartConfig
+
 public class ProfissionalServlet extends HttpServlet {
 
 
@@ -27,6 +40,7 @@ public class ProfissionalServlet extends HttpServlet {
         ProfissionalDAO dao = null;
         UsuarioDAO daoU = null;
         RequestDispatcher disp = null;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         
         try{
             
@@ -36,7 +50,7 @@ public class ProfissionalServlet extends HttpServlet {
             if ( acao.equals("inserir")){
                 
                 String nome = request.getParameter("name");
-                String dataNasc = request.getParameter("dataNasc");
+                String dataNascimento = request.getParameter("dataNasc");
                 String contato = request.getParameter("celular");
                 String telCom = request.getParameter("telComercial");
                 String email = request.getParameter("email");
@@ -44,26 +58,62 @@ public class ProfissionalServlet extends HttpServlet {
                 String cidade = request.getParameter("cidade");
                 String endereco = request.getParameter("endereço");
                 String endCom = request.getParameter("endComercial");
+                //Erro estava aqui, parei aqui
+                Part foto = request.getPart("foto");
                 String cpfCnpj = request.getParameter("cpf");
                 String senha = request.getParameter("password");
                 
-                Profissional p = new Profissional();
-                p.setCpfCnpj(cpfCnpj);
-                p.setEndCom(endCom);
-                p.setTelCom(telCom);
+                //Convertendo a imagem em bytes para armazenamento no banco
+                InputStream inputStream = foto.getInputStream();
                 
-                Usuario u = new Usuario();
-                u.setNome(nome);
-                u.setEmail(email);
-                u.setDataNasc(dataNasc);
-                u.setContato(contato);
-                u.setCidade(cidade);
-                u.setEstado(estado);
-                u.setEndereco(endereco);
-                u.setSenha(senha);
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                byte[] imageBytesFoto = outputStream.toByteArray();
                 
-                dao.salvar(p);
-                daoU.salvar(u);
+                
+                //Salvando como Imagem em Java para manipulação
+                BufferedImage fotoJ = ImageIO.read(inputStream);
+                
+                
+                
+                try {
+                    
+                    Date dataNasc = new SimpleDateFormat("yyyy-MM-dd").parse(dataNascimento);
+                    
+                    Profissional p = new Profissional();
+                    p.setCpfCnpj(cpfCnpj);
+                    p.setEndCom(endCom);
+                    p.setTelCom(telCom);
+                    p.setFoto(fotoJ);
+                    p.setBytesFoto(imageBytesFoto);
+                
+                    Usuario u = new Usuario();
+                    u.setNome(nome);
+                    u.setEmail(email);
+                    u.setDataNasc(dataNasc);
+                    u.setContato(contato);
+                    u.setCidade(cidade);
+                    u.setEstado(estado);
+                    u.setEndereco(endereco);
+                    u.setSenha(senha);
+                
+                    dao.salvar(p);
+                    daoU.salvar(u);
+                    
+                } catch ( ParseException pe ){
+                    
+                    System.out.println("Erro de conversao de data");
+                    
+                }
+                
+                disp = request.getRequestDispatcher(
+                        "/formularios/usuario/login.jsp");
+                
+         
                 
             }
             

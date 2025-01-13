@@ -27,7 +27,7 @@
     });
 
         $(document).ready(function(){
-        $('#dataNasc').mask('00/00/0000');
+        $('#dataNasc').mask('0000-00-00');
     });
     </script>
 
@@ -54,7 +54,7 @@
 
                     <div class="input-box">
                         <label for="dataNasc">Data de Nascimento</label>
-                        <input id="dataNasc" type="text" name="dataNasc" placeholder="00/00/0000" required>
+                        <input id="dataNasc" type="text" name="dataNasc" placeholder="0000-00-00" required>
                     </div>
                     <div class="input-box">
                         <label for="celular">Celular</label>
