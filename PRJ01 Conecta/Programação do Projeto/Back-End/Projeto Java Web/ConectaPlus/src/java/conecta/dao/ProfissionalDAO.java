@@ -18,17 +18,21 @@ public class ProfissionalDAO extends DAO<Profissional>{
         
         PreparedStatement stmt = getConnection().prepareStatement(
                 "INSERT INTO profissionais( "+
+                "   pro_status, "+
                 "   pro_tel_com, "+
                 "   pro_end_com,"+ 
-                "   pro_foto, "+
+                "   pro_foto,"+ 
+                "   pro_id_usuarios, "+
                 "   pro_cpf_cnpj ) "+
                 " VALUES( "+
+                " 'Ativo', ?, ?,"+
                 " ?, ?, ?);");
         
         stmt.setString( 1, obj.getTelCom());
         stmt.setString( 2, obj.getEndCom());
-        stmt.setBytes(0, obj.getBytesFoto());
-        stmt.setString( 3, obj.getCpfCnpj());
+        stmt.setBytes(3, obj.getBytesFoto());
+        stmt.setLong(4, obj.getUsuario().getId());
+        stmt.setString( 5, obj.getCpfCnpj());
         
         stmt.executeUpdate();
         stmt.close();
@@ -36,5 +40,19 @@ public class ProfissionalDAO extends DAO<Profissional>{
         
     }
     
+    /*
+        Falta implementação
+        Criado apenas para evitar erros
+    */
+    @Override 
+    public Profissional obterPorId( Long id ) throws SQLException{
+        
+        Profissional profissional = new Profissional();
+        
+        return profissional;
+        
+    }
+    
+    /*--------------------------------------------*/
     
 }

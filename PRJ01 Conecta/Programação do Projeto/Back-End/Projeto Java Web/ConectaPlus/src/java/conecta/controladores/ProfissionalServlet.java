@@ -58,7 +58,6 @@ public class ProfissionalServlet extends HttpServlet {
                 String cidade = request.getParameter("cidade");
                 String endereco = request.getParameter("endereço");
                 String endCom = request.getParameter("endComercial");
-                //Erro estava aqui, parei aqui
                 Part foto = request.getPart("foto");
                 String cpfCnpj = request.getParameter("cpf");
                 String senha = request.getParameter("password");
@@ -83,13 +82,6 @@ public class ProfissionalServlet extends HttpServlet {
                 try {
                     
                     Date dataNasc = new SimpleDateFormat("yyyy-MM-dd").parse(dataNascimento);
-                    
-                    Profissional p = new Profissional();
-                    p.setCpfCnpj(cpfCnpj);
-                    p.setEndCom(endCom);
-                    p.setTelCom(telCom);
-                    p.setFoto(fotoJ);
-                    p.setBytesFoto(imageBytesFoto);
                 
                     Usuario u = new Usuario();
                     u.setNome(nome);
@@ -100,9 +92,20 @@ public class ProfissionalServlet extends HttpServlet {
                     u.setEstado(estado);
                     u.setEndereco(endereco);
                     u.setSenha(senha);
-                
-                    dao.salvar(p);
+                    
+                    Profissional p = new Profissional();
+                    p.setCpfCnpj(cpfCnpj);
+                    p.setEndCom(endCom);
+                    p.setTelCom(telCom);
+                    p.setFoto(fotoJ);
+                    p.setBytesFoto(imageBytesFoto);
+                    p.setUsuario(u);
+
                     daoU.salvar(u);
+                    dao.salvar(p);
+
+                    
+                    
                     
                 } catch ( ParseException pe ){
                     

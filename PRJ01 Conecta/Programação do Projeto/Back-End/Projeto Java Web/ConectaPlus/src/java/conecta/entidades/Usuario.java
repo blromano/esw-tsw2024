@@ -1,18 +1,45 @@
 package conecta.entidades;
 
 import java.util.Date;
+import jakarta.validation.constraints.NotNull;
 
 
 public class Usuario {
     
+    @NotNull
+    private Long id;
+    
+    @NotNull
     private String nome;
+    
+    @NotNull
     private String email;
+    
+    @NotNull
     private String senha;
+    
+    @NotNull
     private String contato;
+    
+    @NotNull
     private String endereco;
+    
+    @NotNull
     private Date dataNasc;
+    
+    @NotNull
     private String estado;
+    
+    @NotNull
     private String cidade;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;

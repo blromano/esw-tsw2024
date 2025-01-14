@@ -36,6 +36,6 @@ public abstract class DAO<Tipo> {
     
     //public abstract List<Tipo> listarTodos() throws SQLException;
     
-    //public abstract Tipo obterPorId(int id) throws SQLException;
+    public abstract Tipo obterPorId( Long id) throws SQLException;
     
 }

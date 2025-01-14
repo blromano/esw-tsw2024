@@ -53,8 +53,6 @@ public class ClienteServlet extends HttpServlet {
                 try{
                  
                     Date dataNasc = new SimpleDateFormat("yyyy-MM-dd").parse(dataNascimento);
-                    Cliente c = new Cliente();
-                    c.setCpf(cpf);
                 
                     Usuario u = new Usuario();
                     u.setCidade(cidade);
@@ -65,9 +63,13 @@ public class ClienteServlet extends HttpServlet {
                     u.setContato(contato);
                     u.setEndereco(endereco);
                     u.setEstado(estado);
+                    
+                    Cliente c = new Cliente();
+                    c.setCpf(cpf);
+                    c.setUsuario(u);
                 
-                    dao.salvar(c);
                     daoU.salvar(u);
+                    dao.salvar(c);
                     
                 } catch ( ParseException pe ){
                     

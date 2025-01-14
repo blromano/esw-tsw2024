@@ -1,16 +1,37 @@
 package conecta.entidades;
 
 import java.awt.image.BufferedImage;
+import jakarta.validation.constraints.NotNull;
 
 
 public class Profissional {
 
+    @NotNull
+    private Long id;
     
+    @NotNull
     private String telCom;
+    
+    @NotNull
     private String endCom;
+    
+    @NotNull
     private String cpfCnpj;
+    
     private BufferedImage foto;
+    
+    @NotNull
     private byte[] bytesFoto;
+    
+    private Usuario usuario;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public byte[] getBytesFoto() {
         return bytesFoto;
@@ -51,7 +72,13 @@ public class Profissional {
     public void setCpfCnpj(String cpfCnpj) {
         this.cpfCnpj = cpfCnpj;
     }
-    
-    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     
 }

@@ -1,6 +1,8 @@
 package conecta.dao;
 
+import conecta.entidades.Profissional;
 import conecta.entidades.Usuario;
+import conecta.utils.Utils;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +30,8 @@ public class UsuarioDAO extends DAO<Usuario>{
                 " usu_cidade ) "+
                 " VALUES ( "+
                 " ?, ?, ?, ?, ?, "+
-                " ?, ?, ? );");
+                " ?, ?, ? );",
+                new String[]{"insert_id"} );
         
         stmt.setString( 1, obj.getNome());
         stmt.setString( 2, obj.getEmail());
@@ -41,10 +44,24 @@ public class UsuarioDAO extends DAO<Usuario>{
         stmt.setString( 8, obj.getCidade());
         
         stmt.executeUpdate();
+        obj.setId( Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ));
         stmt.close();
         
         
     }
     
+    /*
+        Falta implementação
+        Criado apenas para evitar erros
+    */
+    @Override
+    public Usuario obterPorId( Long id ) throws SQLException{
+        
+        Usuario usuario = null;
+        
+        return usuario;
+        
+    }
     
+    /*--------------------------------------------*/
 }
