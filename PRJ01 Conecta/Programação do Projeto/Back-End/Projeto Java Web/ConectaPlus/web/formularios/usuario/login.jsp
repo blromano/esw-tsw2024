@@ -32,18 +32,21 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
-					<form>
+					<form method="POST" action="${cp}/tratarUsuario" >
+                                            
+                                            <input name="acao" type="hidden" value="autenticar"/>
+                                            
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="" class="form-control input_user" value="" placeholder="Email de Cadastro">
+							<input type="text" name="emailCad" class="form-control input_user" value="" placeholder="Email de Cadastro">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" name="" class="form-control input_pass" value="" placeholder="Senha">
+							<input type="password" name="senhaCad" class="form-control input_pass" value="" placeholder="Senha">
 						</div>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">

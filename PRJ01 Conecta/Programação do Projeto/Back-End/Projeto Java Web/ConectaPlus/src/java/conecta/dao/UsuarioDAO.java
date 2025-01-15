@@ -64,4 +64,27 @@ public class UsuarioDAO extends DAO<Usuario>{
     }
     
     /*--------------------------------------------*/
+    
+    //Tentativa inicial de sistema de login (Não finalizada)
+    public void autenticar( Usuario obj ) throws SQLException{
+        
+        try {
+            
+            PreparedStatement stmt = getConnection().prepareStatement(
+                    "SELECT * FROM usuario "+ 
+                    " WHERE "+
+                    " usu_email = ? "+
+                    " AND "+
+                    " usu_senha = ? " );
+            
+            stmt.setString( 1, obj.getEmail());
+            stmt.setString( 2, obj.getSenha());
+            
+        } catch ( SQLException exc ){
+            
+            System.out.println("Nao encontrado no banco de dados");
+            
+        }
+        
+    }
 }

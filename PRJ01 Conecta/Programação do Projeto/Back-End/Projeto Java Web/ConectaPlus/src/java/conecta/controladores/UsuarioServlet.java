@@ -1,12 +1,18 @@
 package conecta.controladores;
 
+//import conecta.dao.UsuarioDAO;
+//import conecta.entidades.Usuario;
+//import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/tratarUsuario"})
@@ -14,7 +20,39 @@ public class UsuarioServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
+     
+        /*
+        *Inicio tentativa de sistema de login
+        
+        
+        String acao = request.getParameter( "acao" );
+        
+        UsuarioDAO daoU = null;
+        RequestDispatcher disp = null;
+        
+        if( acao.equals("autenticar")){
+            
+            String email = request.getParameter("emailCad");
+            String senha = request.getParameter("senhaCad");
+            
+            Usuario u = new Usuario();
+            
+            u.setEmail(email);
+            u.setSenha(senha);
+            
+            daoU.autenticar(u);
+            
+            
+            
+        
+            disp = request.getRequestDispatcher("index.jsp");
+            
+        }
+        
+        */
+        
+        
         
     }
 
@@ -30,7 +68,11 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -44,7 +86,11 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
