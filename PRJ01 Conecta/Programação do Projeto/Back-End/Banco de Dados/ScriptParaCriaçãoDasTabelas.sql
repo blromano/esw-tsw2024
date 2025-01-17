@@ -1,3 +1,5 @@
+create database if not exists conectaplus;
+	use  conectaplus;
 CREATE TABLE IF NOT EXISTS `conecta_plus` . `usuarios`(
 	
     `id_usuarios` INT NOT NULL AUTO_INCREMENT,
