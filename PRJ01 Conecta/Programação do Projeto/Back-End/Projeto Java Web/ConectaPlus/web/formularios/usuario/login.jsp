@@ -1,7 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="cp" value="${pageContext.request.contextPath}"/>
-
+<% 
+    String erro = (String) request.getAttribute("erro");
+%>
 <!DOCTYPE html>
 <html>
     
@@ -32,7 +34,7 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
-					<form method="POST" action="${cp}/tratarUsuario" >
+					<form method="POST" action="LoginServle1t">
                                             
                                             <input name="acao" type="hidden" value="autenticar"/>
                                             
@@ -55,11 +57,15 @@
 							</div>
 						</div>
 							<div class="d-flex justify-content-center mt-3 login_container">
-				 	<button type="button" id ="btnLogin"name="button" class="btn login_btn">Login</button>
+				 	<button type="submit" id ="btnLogin"name="button" class="btn login_btn">Login</button>
 				   </div>
 					</form>
 				</div>
-		
+                                                <p><%
+                                                    if(erro != null){
+                                                    out.print(erro);
+                                                    }
+                                                %></p>
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Não Possui uma conta? <a href="${cp}/paginas-secundarias/selec-TipoCadastro/selec-tipoCad.jsp" class="ml-2">Cadastre-se</a>

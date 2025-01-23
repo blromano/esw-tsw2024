@@ -9,6 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuarioDAO extends DAO<Usuario>{
+
+    public static Usuario autenticar(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     public UsuarioDAO() throws SQLException{
         
