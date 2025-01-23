@@ -127,4 +127,31 @@ public class UsuarioDAO extends DAO<Usuario> {
         return usuario;
     }
     
+    public Usuario obterPorEmail(String email) throws SQLException{
+        Usuario usuario = null;
+        
+        PreparedStatement stmt = getConnection().prepareStatement(
+        """
+            SELECT * FROM usuarios
+            WHERE usu_email = ?;
+        """
+        );
+        stmt.setString(1, email);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()){
+            usuario = new Usuario();
+            
+            usuario.setUsuId(rs.getInt("usu_id"));
+            usuario.setUsuNome(rs.getString("usu_nome"));
+            usuario.setUsuEmail(rs.getString("usu_email"));
+            usuario.setUsuSenha(rs.getString("usu_senha"));
+        }
+        rs.close();
+        stmt.close();
+        
+        return usuario;
+    }
+    
 }
