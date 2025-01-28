@@ -11,7 +11,7 @@ public class ConnectionFactory {
         return DriverManager.getConnection(
                 "jdbc:mariadb://localhost:3307/conecta_plus",
                 "root",
-                "0000"
+                ""
                 );
     }
 }
