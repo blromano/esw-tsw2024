@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import rocaplan.entidades.Usuario;
+import rocaplan.utils.Utils;
 
 public class UsuarioDAO extends DAO<Usuario> {
     public UsuarioDAO() throws SQLException {
@@ -25,6 +26,7 @@ public class UsuarioDAO extends DAO<Usuario> {
         stmt.setString(3, obj.getUsuSenha());
 
         stmt.executeUpdate();
+        obj.setUsuId(Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ));
         stmt.close();
     }
 
@@ -44,7 +46,7 @@ public class UsuarioDAO extends DAO<Usuario> {
         stmt.setString(1, obj.getUsuNome());
         stmt.setString(2, obj.getUsuEmail());
         stmt.setString(3, obj.getUsuSenha());
-        stmt.setInt(4, obj.getUsuId());
+        stmt.setLong(4, obj.getUsuId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -59,7 +61,7 @@ public class UsuarioDAO extends DAO<Usuario> {
             """
         );
 
-        stmt.setInt(1, obj.getUsuId());
+        stmt.setLong(1, obj.getUsuId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -81,7 +83,7 @@ public class UsuarioDAO extends DAO<Usuario> {
         while (rs.next()) {
             Usuario u = new Usuario();
 
-            u.setUsuId(rs.getInt("usu_id"));
+            u.setUsuId(rs.getLong("usu_id"));
             u.setUsuNome(rs.getString("usu_nome"));
             u.setUsuEmail(rs.getString("usu_email"));
             u.setUsuSenha(rs.getString("usu_senha"));
@@ -96,7 +98,7 @@ public class UsuarioDAO extends DAO<Usuario> {
     }
 
     @Override
-    public Usuario obterPorId(int id) throws SQLException {
+    public Usuario obterPorId(Long id) throws SQLException {
         Usuario usuario = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
@@ -106,7 +108,7 @@ public class UsuarioDAO extends DAO<Usuario> {
             """
         );
 
-        stmt.setInt(1, id);
+        stmt.setLong(1, id);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -114,7 +116,7 @@ public class UsuarioDAO extends DAO<Usuario> {
 
             usuario = new Usuario();
 
-            usuario.setUsuId(rs.getInt("usu_id"));
+            usuario.setUsuId(rs.getLong("usu_id"));
             usuario.setUsuNome(rs.getString("usu_nome"));
             usuario.setUsuEmail(rs.getString("usu_email"));
             usuario.setUsuSenha(rs.getString("usu_senha"));
@@ -143,7 +145,7 @@ public class UsuarioDAO extends DAO<Usuario> {
         if (rs.next()){
             usuario = new Usuario();
             
-            usuario.setUsuId(rs.getInt("usu_id"));
+            usuario.setUsuId(rs.getLong("usu_id"));
             usuario.setUsuNome(rs.getString("usu_nome"));
             usuario.setUsuEmail(rs.getString("usu_email"));
             usuario.setUsuSenha(rs.getString("usu_senha"));

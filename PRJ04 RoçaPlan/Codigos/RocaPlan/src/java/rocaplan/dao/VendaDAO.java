@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import rocaplan.entidades.Venda;
 import rocaplan.entidades.Usuario;
+import rocaplan.utils.Utils;
 
 public class VendaDAO extends DAO<Venda> {
 
@@ -27,9 +28,10 @@ public class VendaDAO extends DAO<Venda> {
         stmt.setString(2, obj.getVenNomeCliente());
         stmt.setInt(3, obj.getVenSituacaoPagamento());
         stmt.setFloat(4, obj.getVenValorTotal());
-        stmt.setInt(5, obj.getUsuario().getUsuId());
+        stmt.setLong(5, obj.getUsuario().getUsuId());
 
         stmt.executeUpdate();
+        obj.setVenId(Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ));
         stmt.close();
     }
 
@@ -52,8 +54,8 @@ public class VendaDAO extends DAO<Venda> {
         stmt.setString(2, obj.getVenNomeCliente());
         stmt.setInt(3, obj.getVenSituacaoPagamento());
         stmt.setFloat(4, obj.getVenValorTotal());
-        stmt.setInt(5, obj.getUsuario().getUsuId());
-        stmt.setInt(6, obj.getVenId());
+        stmt.setLong(5, obj.getUsuario().getUsuId());
+        stmt.setLong(6, obj.getVenId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -68,7 +70,7 @@ public class VendaDAO extends DAO<Venda> {
             """
         );
 
-        stmt.setInt(1, obj.getVenId());
+        stmt.setLong(1, obj.getVenId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -104,14 +106,14 @@ public class VendaDAO extends DAO<Venda> {
             Venda v = new Venda();
             Usuario u = new Usuario();
 
-            v.setVenId(rs.getInt("ven_id"));
+            v.setVenId(rs.getLong("ven_id"));
             v.setVenData(rs.getDate("ven_date"));
             v.setVenNomeCliente(rs.getString("ven_nome_cliente"));
             v.setVenSituacaoPagamento(rs.getInt("ven_situacao_pagamento"));
             v.setVenValorTotal(rs.getFloat("ven_valor_total"));
             v.setUsuario(u);
 
-            u.setUsuId(rs.getInt("usu_id"));
+            u.setUsuId(rs.getLong("usu_id"));
             u.setUsuNome(rs.getString("usu_nome"));
 
             lista.add(v);
@@ -125,7 +127,7 @@ public class VendaDAO extends DAO<Venda> {
     }
 
     @Override
-    public Venda obterPorId(int id) throws SQLException {
+    public Venda obterPorId(Long id) throws SQLException {
         Venda v = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
@@ -147,7 +149,7 @@ public class VendaDAO extends DAO<Venda> {
             """
         );
 
-        stmt.setInt(1, id);
+        stmt.setLong(1, id);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -156,14 +158,14 @@ public class VendaDAO extends DAO<Venda> {
             v = new Venda();
             Usuario u = new Usuario();
 
-            v.setVenId(rs.getInt("ven_id"));
+            v.setVenId(rs.getLong("ven_id"));
             v.setVenData(rs.getDate("ven_date"));
             v.setVenNomeCliente(rs.getString("ven_nome_cliente"));
             v.setVenSituacaoPagamento(rs.getInt("ven_situacao_pagamento"));
             v.setVenValorTotal(rs.getFloat("ven_valor_total"));
             v.setUsuario(u);
 
-            u.setUsuId(rs.getInt("usu_id"));
+            u.setUsuId(rs.getLong("usu_id"));
             u.setUsuNome(rs.getString("usu_nome"));
 
         }

@@ -1,15 +1,29 @@
 package rocaplan.entidades;
 
-public class Usuario {
-    private int usuId;
-    private String usuNome;
-    private String usuEmail;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-    public int getUsuId() {
+public class Usuario {
+    @NotNull
+    private Long usuId;
+    
+    @NotNull
+    @Size( min = 1, max = 60 )
+    private String usuNome;
+    
+    @NotNull
+    @Size( min = 1, max = 60 )
+    private String usuEmail;
+    
+    @NotNull
+    @Size( min = 8, max = 16 )
+    private String usuSenha;
+
+    public Long getUsuId() {
         return usuId;
     }
 
-    public void setUsuId(int usuId) {
+    public void setUsuId(Long usuId) {
         this.usuId = usuId;
     }
 
@@ -36,5 +50,4 @@ public class Usuario {
     public void setUsuSenha(String usuSenha) {
         this.usuSenha = usuSenha;
     }
-    private String usuSenha;
 }

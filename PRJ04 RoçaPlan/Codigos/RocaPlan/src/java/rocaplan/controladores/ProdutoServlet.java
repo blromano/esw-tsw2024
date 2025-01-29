@@ -13,9 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.sql.SQLException;
 import rocaplan.dao.ProdutoDAO;
+import rocaplan.dao.TipoProdutoDAO;
 import rocaplan.entidades.Produto;
 import rocaplan.entidades.Usuario;
 import rocaplan.entidades.TipoProduto;
+import rocaplan.utils.Utils;
 
 @WebServlet(urlPatterns = {"/ProdutoServlet"})
 public class ProdutoServlet extends HttpServlet {
@@ -24,27 +26,32 @@ public class ProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String acao = request.getParameter( "acao" );
-        ProdutoDAO dao = null;
         RequestDispatcher disp = null;
         Jsonb jb = JsonbBuilder.create();
         
-        try {
-
-            dao = new ProdutoDAO();
+        try (ProdutoDAO daoProduto = new ProdutoDAO();
+             TipoProdutoDAO daoTipoProduto = new TipoProdutoDAO()) {
 
             if ( acao.equals( "inserir" ) ) {
 
                 String proNome = request.getParameter("proNome");
                 int proQuantidade = Integer.parseInt(request.getParameter("proQuantidade"));
                 float proValorUnitario = Float.parseFloat(request.getParameter("proValorUnitario"));
-                int fkUsuId = Integer.parseInt(request.getParameter("fkUsuId"));
-                int fkTprId = Integer.parseInt(request.getParameter("fkTprId"));
-                
-                Usuario u = new Usuario();
-                u.setUsuId(fkUsuId);
+                Long fkUsuId = Utils.getLong( request, "fkUsuId" );
+                Long fkTprId = Utils.getLong( request, "type" );
+                String newTpr = request.getParameter("newTpr");
                 
                 TipoProduto tp = new TipoProduto();
-                tp.setTprId(fkTprId);
+                
+                if(!newTpr.isEmpty()) {
+                    tp.setTprNome(newTpr);
+                    daoTipoProduto.salvar(tp);
+                } else {
+                    tp.setTprId(fkTprId);
+                }
+                
+                Usuario u = new Usuario();
+                u.setUsuId(fkUsuId);                
 
                 Produto p = new Produto();
                 p.setProNome(proNome);
@@ -53,19 +60,20 @@ public class ProdutoServlet extends HttpServlet {
                 p.setUsuario(u);
                 p.setTipoProduto(tp);
                 
-                dao.salvar(p);
+                Utils.validar( p, "proId" );
+                daoProduto.salvar(p);
 
                 disp = request.getRequestDispatcher(
                         "/pages/products.jsp" );
 
             } else if ( acao.equals( "alterar" ) ) {
 
-                int id = Integer.parseInt(request.getParameter("id"));
+                Long id = Utils.getLong( request, "id" );
                 String proNome = request.getParameter("nome");
                 int proQuantidade = Integer.parseInt(request.getParameter("quantidade"));
                 float proValorUnitario = Float.parseFloat(request.getParameter("valorUnitario"));
-                int fkUsuId = 1; // teria que pegar da sessão do login
-                int fkTprId = Integer.parseInt(request.getParameter("type"));
+                Long fkUsuId = Utils.getLong( request, "fkUsuId" );
+                Long fkTprId = Utils.getLong( request, "type" );
 
                 Usuario u = new Usuario();
                 u.setUsuId(fkUsuId);
@@ -81,33 +89,33 @@ public class ProdutoServlet extends HttpServlet {
                 p.setTipoProduto(tp);
                 p.setProId(id);
 
-                dao.atualizar(p);
+                daoProduto.atualizar(p);
 
                 disp = request.getRequestDispatcher(
                         "/pages/products.jsp" );              
 
             } else if ( acao.equals( "excluir" ) ) {
 
-                int id = Integer.parseInt(request.getParameter("id"));
+                Long id = Utils.getLong( request, "id" );
 
                 Produto p = new Produto();
                 p.setProId(id);
 
-                dao.excluir(p);
+                daoProduto.excluir(p);
 
                 disp = request.getRequestDispatcher(
                         "/pages/products.jsp" );
 
             } else if( acao.equals( "listar" ) ) {
-                List<Produto> produtos = dao.listarTodos();
+                List<Produto> produtos = daoProduto.listarTodos();
                 
                 try ( PrintWriter out = response.getWriter() ) {
                     out.print( jb.toJson( produtos ) );
                 }
             } else {
                 // Preparar Alteração
-                int id = Integer.parseInt(request.getParameter("id"));
-                Produto p = dao.obterPorId(id);
+                Long id = Utils.getLong( request, "id" );
+                Produto p = daoProduto.obterPorId(id);
                 
                 try ( PrintWriter out = response.getWriter() ) {
                     out.print( jb.toJson( p ) );
@@ -116,15 +124,7 @@ public class ProdutoServlet extends HttpServlet {
             }
 
         } catch ( SQLException exc ) {
-            exc.printStackTrace();
-        } finally {
-            if ( dao != null ) {
-                try {
-                    dao.fecharConexao();
-                } catch ( SQLException exc ) {
-                    exc.printStackTrace();
-                }
-            }
+            disp = Utils.prepararDespachoErro( request, exc.getMessage() );
         }
 
         if ( disp != null ) {

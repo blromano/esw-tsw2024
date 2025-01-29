@@ -8,6 +8,7 @@ import java.util.List;
 import rocaplan.entidades.Produto;
 import rocaplan.entidades.Usuario;
 import rocaplan.entidades.TipoProduto;
+import rocaplan.utils.Utils;
 
 public class ProdutoDAO extends DAO<Produto> {
 
@@ -27,10 +28,11 @@ public class ProdutoDAO extends DAO<Produto> {
         stmt.setString(1, obj.getProNome());
         stmt.setFloat(2, obj.getProValorUnitario());
         stmt.setInt(3, obj.getProQuantidade());
-        stmt.setInt(4, obj.getUsuario().getUsuId());
-        stmt.setInt(5, obj.getTipoProduto().getTprId());
+        stmt.setLong(4, obj.getUsuario().getUsuId());
+        stmt.setLong(5, obj.getTipoProduto().getTprId());
 
         stmt.executeUpdate();
+        obj.setProId(Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ));
         stmt.close();
     }
 
@@ -52,9 +54,9 @@ public class ProdutoDAO extends DAO<Produto> {
         stmt.setString(1, obj.getProNome());
         stmt.setFloat(2, obj.getProValorUnitario());
         stmt.setInt(3, obj.getProQuantidade());
-        stmt.setInt(4, obj.getUsuario().getUsuId());
-        stmt.setInt(5, obj.getTipoProduto().getTprId());
-        stmt.setInt(6, obj.getProId());
+        stmt.setLong(4, obj.getUsuario().getUsuId());
+        stmt.setLong(5, obj.getTipoProduto().getTprId());
+        stmt.setLong(6, obj.getProId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -69,7 +71,7 @@ public class ProdutoDAO extends DAO<Produto> {
             """
         );
 
-        stmt.setInt(1, obj.getProId());
+        stmt.setLong(1, obj.getProId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -109,17 +111,17 @@ public class ProdutoDAO extends DAO<Produto> {
             Usuario u = new Usuario();
             TipoProduto tp = new TipoProduto();
 
-            p.setProId(rs.getInt("pro_id"));
+            p.setProId(rs.getLong("pro_id"));
             p.setProNome(rs.getString("pro_nome"));
             p.setProValorUnitario(rs.getFloat("pro_valor_unitario"));
             p.setProQuantidade(rs.getInt("pro_quantidade"));
             p.setUsuario(u);
             p.setTipoProduto(tp);
 
-            u.setUsuId(rs.getInt("usu_id"));
+            u.setUsuId(rs.getLong("usu_id"));
             u.setUsuNome(rs.getString("usu_nome"));
 
-            tp.setTprId(rs.getInt("tpr_id"));
+            tp.setTprId(rs.getLong("tpr_id"));
             tp.setTprNome(rs.getString("tpr_nome"));
 
             lista.add(p);
@@ -133,7 +135,7 @@ public class ProdutoDAO extends DAO<Produto> {
     }
 
     @Override
-    public Produto obterPorId(int id) throws SQLException {
+    public Produto obterPorId(Long id) throws SQLException {
         Produto p = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
@@ -158,7 +160,7 @@ public class ProdutoDAO extends DAO<Produto> {
             """
         );
 
-        stmt.setInt(1, id);
+        stmt.setLong(1, id);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -168,17 +170,17 @@ public class ProdutoDAO extends DAO<Produto> {
             Usuario u = new Usuario();
             TipoProduto tp = new TipoProduto();
 
-            p.setProId(rs.getInt("pro_id"));
+            p.setProId(rs.getLong("pro_id"));
             p.setProNome(rs.getString("pro_nome"));
             p.setProValorUnitario(rs.getFloat("pro_valor_unitario"));
             p.setProQuantidade(rs.getInt("pro_quantidade"));
             p.setUsuario(u);
             p.setTipoProduto(tp);
 
-            u.setUsuId(rs.getInt("usu_id"));
+            u.setUsuId(rs.getLong("usu_id"));
             u.setUsuNome(rs.getString("usu_nome"));
 
-            tp.setTprId(rs.getInt("tpr_id"));
+            tp.setTprId(rs.getLong("tpr_id"));
             tp.setTprNome(rs.getString("tpr_nome"));
 
         }

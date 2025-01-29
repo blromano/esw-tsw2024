@@ -1,20 +1,33 @@
 package rocaplan.entidades;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.sql.Date;
 
 public class Venda {
-    private int venId;
+    @NotNull
+    private Long venId;
+    
+    @NotNull
     private Date venData;
+    
+    @Size( min = 0, max = 60 )
     private String venNomeCliente;
+    
+    @NotNull
     private int venSituacaoPagamento;
+    
+    @NotNull
     private float venValorTotal;
+    
+    @NotNull
     private Usuario usuario;
 
-    public int getVenId() {
+    public Long getVenId() {
         return venId;
     }
 
-    public void setVenId(int venId) {
+    public void setVenId(Long venId) {
         this.venId = venId;
     }
 

@@ -1,18 +1,33 @@
 package rocaplan.entidades;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class Produto {
-    private int proId;
+    @NotNull
+    private Long proId;
+    
+    @NotNull
+    @Size( min = 1, max = 40 )
     private String proNome;
+    
+    @NotNull
     private float proValorUnitario;
+    
+    @NotNull
     private int proQuantidade;
+    
+    @NotNull
     private Usuario usuario;
+    
+    @NotNull
     private TipoProduto tipoProduto;
 
-    public int getProId() {
+    public Long getProId() {
         return proId;
     }
 
-    public void setProId(int proId) {
+    public void setProId(Long proId) {
         this.proId = proId;
     }
 

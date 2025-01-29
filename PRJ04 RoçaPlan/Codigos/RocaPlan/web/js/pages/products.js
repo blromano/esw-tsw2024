@@ -1,8 +1,12 @@
 // Executado quando o DOM carregar
-document.addEventListener("DOMContentLoaded", function(e) {
+document.addEventListener("DOMContentLoaded", function () {
+    listProducts();
+});
+
+function listProducts() {
     let parametros = new URLSearchParams();
-    parametros.append( "acao", "listar" );
-    
+    parametros.append("acao", "listar");
+
     fetch("/RocaPlan/ProdutoServlet", {
         method: "POST",
         body: parametros
@@ -11,43 +15,43 @@ document.addEventListener("DOMContentLoaded", function(e) {
         return response.json();
     }).then(data => {
         let tbody = $("#tbody-produtos");
-        
-        if(data.length > 0) {
+
+        if (data.length > 0) {
             tbody.html("");
-        }        
-        
-        data.forEach( produto => {
+        }
+
+        data.forEach(produto => {
             tbody.append(
-               `<tr>
-                    <td>${produto.proId}</td>
-                    <td>${produto.proNome}</td>
-                    <td>${produto.tipoProduto.tprNome}</td>
-                    <td>${produto.proQuantidade}</td>
-                    <td>${produto.proValorUnitario}</td>
-                    <td data-bs-toggle="tooltip" data-bs-title="Editar">
-                        <button class="btn btn-success btn-sm" onclick="openEditModal(${produto.proId})">
-                            <i class="bx bx-edit"></i>
-                        </button>
-                    </td>
-                    <td data-bs-toggle="tooltip" data-bs-title="Excluir">
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal">
-                            <i class="bx bx-trash"></i>
-                        </button>
-                    </td>
-                </tr>`
-            );
+                    `<tr>
+              <td>${produto.proId}</td>
+              <td>${produto.proNome}</td>
+              <td>${produto.tipoProduto.tprNome}</td>
+              <td>${produto.proQuantidade}</td>
+              <td>${produto.proValorUnitario}</td>
+              <td data-bs-toggle="tooltip" data-bs-title="Editar">
+                  <button class="btn btn-success btn-sm" onclick="openEditModal(${produto.proId})">
+                      <i class="bx bx-edit"></i>
+                  </button>
+              </td>
+              <td data-bs-toggle="tooltip" data-bs-title="Excluir">
+                  <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                          data-bs-target="#deleteModal">
+                      <i class="bx bx-trash"></i>
+                  </button>
+              </td>
+          </tr>`
+                    );
         });
-    }).catch( error => {
-        alert( "Erro: " + error );
+    }).catch(error => {
+        alert("Erro: " + error);
     });
-});
+}
 
 function openEditModal(idProduto) {
     let parametros = new URLSearchParams();
-    parametros.append( "acao", "prepararAlteracao" );
-    parametros.append( "id", idProduto );
-    
+    parametros.append("acao", "prepararAlteracao");
+    parametros.append("id", idProduto);
+
     fetch("/RocaPlan/ProdutoServlet", {
         method: "POST",
         body: parametros
@@ -61,18 +65,19 @@ function openEditModal(idProduto) {
         document.querySelector('#editModal input[name="quantidade"]').value = data.proQuantidade;
         document.querySelector('#editModal input[name="valorUnitario"]').value = data.proValorUnitario;
         document.querySelector('#editModal input[name="id"]').value = data.proId;
-        
+
         // Abrindo Modal
-        document.querySelector('#editModal').classList.add('show');
-        document.querySelector('#editModal').style.display = 'block';
-    }).catch( error => {
-        alert( "Erro: " + error );
+        var editModal = new bootstrap.Modal(document.querySelector('#editModal'));
+        editModal.show();
+    }).catch(error => {
+        alert("Erro: " + error);
     });
 }
 
 function showOtherType(value, id) {
     if (value == 5) {
         document.getElementById(id).classList.remove('d-none');
+        document.querySelector('[name="newTpr"]').setAttribute('required', 'true');
 
         if (id == 'other-type') {
             document.getElementById('btn-filter-clear').classList.replace('col-md-2', 'col-md-6');
@@ -80,11 +85,29 @@ function showOtherType(value, id) {
         }
     } else {
         document.getElementById(id).classList.add('d-none');
+        document.querySelector('[name="newTpr"]').removeAttribute('required');
 
         if (id == 'other-type') {
             document.getElementById('btn-filter-clear').classList.replace('col-md-6', 'col-md-2');
             document.getElementById('btn-filter').classList.replace('col-md-6', 'col-md-2');
         }
     }
+}
+
+function addProduct(e) {
+    e.preventDefault();
+
+    let form = new FormData(e.target);
+    let parametros = new URLSearchParams();
+    parametros.append("acao", "inserir");
+
+    for (const [key, value] of form) {
+        parametros.append(key, value);
+    }
+    
+    fetch("/RocaPlan/ProdutoServlet", {
+        method: "POST",
+        body: parametros
+    });
 }
 

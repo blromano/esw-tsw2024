@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import rocaplan.entidades.TipoProduto;
+import rocaplan.utils.Utils;
 
 public class TipoProdutoDAO extends DAO<TipoProduto> {
 
@@ -25,6 +26,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
         stmt.setString(1, obj.getTprNome());
 
         stmt.executeUpdate();
+        obj.setTprId(Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ));
         stmt.close();
     }
 
@@ -40,7 +42,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
         );
 
         stmt.setString(1, obj.getTprNome());
-        stmt.setInt(2, obj.getTprId());
+        stmt.setLong(2, obj.getTprId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -55,7 +57,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
             """
         );
 
-        stmt.setInt(1, obj.getTprId());
+        stmt.setLong(1, obj.getTprId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -77,7 +79,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
         while (rs.next()) {
             TipoProduto tp = new TipoProduto();
 
-            tp.setTprId(rs.getInt("tpr_id"));
+            tp.setTprId(rs.getLong("tpr_id"));
             tp.setTprNome(rs.getString("tpr_nome"));
 
             lista.add(tp);
@@ -90,7 +92,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
     }
 
     @Override
-    public TipoProduto obterPorId(int id) throws SQLException {
+    public TipoProduto obterPorId(Long id) throws SQLException {
         TipoProduto tp = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
@@ -100,7 +102,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
             """
         );
 
-        stmt.setInt(1, id);
+        stmt.setLong(1, id);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -108,7 +110,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
 
             tp = new TipoProduto();
 
-            tp.setTprId(rs.getInt("tpr_id"));
+            tp.setTprId(rs.getLong("tpr_id"));
             tp.setTprNome(rs.getString("tpr_nome"));
 
         }

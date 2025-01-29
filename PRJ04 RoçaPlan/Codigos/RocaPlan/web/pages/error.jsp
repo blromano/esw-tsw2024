@@ -10,7 +10,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-        <title>RoçaPlan - Página Não Encontrada</title>
+        <title>RoçaPlan - Erro(s)</title>
 
         <meta name="description" content="O Sistema de Gestão da Roça" />
 
@@ -48,10 +48,13 @@
         <div class="container-xxl container-p-y">
             <div class="misc-wrapper">
                 <h1 class="mb-2 mx-2"
-                    style="line-height: 6rem; font-size: 6rem">404</h1>
-                <h4 class="mb-2 mx-2">Página Não Encontrada ⚠️</h4>
-                <p class="mb-6 mx-2">Não encontramos a página que você procura.</p>
-                <a href="${cp}/index.jsp" class="btn btn-primary">Voltar a Dashboard</a>
+                    style="line-height: 6rem; font-size: 6rem">Erro(s) ⚠</h1>
+
+                <ul class="list-group list-group-flush">
+                    ${requestScope.mensagemErro}
+                </ul>
+                
+                <a href="${requestScope.voltarPara}" class="btn btn-primary">Voltar</a>
             </div>
         </div>
         <!-- /Error -->

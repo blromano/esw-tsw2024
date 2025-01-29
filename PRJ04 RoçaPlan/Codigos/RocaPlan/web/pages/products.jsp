@@ -294,10 +294,10 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="row g-4 align-items-center">
+                        <form class="row g-4 align-items-center" onsubmit="addProduct(event)">
                             <div class="col-12 col-md-6 col-lg-4">
-                                <label for="name" class="form-label">Nome</label>
-                                <input type="text" class="form-control" name="name" maxlength="40"
+                                <label for="proNome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" name="proNome" maxlength="40"
                                        required />
                             </div>
 
@@ -305,8 +305,8 @@
                                 <label for="type" class="form-label">
                                     Tipo
                                 </label>
-                                <select class="form-select" id="type"
-                                        onchange="showOtherType(this.value, 'add-other-type')">
+                                <select class="form-select" id="type" name="fkTprId"
+                                        onchange="showOtherType(this.value, 'add-other-type')" required>
                                     <option selected disabled>Selecione...</option>
                                     <option value="1">Fruta</option>
                                     <option value="2">Grãos</option>
@@ -317,150 +317,141 @@
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4 d-none" id="add-other-type">
-                                <label for="other-type" class="form-label">Outro Tipo</label>
-                                <input type="text" class="form-control" name="other-type" maxlength="60"
-                                       required />
+                                <label for="newTpr" class="form-label">Outro Tipo</label>
+                                <input type="text" class="form-control" name="newTpr" maxlength="10" required />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
-                                <label for="amount" class="form-label">Quantidade</label>
-                                <input type="number" class="form-control" name="amount" min="0"
-                                       required />
+                                <label for="proQuantidade" class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" name="proQuantidade" min="0" required />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
-                                <label for="value" class="form-label">Valor Unitário</label>
-                                <input type="number" class="form-control" name="value" step="0.01"
-                                       min="0"
-                                       required />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer justify-content-end">
-                        <button type="button" class="btn btn-primary m-0 ms-1"
-                                data-bs-dismiss="modal">
-                            Salvar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="deleteModal" tabindex="-1"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-sm"
-                 role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body text-center">
-                        <i class="bx bx-large bx-info-circle text-danger"></i>
-                        <h4 class="mt-5 mb-0">Tem certeza que deseja deletar este produto?</h4>
-                    </div>
-
-                    <div class="modal-footer justify-content-between">
-                        <button type="button"
-                                class="btn btn-primary flex-grow-1 me-1" data-bs-dismiss="modal">
-                            Sim
-                        </button>
-
-                        <button type="button" class="btn btn-outline-danger flex-grow-1 ms-1"
-                                data-bs-dismiss="modal">
-                            Não
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true"
-             data-bs-backdrop="static">
-            <div
-                class="modal-dialog modal-dialog-centered modal-lg"
-                role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Editar Produto</h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="row g-4 align-items-center">
-                            <input type="hidden" name="id" />
-                            
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <label for="name" class="form-label">Nome</label>
-                                <input type="text" class="form-control" name="nome" maxlength="40" required />
-                            </div>
-
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <label for="type" class="form-label">
-                                    Tipo
-                                </label>
-                                <select class="form-select" id="type" name="type"
-                                        onchange="showOtherType(this.value, 'edit-other-type')">
-                                    <option disabled>Selecione...</option>
-                                    <option value="1">Fruta</option>
-                                    <option value="2">Grãos</option>
-                                    <option value="3">Legume</option>
-                                    <option value="4">Verdura</option>
-                                    <option value="5">Outro</option>
-                                </select>
-                            </div>
-
-                            <div class="col-12 col-md-6 col-lg-4 d-none" id="edit-other-type">
-                                <label for="other-type" class="form-label">Outro Tipo</label>
-                                <input type="text" class="form-control" name="other-type" maxlength="60"
-                                       required />
-                            </div>
-
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <label for="amount" class="form-label">Quantidade</label>
-                                <input type="number" class="form-control" name="quantidade" min="0"
-                                       required />
-                            </div>
-
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <label for="value" class="form-label">Valor Unitário</label>
-                                <input type="number" class="form-control" name="valorUnitario" step="0.01"
+                                <label for="proValorUnitario" class="form-label">Valor Unitário</label>
+                                <input type="number" class="form-control" name="proValorUnitario" step="0.01"
                                        min="0" required />
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer justify-content-end">
-                        <button type="button" class="btn btn-primary m-0 ms-1"
-                                data-bs-dismiss="modal">
-                            Salvar
-                        </button>
+                            
+                            <div class="col-12 text-end">
+                                <input type="submit" class="btn btn-primary m-0 ms-1" value="Salvar" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Core JS -->
-        <!-- build:js assets/vendor/js/core.js -->
+            <div class="modal fade" id="deleteModal" tabindex="-1"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm"
+                     role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
 
-        <script src="${cp}/js/libs/jquery/jquery.js"></script>
-        <script src="${cp}/js/libs/popper/popper.js"></script>
-        <script src="${cp}/js/libs/bootstrap/bootstrap.js"></script>
-        <script src="${cp}/js/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-        <script src="${cp}/js/menu.js"></script>
+                        <div class="modal-body text-center">
+                            <i class="bx bx-large bx-info-circle text-danger"></i>
+                            <h4 class="mt-5 mb-0">Tem certeza que deseja deletar este produto?</h4>
+                        </div>
 
-        <!-- endbuild -->
+                        <div class="modal-footer justify-content-between">
+                            <button type="button"
+                                    class="btn btn-primary flex-grow-1 me-1" data-bs-dismiss="modal">
+                                Sim
+                            </button>
 
-        <!-- Main JS -->
-        <script src="${cp}/js/main.js"></script>
+                            <button type="button" class="btn btn-outline-danger flex-grow-1 ms-1"
+                                    data-bs-dismiss="modal">
+                                Não
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static">
+                <div
+                    class="modal-dialog modal-dialog-centered modal-lg"
+                    role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editar Produto</h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row g-4 align-items-center">
+                                <input type="hidden" name="id" />
+
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <label for="name" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" name="nome" maxlength="40" required />
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <label for="type" class="form-label">
+                                        Tipo
+                                    </label>
+                                    <select class="form-select" id="type" name="type"
+                                            onchange="showOtherType(this.value, 'edit-other-type')">
+                                        <option disabled>Selecione...</option>
+                                        <option value="1">Fruta</option>
+                                        <option value="2">Grãos</option>
+                                        <option value="3">Legume</option>
+                                        <option value="4">Verdura</option>
+                                        <option value="5">Outro</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 d-none" id="edit-other-type">
+                                    <label for="other-type" class="form-label">Outro Tipo</label>
+                                    <input type="text" class="form-control" name="other-type" maxlength="60"
+                                           required />
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <label for="amount" class="form-label">Quantidade</label>
+                                    <input type="number" class="form-control" name="quantidade" min="0"
+                                           required />
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <label for="value" class="form-label">Valor Unitário</label>
+                                    <input type="number" class="form-control" name="valorUnitario" step="0.01"
+                                           min="0" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer justify-content-end">
+                            <button type="button" class="btn btn-primary m-0 ms-1"
+                                    data-bs-dismiss="modal">
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core JS -->
+            <!-- build:js assets/vendor/js/core.js -->
+
+            <script src="${cp}/js/libs/jquery/jquery.min.js"></script>
+            <script src="${cp}/js/libs/bootstrap/bootstrap.bundle.min.js"></script>
+            <script src="${cp}/js/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+            <script src="${cp}/js/menu.js"></script>
+
+            <!-- endbuild -->
+
+            <!-- Main JS -->
+            <script src="${cp}/js/main.js"></script>
     </body>
 </html>

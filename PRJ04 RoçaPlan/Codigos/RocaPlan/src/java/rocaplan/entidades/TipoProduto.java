@@ -1,13 +1,21 @@
 package rocaplan.entidades;
 
-public class TipoProduto {
-    private int tprId;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-    public int getTprId() {
+public class TipoProduto {
+    @NotNull
+    private Long tprId;
+    
+    @NotNull
+    @Size( min = 1, max = 10 )
+    private String tprNome;
+
+    public Long getTprId() {
         return tprId;
     }
 
-    public void setTprId(int tprId) {
+    public void setTprId(Long tprId) {
         this.tprId = tprId;
     }
 
@@ -18,5 +26,4 @@ public class TipoProduto {
     public void setTprNome(String tprNome) {
         this.tprNome = tprNome;
     }
-    private String tprNome;
 }

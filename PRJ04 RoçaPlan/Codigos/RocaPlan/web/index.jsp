@@ -258,9 +258,8 @@
         <!-- Core JS -->
         <!-- build:js assets/vendor/js/core.js -->
 
-        <script src="${cp}/js/libs/jquery/jquery.js"></script>
-        <script src="${cp}/js/libs/popper/popper.js"></script>
-        <script src="${cp}/js/libs/bootstrap/bootstrap.js"></script>
+        <script src="${cp}/js/libs/jquery/jquery.min.js"></script>
+        <script src="${cp}/js/libs/bootstrap/bootstrap.bundle.min.js"></script>
         <script src="${cp}/js/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
         <script src="${cp}/js/menu.js"></script>
 

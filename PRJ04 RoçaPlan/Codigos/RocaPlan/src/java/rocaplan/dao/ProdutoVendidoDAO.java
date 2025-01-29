@@ -8,6 +8,7 @@ import java.util.List;
 import rocaplan.entidades.ProdutoVendido;
 import rocaplan.entidades.Produto;
 import rocaplan.entidades.Venda;
+import rocaplan.utils.Utils;
 
 public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
     
@@ -25,10 +26,11 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
         );
 
         stmt.setInt(1, obj.getPrvQuantidade());
-        stmt.setInt(2, obj.getProduto().getProId());
-        stmt.setInt(3, obj.getVenda().getVenId());
+        stmt.setLong(2, obj.getProduto().getProId());
+        stmt.setLong(3, obj.getVenda().getVenId());
 
         stmt.executeUpdate();
+        obj.setPrvId(Utils.getChavePrimariaAposInsercao( stmt, "insert_id" ));
         stmt.close();
     }
 
@@ -46,9 +48,9 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
         );
 
         stmt.setInt(1, obj.getPrvQuantidade());
-        stmt.setInt(2, obj.getProduto().getProId());
-        stmt.setInt(3, obj.getVenda().getVenId());
-        stmt.setInt(4, obj.getPrvId());
+        stmt.setLong(2, obj.getProduto().getProId());
+        stmt.setLong(3, obj.getVenda().getVenId());
+        stmt.setLong(4, obj.getPrvId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -63,7 +65,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             """
         );
 
-        stmt.setInt(1, obj.getPrvId());
+        stmt.setLong(1, obj.getPrvId());
 
         stmt.executeUpdate();
         stmt.close();
@@ -101,15 +103,15 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             Produto p = new Produto();
             Venda v = new Venda();
 
-            pv.setPrvId(rs.getInt("prv_id"));
+            pv.setPrvId(rs.getLong("prv_id"));
             pv.setPrvQuantidade(rs.getInt("prv_quantidade"));
             pv.setProduto(p);
             pv.setVenda(v);
 
-            p.setProId(rs.getInt("pro_id"));
+            p.setProId(rs.getLong("pro_id"));
             p.setProNome(rs.getString("pro_nome"));
 
-            v.setVenId(rs.getInt("ven_id"));
+            v.setVenId(rs.getLong("ven_id"));
             v.setVenData(rs.getDate("ven_data"));
 
             lista.add(pv);
@@ -123,7 +125,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
     }
 
     @Override
-    public ProdutoVendido obterPorId(int id) throws SQLException {
+    public ProdutoVendido obterPorId(Long id) throws SQLException {
         ProdutoVendido pv = null;
 
         PreparedStatement stmt = getConnection().prepareStatement(
@@ -146,7 +148,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             """
         );
 
-        stmt.setInt(1, id);
+        stmt.setLong(1, id);
 
         ResultSet rs = stmt.executeQuery();
 
@@ -156,15 +158,15 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             Produto p = new Produto();
             Venda v = new Venda();
 
-            pv.setPrvId(rs.getInt("prv_id"));
+            pv.setPrvId(rs.getLong("prv_id"));
             pv.setPrvQuantidade(rs.getInt("prv_quantidade"));
             pv.setProduto(p);
             pv.setVenda(v);
 
-            p.setProId(rs.getInt("pro_id"));
+            p.setProId(rs.getLong("pro_id"));
             p.setProNome(rs.getString("pro_nome"));
 
-            v.setVenId(rs.getInt("ven_id"));
+            v.setVenId(rs.getLong("ven_id"));
             v.setVenData(rs.getDate("ven_data"));
 
         }
