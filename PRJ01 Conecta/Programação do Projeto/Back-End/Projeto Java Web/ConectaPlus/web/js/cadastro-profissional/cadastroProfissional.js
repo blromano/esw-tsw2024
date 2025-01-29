@@ -15,7 +15,7 @@ function onChangeSenha(){
     
     form.senhaObrigatoria().style.display = senha ? "none" : "block";
     
-    form.senhaInvalida().style.display = validarSenha(senha) ? "none" : "block";    
+    form.senhaInvalida().style.display = validarSenha(senha) ? "none" : "block";
     
     validarSenhaCoincidente();
     
@@ -36,14 +36,13 @@ function validarSenhaCoincidente(){
     const confirmarSenha = form.confirmarSenha().value;
     
     form.confirmarSenhaErro().style.display = 
-            senha === confirmarSenha ? "none" : "block";
-    
+                senha === confirmarSenha ? "none" : "block";
     
 }
 
 function botaoDesabilitado(){
     
-    form.botaoSubmissao().disabled = ! validarForm();
+    form.botaoSubmissao().disabled = !validarForm();
     
 }
 
@@ -55,17 +54,17 @@ function validarForm(){
     }
     
     const senha = form.senha().value;
-    if ( !senha || !validarSenha(senha)) {
+    if ( !senha || !validarSenha(senha)){
         return false;
     }
     
     const confirmarSenha = form.confirmarSenha().value;
-    if ( senha !== confirmarSenha ) {
+    if ( senha !==confirmarSenha ){
         return false;
     }
     
     return true;
-    
+   
 }
 
 function validarEmail(email) {
@@ -90,8 +89,6 @@ function validarSenha(senha) {
     
 }
 
-
-
 const form = {
     
     email: () => document.getElementById('email'),
@@ -105,9 +102,7 @@ const form = {
     confirmarSenha: () => document.getElementById('confirmPassword'),
     confirmarSenhaErro: () => document.getElementById('senha-coincide'),
     
-    
     botaoSubmissao: () => document.getElementById('botao-submissao')
     
-};
-
-
+    
+}

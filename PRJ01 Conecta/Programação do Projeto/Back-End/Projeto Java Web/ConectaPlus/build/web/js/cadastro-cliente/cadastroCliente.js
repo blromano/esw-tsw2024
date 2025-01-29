@@ -43,7 +43,7 @@ function validarSenhaCoincidente(){
 
 function botaoDesabilitado(){
     
-    form.botaoSubmissao().abled = validarForm();
+    form.botaoSubmissao().disabled = ! validarForm();
     
 }
 
@@ -61,11 +61,6 @@ function validarForm(){
     
     const confirmarSenha = form.confirmarSenha().value;
     if ( senha !== confirmarSenha ) {
-        return false;
-    }
-    
-    const cpf = form.cpf().value;
-    if ( !cpf || !validarCpf(cpf)){
         return false;
     }
     
