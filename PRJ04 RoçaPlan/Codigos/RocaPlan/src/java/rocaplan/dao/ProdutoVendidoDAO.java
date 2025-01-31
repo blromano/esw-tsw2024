@@ -25,7 +25,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             """
         , new String[]{ "insert_id" });
 
-        stmt.setInt(1, obj.getPrvQuantidade());
+        stmt.setBigDecimal(1, obj.getPrvQuantidade());
         stmt.setLong(2, obj.getProduto().getProId());
         stmt.setLong(3, obj.getVenda().getVenId());
 
@@ -47,7 +47,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             """
         );
 
-        stmt.setInt(1, obj.getPrvQuantidade());
+        stmt.setBigDecimal(1, obj.getPrvQuantidade());
         stmt.setLong(2, obj.getProduto().getProId());
         stmt.setLong(3, obj.getVenda().getVenId());
         stmt.setLong(4, obj.getPrvId());
@@ -104,7 +104,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             Venda v = new Venda();
 
             pv.setPrvId(rs.getLong("prv_id"));
-            pv.setPrvQuantidade(rs.getInt("prv_quantidade"));
+            pv.setPrvQuantidade(rs.getBigDecimal("prv_quantidade"));
             pv.setProduto(p);
             pv.setVenda(v);
 
@@ -159,7 +159,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
             Venda v = new Venda();
 
             pv.setPrvId(rs.getLong("prv_id"));
-            pv.setPrvQuantidade(rs.getInt("prv_quantidade"));
+            pv.setPrvQuantidade(rs.getBigDecimal("prv_quantidade"));
             pv.setProduto(p);
             pv.setVenda(v);
 

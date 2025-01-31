@@ -1,7 +1,9 @@
 package rocaplan.entidades;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
 
 public class Produto {
     @NotNull
@@ -12,10 +14,12 @@ public class Produto {
     private String proNome;
     
     @NotNull
-    private float proValorUnitario;
+    @PositiveOrZero
+    private BigDecimal proValorUnitario;
     
     @NotNull
-    private int proQuantidade;
+    @PositiveOrZero
+    private BigDecimal proQuantidade;
     
     @NotNull
     private Usuario usuario;
@@ -39,19 +43,19 @@ public class Produto {
         this.proNome = proNome;
     }
 
-    public float getProValorUnitario() {
+    public BigDecimal getProValorUnitario() {
         return proValorUnitario;
     }
 
-    public void setProValorUnitario(float proValorUnitario) {
+    public void setProValorUnitario(BigDecimal proValorUnitario) {
         this.proValorUnitario = proValorUnitario;
     }
 
-    public int getProQuantidade() {
+    public BigDecimal getProQuantidade() {
         return proQuantidade;
     }
 
-    public void setProQuantidade(int proQuantidade) {
+    public void setProQuantidade(BigDecimal proQuantidade) {
         this.proQuantidade = proQuantidade;
     }
 

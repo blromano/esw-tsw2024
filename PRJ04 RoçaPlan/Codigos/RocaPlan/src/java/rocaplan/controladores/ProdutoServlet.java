@@ -2,7 +2,6 @@ package rocaplan.controladores;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -10,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.List;
 import java.sql.SQLException;
 import rocaplan.dao.ProdutoDAO;
@@ -19,14 +19,13 @@ import rocaplan.entidades.Usuario;
 import rocaplan.entidades.TipoProduto;
 import rocaplan.utils.Utils;
 
-@WebServlet(urlPatterns = {"/ProdutoServlet"})
+@WebServlet(name = "ProdutoServlet", urlPatterns = {"/ProdutoServlet"})
 public class ProdutoServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
-        RequestDispatcher disp = null;
         Jsonb jb = JsonbBuilder.create();
 
         try (ProdutoDAO daoProduto = new ProdutoDAO(); TipoProdutoDAO daoTipoProduto = new TipoProdutoDAO()) {
@@ -34,8 +33,8 @@ public class ProdutoServlet extends HttpServlet {
             if (acao.equals("inserir")) {
 
                 String proNome = request.getParameter("proNome");
-                int proQuantidade = Integer.parseInt(request.getParameter("proQuantidade"));
-                float proValorUnitario = Float.parseFloat(request.getParameter("proValorUnitario"));
+                BigDecimal proQuantidade = Utils.getBigDecimal(request.getParameter("proQuantidade"));
+                BigDecimal proValorUnitario = Utils.getBigDecimal(request.getParameter("proValorUnitario"));
                 Long usuId = Utils.getLong(request, "usuId");
                 Long tprId = Utils.getLong(request, "tprId");
                 String newTpr = request.getParameter("newTpr");
@@ -44,6 +43,7 @@ public class ProdutoServlet extends HttpServlet {
 
                 if (!newTpr.isEmpty()) {
                     tp.setTprNome(newTpr);
+                    Utils.validar(tp, "tprId");
                     daoTipoProduto.salvar(tp);
                 } else {
                     tp.setTprId(tprId);
@@ -61,13 +61,13 @@ public class ProdutoServlet extends HttpServlet {
 
                 Utils.validar(p, "proId");
                 daoProduto.salvar(p);
-                
+
             } else if (acao.equals("alterar")) {
 
                 Long id = Utils.getLong(request, "proId");
                 String proNome = request.getParameter("proNome");
-                int proQuantidade = Integer.parseInt(request.getParameter("proQuantidade"));
-                float proValorUnitario = Float.parseFloat(request.getParameter("proValorUnitario"));
+                BigDecimal proQuantidade = Utils.getBigDecimal(request.getParameter("proQuantidade"));
+                BigDecimal proValorUnitario = Utils.getBigDecimal(request.getParameter("proValorUnitario"));
                 Long usuId = Utils.getLong(request, "usuId");
                 Long tprId = Utils.getLong(request, "tprId");
                 String newTpr = request.getParameter("newTpr");
@@ -79,6 +79,7 @@ public class ProdutoServlet extends HttpServlet {
 
                 if (!newTpr.isEmpty()) {
                     tp.setTprNome(newTpr);
+                    Utils.validar(tp, "tprId");
                     daoTipoProduto.salvar(tp);
                 } else {
                     tp.setTprId(tprId);
@@ -124,7 +125,7 @@ public class ProdutoServlet extends HttpServlet {
         } catch (SQLException exc) {
             // Retornando o erro como Json, porque a requisição vai vir de um Modal por Js
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            
+
             try (PrintWriter out = response.getWriter()) {
                 out.print(jb.toJson(exc.getMessage()));
             }

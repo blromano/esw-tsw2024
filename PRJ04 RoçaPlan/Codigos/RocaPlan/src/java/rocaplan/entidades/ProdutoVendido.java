@@ -1,13 +1,16 @@
 package rocaplan.entidades;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 public class ProdutoVendido {
     @NotNull
     private Long prvId;
     
     @NotNull
-    private int prvQuantidade;
+    @Positive
+    private BigDecimal prvQuantidade;
     
     @NotNull
     private Venda venda;
@@ -23,11 +26,11 @@ public class ProdutoVendido {
         this.prvId = prvId;
     }
 
-    public int getPrvQuantidade() {
+    public BigDecimal getPrvQuantidade() {
         return prvQuantidade;
     }
 
-    public void setPrvQuantidade(int prvQuantidade) {
+    public void setPrvQuantidade(BigDecimal prvQuantidade) {
         this.prvQuantidade = prvQuantidade;
     }
 

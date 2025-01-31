@@ -26,8 +26,8 @@ public class ProdutoDAO extends DAO<Produto> {
         , new String[]{ "insert_id" });
 
         stmt.setString(1, obj.getProNome());
-        stmt.setFloat(2, obj.getProValorUnitario());
-        stmt.setInt(3, obj.getProQuantidade());
+        stmt.setBigDecimal(2, obj.getProValorUnitario());
+        stmt.setBigDecimal(3, obj.getProQuantidade());
         stmt.setLong(4, obj.getUsuario().getUsuId());
         stmt.setLong(5, obj.getTipoProduto().getTprId());
 
@@ -52,8 +52,8 @@ public class ProdutoDAO extends DAO<Produto> {
         );
 
         stmt.setString(1, obj.getProNome());
-        stmt.setFloat(2, obj.getProValorUnitario());
-        stmt.setInt(3, obj.getProQuantidade());
+        stmt.setBigDecimal(2, obj.getProValorUnitario());
+        stmt.setBigDecimal(3, obj.getProQuantidade());
         stmt.setLong(4, obj.getUsuario().getUsuId());
         stmt.setLong(5, obj.getTipoProduto().getTprId());
         stmt.setLong(6, obj.getProId());
@@ -113,8 +113,8 @@ public class ProdutoDAO extends DAO<Produto> {
 
             p.setProId(rs.getLong("pro_id"));
             p.setProNome(rs.getString("pro_nome"));
-            p.setProValorUnitario(rs.getFloat("pro_valor_unitario"));
-            p.setProQuantidade(rs.getInt("pro_quantidade"));
+            p.setProValorUnitario(rs.getBigDecimal("pro_valor_unitario"));
+            p.setProQuantidade(rs.getBigDecimal("pro_quantidade"));
             p.setUsuario(u);
             p.setTipoProduto(tp);
 
@@ -172,8 +172,8 @@ public class ProdutoDAO extends DAO<Produto> {
 
             p.setProId(rs.getLong("pro_id"));
             p.setProNome(rs.getString("pro_nome"));
-            p.setProValorUnitario(rs.getFloat("pro_valor_unitario"));
-            p.setProQuantidade(rs.getInt("pro_quantidade"));
+            p.setProValorUnitario(rs.getBigDecimal("pro_valor_unitario"));
+            p.setProQuantidade(rs.getBigDecimal("pro_quantidade"));
             p.setUsuario(u);
             p.setTipoProduto(tp);
 

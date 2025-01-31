@@ -1,7 +1,9 @@
 package rocaplan.entidades;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Venda {
@@ -15,10 +17,11 @@ public class Venda {
     private String venNomeCliente;
     
     @NotNull
-    private int venSituacaoPagamento;
+    private Boolean venSituacaoPagamento;
     
     @NotNull
-    private float venValorTotal;
+    @PositiveOrZero
+    private BigDecimal venValorTotal;
     
     @NotNull
     private Usuario usuario;
@@ -47,19 +50,19 @@ public class Venda {
         this.venNomeCliente = venNomeCliente;
     }
 
-    public int getVenSituacaoPagamento() {
+    public Boolean getVenSituacaoPagamento() {
         return venSituacaoPagamento;
     }
 
-    public void setVenSituacaoPagamento(int venSituacaoPagamento) {
+    public void setVenSituacaoPagamento(Boolean venSituacaoPagamento) {
         this.venSituacaoPagamento = venSituacaoPagamento;
     }
 
-    public float getVenValorTotal() {
+    public BigDecimal getVenValorTotal() {
         return venValorTotal;
     }
 
-    public void setVenValorTotal(float venValorTotal) {
+    public void setVenValorTotal(BigDecimal venValorTotal) {
         this.venValorTotal = venValorTotal;
     }
 

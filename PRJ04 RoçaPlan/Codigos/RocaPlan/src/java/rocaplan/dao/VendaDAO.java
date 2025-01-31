@@ -26,8 +26,8 @@ public class VendaDAO extends DAO<Venda> {
 
         stmt.setDate(1, obj.getVenData());
         stmt.setString(2, obj.getVenNomeCliente());
-        stmt.setInt(3, obj.getVenSituacaoPagamento());
-        stmt.setFloat(4, obj.getVenValorTotal());
+        stmt.setBoolean(3, obj.getVenSituacaoPagamento());
+        stmt.setBigDecimal(4, obj.getVenValorTotal());
         stmt.setLong(5, obj.getUsuario().getUsuId());
 
         stmt.executeUpdate();
@@ -52,8 +52,8 @@ public class VendaDAO extends DAO<Venda> {
 
         stmt.setDate(1, obj.getVenData());
         stmt.setString(2, obj.getVenNomeCliente());
-        stmt.setInt(3, obj.getVenSituacaoPagamento());
-        stmt.setFloat(4, obj.getVenValorTotal());
+        stmt.setBoolean(3, obj.getVenSituacaoPagamento());
+        stmt.setBigDecimal(4, obj.getVenValorTotal());
         stmt.setLong(5, obj.getUsuario().getUsuId());
         stmt.setLong(6, obj.getVenId());
 
@@ -109,8 +109,8 @@ public class VendaDAO extends DAO<Venda> {
             v.setVenId(rs.getLong("ven_id"));
             v.setVenData(rs.getDate("ven_date"));
             v.setVenNomeCliente(rs.getString("ven_nome_cliente"));
-            v.setVenSituacaoPagamento(rs.getInt("ven_situacao_pagamento"));
-            v.setVenValorTotal(rs.getFloat("ven_valor_total"));
+            v.setVenSituacaoPagamento(rs.getBoolean("ven_situacao_pagamento"));
+            v.setVenValorTotal(rs.getBigDecimal("ven_valor_total"));
             v.setUsuario(u);
 
             u.setUsuId(rs.getLong("usu_id"));
@@ -161,8 +161,8 @@ public class VendaDAO extends DAO<Venda> {
             v.setVenId(rs.getLong("ven_id"));
             v.setVenData(rs.getDate("ven_date"));
             v.setVenNomeCliente(rs.getString("ven_nome_cliente"));
-            v.setVenSituacaoPagamento(rs.getInt("ven_situacao_pagamento"));
-            v.setVenValorTotal(rs.getFloat("ven_valor_total"));
+            v.setVenSituacaoPagamento(rs.getBoolean("ven_situacao_pagamento"));
+            v.setVenValorTotal(rs.getBigDecimal("ven_valor_total"));
             v.setUsuario(u);
 
             u.setUsuId(rs.getLong("usu_id"));
