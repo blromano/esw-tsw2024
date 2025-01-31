@@ -50,7 +50,8 @@
                                 <div class="col-12">
                                     <div class="collapse" id="collapseFilters">
                                         <div class="card card-body">
-                                            <div class="row g-4 align-items-end">
+                                            <form class="row g-4 align-items-end" onsubmit="filterProducts(event)"
+                                                  onreset="listProducts()">
                                                 <div class="col-12 col-md-4">
                                                     <label for="proNome" class="form-label">
                                                         Nome
@@ -71,7 +72,7 @@
                                                         class="rocaplan.servicos.TipoProdutoServices"/>
 
                                                     <select class="form-select" id="filterTprId" name="tprId">
-                                                        <option selected disabled>Selecione...</option>
+                                                        <option value="" selected>Selecione...</option>
                                                         <c:forEach items="${servicos.todos}" var="tipoProduto">
                                                             <option value="${tipoProduto.tprId}">
                                                                 ${tipoProduto.tprNome}
@@ -85,22 +86,20 @@
                                                         Valor Unitário
                                                     </label>
 
-                                                    <input type="number" class="form-control"
-                                                           id="proValorUnitario" step="0.01" min="0" />
+                                                    <input type="number" class="form-control" id="proValorUnitario"
+                                                           name="proValorUnitario" step="0.01" min="0" />
                                                 </div>
 
                                                 <div class="col-6 col-md-2" id="btn-filter-clear">
-                                                    <button type="button" class="btn btn-outline-primary w-100">
-                                                        Limpar
-                                                    </button>
+                                                    <input type="reset" class="btn btn-outline-primary w-100" 
+                                                           value="Limpar" />
                                                 </div>
 
                                                 <div class="col-6 col-md-2" id="btn-filter">
-                                                    <button type="button" class="btn btn-primary w-100">
-                                                        Filtrar
-                                                    </button>
+                                                    <input type="submit" class="btn btn-primary w-100" 
+                                                           value="Filtrar" />
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

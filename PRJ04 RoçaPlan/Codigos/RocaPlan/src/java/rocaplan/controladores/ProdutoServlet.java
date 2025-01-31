@@ -106,11 +106,39 @@ public class ProdutoServlet extends HttpServlet {
                 daoProduto.excluir(p);
 
             } else if (acao.equals("listar")) {
+
                 List<Produto> produtos = daoProduto.listarTodos();
 
                 try (PrintWriter out = response.getWriter()) {
                     out.print(jb.toJson(produtos));
                 }
+
+            } else if (acao.equals("filtrar")) {
+
+                String proNome = request.getParameter("proNome");
+                Long tprId = Utils.getLong(request, "tprId");
+                BigDecimal proValorUnitario = Utils.getBigDecimal(request.getParameter("proValorUnitario"));
+
+                StringBuilder sb = new StringBuilder();
+
+                if (proNome != null && !proNome.isEmpty()) {
+                    sb.append(" AND pro_nome LIKE ?");
+                }
+
+                if (tprId != null) {
+                    sb.append(" AND tpr_id = ?");
+                }
+
+                if (proValorUnitario != null) {
+                    sb.append(" AND pro_valor_unitario = ?");
+                }
+                
+                List<Produto> produtos = daoProduto.filtrar(sb.toString(), proNome, tprId, proValorUnitario);
+                
+                try (PrintWriter out = response.getWriter()) {
+                    out.print(jb.toJson(produtos));
+                }
+
             } else {
                 // Preparar Alteração
                 Long id = Utils.getLong(request, "proId");

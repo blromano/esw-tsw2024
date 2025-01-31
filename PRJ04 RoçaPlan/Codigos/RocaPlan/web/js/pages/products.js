@@ -21,47 +21,11 @@ function listProducts() {
         method: "POST",
         body: parametros
     }).then(response => {
-        // faz o parse do json em objeto e retorna
         return response.json();
     }).then(data => {
-        let tbody = $("#tbody-produtos");
-
-        if (data.length > 0) {
-            tbody.html("");
-        }
-
-        data.forEach(produto => {
-            tbody.append(
-                `<tr>
-                    <td>${produto.proId}</td>
-                    <td>${produto.proNome}</td>
-                    <td>${produto.tipoProduto.tprNome}</td>
-                    <td>${produto.proQuantidade}</td>
-                    <td>${produto.proValorUnitario}</td>
-                    <td data-bs-toggle="tooltip" data-bs-title="Editar">
-                        <button class="btn btn-success btn-sm" onclick="openEditModal(${produto.proId})">
-                            <i class="bx bx-edit"></i>
-                        </button>
-                    </td>
-                    <td data-bs-toggle="tooltip" data-bs-title="Excluir">
-                        <button class="btn btn-danger btn-sm" onclick="openDeleteAlert(${produto.proId})">
-                            <i class="bx bx-trash"></i>
-                        </button>
-                    </td>
-                </tr>`
-            );
-    
-            // Não tem aquele item no select de tipo ainda
-            if($(`#addTprId option[value=${produto.tipoProduto.tprId}]`).length === 0) {
-                $('#addTprId, #editTprId, #filterTprId').append(
-                    `<option value="${produto.tipoProduto.tprId}">
-                        ${produto.tipoProduto.tprNome}
-                    </option>`
-                );
-            }
-        });
+        populateTable(data);
     }).catch(error => {
-        alert("Erro: " + error);
+        errorRequestAlert(error);
     });
 }
 
@@ -131,7 +95,7 @@ function saveProduct(e, isUpdate) {
     for (const [key, value] of form) {
         parametros.append(key, value);
     }
-    
+
     $(`${isUpdate ? "#editModal" : "#addModal"} .btn-close`).click();
 
     fetch("/RocaPlan/ProdutoServlet", {
@@ -144,8 +108,31 @@ function saveProduct(e, isUpdate) {
             const data = await response.json();
             errorRequestAlert(data);
         }
-        
+
         e.target.reset();
+    });
+}
+
+function filterProducts(e) {
+    e.preventDefault();
+
+    let form = new FormData(e.target);
+    let parametros = new URLSearchParams();
+    parametros.append("acao", "filtrar");
+
+    for (const [key, value] of form) {
+        parametros.append(key, value);
+    }
+
+    fetch("/RocaPlan/ProdutoServlet", {
+        method: "POST",
+        body: parametros
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        populateTable(data);
+    }).catch(error => {
+        errorRequestAlert(error);
     });
 }
 
@@ -167,6 +154,47 @@ function errorRequestAlert(data) {
         html: `<ul class="list-group list-group-flush">${data}</ul>`,
         confirmButtonText: "Fechar",
         confirmButtonColor: "#f07c69"
+    });
+}
+
+function populateTable(data) {
+    let tbody = $("#tbody-produtos");
+
+    if (data.length > 0) {
+        tbody.html("");
+    } else {
+        tbody.html('<tr><td colspan="7">Não há produtos cadastrados.</td></tr>');
+    }
+
+    data.forEach(produto => {
+        tbody.append(
+            `<tr>
+                <td>${produto.proId}</td>
+                <td>${produto.proNome}</td>
+                <td>${produto.tipoProduto.tprNome}</td>
+                <td>${produto.proQuantidade}</td>
+                <td>R$ ${Number(produto.proValorUnitario).toFixed(2).replace(".", ",")}</td>
+                <td data-bs-toggle="tooltip" data-bs-title="Editar">
+                    <button class="btn btn-success btn-sm" onclick="openEditModal(${produto.proId})">
+                        <i class="bx bx-edit"></i>
+                    </button>
+                </td>
+                <td data-bs-toggle="tooltip" data-bs-title="Excluir">
+                    <button class="btn btn-danger btn-sm" onclick="openDeleteAlert(${produto.proId})">
+                        <i class="bx bx-trash"></i>
+                    </button>
+                </td>
+            </tr>`
+        );
+
+        // Não tem aquele item no select de tipo ainda
+        if ($(`#addTprId option[value=${produto.tipoProduto.tprId}]`).length === 0) {
+            $('#addTprId, #editTprId, #filterTprId').append(
+                `<option value="${produto.tipoProduto.tprId}">
+                    ${produto.tipoProduto.tprNome}
+                </option>`
+            );
+        }
     });
 }
 
