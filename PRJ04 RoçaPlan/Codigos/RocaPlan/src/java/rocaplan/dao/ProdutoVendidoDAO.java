@@ -23,7 +23,7 @@ public class ProdutoVendidoDAO extends DAO<ProdutoVendido> {
                 produtos_vendidos(prv_quantidade, fk_pro_id, fk_ven_id)
                 VALUES (?, ?, ?);
             """
-        );
+        , new String[]{ "insert_id" });
 
         stmt.setInt(1, obj.getPrvQuantidade());
         stmt.setLong(2, obj.getProduto().getProId());

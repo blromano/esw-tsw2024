@@ -101,3 +101,9 @@ ALTER TABLE PRODUTOS_VENDIDOS ADD CONSTRAINT FK_PRODUTOS_VENDIDOS_3
     FOREIGN KEY (FK_VEN_ID)
     REFERENCES VENDAS (VEN_ID)
     ON DELETE SET NULL;
+    
+INSERT INTO TIPO_PRODUTOS(TPR_NOME) VALUES ("Fruta"), ("Grãos"), ("Legume"), ("Verdura");
+INSERT INTO CATEGORIA_DESPESA(CDE_NOME) VALUES ("Ferramentas e Insumos"), ("Infraestrutura");
+INSERT INTO TIPO_DESPESA(TDE_NOME, FK_CDE_ID) VALUES ("Adubo", 1), ("Ferramentas", 1), ("Sementes", 1), ("Água", 2), ("Energia", 2);
+-- Esse é só para funcionar as inserções sem o login estar feito
+INSERT INTO USUARIOS(USU_NOME, USU_EMAIL, USU_SENHA) VALUES("RoçaPlan", "rocaplan@gmail.com", "alfaceEbatata");

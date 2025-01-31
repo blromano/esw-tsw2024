@@ -23,7 +23,7 @@ public class ProdutoDAO extends DAO<Produto> {
                 produtos(pro_nome, pro_valor_unitario, pro_quantidade, fk_usu_id, fk_tpr_id)
                 VALUES (?, ?, ?, ?, ?);
             """
-        );
+        , new String[]{ "insert_id" });
 
         stmt.setString(1, obj.getProNome());
         stmt.setFloat(2, obj.getProValorUnitario());
@@ -99,7 +99,7 @@ public class ProdutoDAO extends DAO<Produto> {
                 WHERE
                     fk_usu_id = usu_id AND
                     fk_tpr_id = tpr_id
-                ORDER BY pro_id DESC;
+                ORDER BY pro_id DESC, pro_nome;
             """
         );
 

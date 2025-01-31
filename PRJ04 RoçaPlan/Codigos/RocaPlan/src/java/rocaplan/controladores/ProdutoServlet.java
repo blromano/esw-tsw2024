@@ -24,34 +24,33 @@ public class ProdutoServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String acao = request.getParameter( "acao" );
+
+        String acao = request.getParameter("acao");
         RequestDispatcher disp = null;
         Jsonb jb = JsonbBuilder.create();
-        
-        try (ProdutoDAO daoProduto = new ProdutoDAO();
-             TipoProdutoDAO daoTipoProduto = new TipoProdutoDAO()) {
 
-            if ( acao.equals( "inserir" ) ) {
+        try (ProdutoDAO daoProduto = new ProdutoDAO(); TipoProdutoDAO daoTipoProduto = new TipoProdutoDAO()) {
+
+            if (acao.equals("inserir")) {
 
                 String proNome = request.getParameter("proNome");
                 int proQuantidade = Integer.parseInt(request.getParameter("proQuantidade"));
                 float proValorUnitario = Float.parseFloat(request.getParameter("proValorUnitario"));
-                Long fkUsuId = Utils.getLong( request, "fkUsuId" );
-                Long fkTprId = Utils.getLong( request, "type" );
+                Long usuId = Utils.getLong(request, "usuId");
+                Long tprId = Utils.getLong(request, "tprId");
                 String newTpr = request.getParameter("newTpr");
-                
+
                 TipoProduto tp = new TipoProduto();
-                
-                if(!newTpr.isEmpty()) {
+
+                if (!newTpr.isEmpty()) {
                     tp.setTprNome(newTpr);
                     daoTipoProduto.salvar(tp);
                 } else {
-                    tp.setTprId(fkTprId);
+                    tp.setTprId(tprId);
                 }
-                
+
                 Usuario u = new Usuario();
-                u.setUsuId(fkUsuId);                
+                u.setUsuId(usuId);
 
                 Produto p = new Produto();
                 p.setProNome(proNome);
@@ -59,27 +58,31 @@ public class ProdutoServlet extends HttpServlet {
                 p.setProValorUnitario(proValorUnitario);
                 p.setUsuario(u);
                 p.setTipoProduto(tp);
-                
-                Utils.validar( p, "proId" );
+
+                Utils.validar(p, "proId");
                 daoProduto.salvar(p);
+                
+            } else if (acao.equals("alterar")) {
 
-                disp = request.getRequestDispatcher(
-                        "/pages/products.jsp" );
-
-            } else if ( acao.equals( "alterar" ) ) {
-
-                Long id = Utils.getLong( request, "id" );
-                String proNome = request.getParameter("nome");
-                int proQuantidade = Integer.parseInt(request.getParameter("quantidade"));
-                float proValorUnitario = Float.parseFloat(request.getParameter("valorUnitario"));
-                Long fkUsuId = Utils.getLong( request, "fkUsuId" );
-                Long fkTprId = Utils.getLong( request, "type" );
+                Long id = Utils.getLong(request, "proId");
+                String proNome = request.getParameter("proNome");
+                int proQuantidade = Integer.parseInt(request.getParameter("proQuantidade"));
+                float proValorUnitario = Float.parseFloat(request.getParameter("proValorUnitario"));
+                Long usuId = Utils.getLong(request, "usuId");
+                Long tprId = Utils.getLong(request, "tprId");
+                String newTpr = request.getParameter("newTpr");
 
                 Usuario u = new Usuario();
-                u.setUsuId(fkUsuId);
-                
+                u.setUsuId(usuId);
+
                 TipoProduto tp = new TipoProduto();
-                tp.setTprId(fkTprId);
+
+                if (!newTpr.isEmpty()) {
+                    tp.setTprNome(newTpr);
+                    daoTipoProduto.salvar(tp);
+                } else {
+                    tp.setTprId(tprId);
+                }
 
                 Produto p = new Produto();
                 p.setProNome(proNome);
@@ -89,46 +92,42 @@ public class ProdutoServlet extends HttpServlet {
                 p.setTipoProduto(tp);
                 p.setProId(id);
 
+                Utils.validar(p);
                 daoProduto.atualizar(p);
 
-                disp = request.getRequestDispatcher(
-                        "/pages/products.jsp" );              
+            } else if (acao.equals("excluir")) {
 
-            } else if ( acao.equals( "excluir" ) ) {
-
-                Long id = Utils.getLong( request, "id" );
+                Long id = Utils.getLong(request, "proId");
 
                 Produto p = new Produto();
                 p.setProId(id);
 
                 daoProduto.excluir(p);
 
-                disp = request.getRequestDispatcher(
-                        "/pages/products.jsp" );
-
-            } else if( acao.equals( "listar" ) ) {
+            } else if (acao.equals("listar")) {
                 List<Produto> produtos = daoProduto.listarTodos();
-                
-                try ( PrintWriter out = response.getWriter() ) {
-                    out.print( jb.toJson( produtos ) );
+
+                try (PrintWriter out = response.getWriter()) {
+                    out.print(jb.toJson(produtos));
                 }
             } else {
                 // Preparar Alteração
-                Long id = Utils.getLong( request, "id" );
+                Long id = Utils.getLong(request, "proId");
                 Produto p = daoProduto.obterPorId(id);
-                
-                try ( PrintWriter out = response.getWriter() ) {
-                    out.print( jb.toJson( p ) );
+
+                try (PrintWriter out = response.getWriter()) {
+                    out.print(jb.toJson(p));
                 }
-                
+
             }
 
-        } catch ( SQLException exc ) {
-            disp = Utils.prepararDespachoErro( request, exc.getMessage() );
-        }
-
-        if ( disp != null ) {
-            disp.forward( request, response );
+        } catch (SQLException exc) {
+            // Retornando o erro como Json, porque a requisição vai vir de um Modal por Js
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            
+            try (PrintWriter out = response.getWriter()) {
+                out.print(jb.toJson(exc.getMessage()));
+            }
         }
     }
 

@@ -19,7 +19,7 @@ public class UsuarioDAO extends DAO<Usuario> {
                 usuarios(usu_nome, usu_email, usu_senha)
                 VALUES (?, ?, ?);
             """
-        );
+        , new String[]{ "insert_id" });
 
         stmt.setString(1, obj.getUsuNome());
         stmt.setString(2, obj.getUsuEmail());

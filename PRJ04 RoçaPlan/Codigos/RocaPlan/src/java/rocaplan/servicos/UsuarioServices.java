@@ -1,4 +1,4 @@
-package rocaplan.services;
+package rocaplan.servicos;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

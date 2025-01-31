@@ -22,7 +22,7 @@ public class VendaDAO extends DAO<Venda> {
                 vendas(ven_data, ven_nome_cliente, ven_situacao_pagamento, ven_valor_total, fk_usu_id)
                 VALUES (?, ?, ?, ?, ?);
             """
-        );
+        , new String[]{ "insert_id" });
 
         stmt.setDate(1, obj.getVenData());
         stmt.setString(2, obj.getVenNomeCliente());

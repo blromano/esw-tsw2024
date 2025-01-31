@@ -21,7 +21,7 @@ public class TipoProdutoDAO extends DAO<TipoProduto> {
                 tipo_produtos(tpr_nome)
                 VALUES (?);
             """
-        );
+        , new String[]{ "insert_id" });
 
         stmt.setString(1, obj.getTprNome());
 
