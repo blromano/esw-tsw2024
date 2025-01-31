@@ -9,9 +9,9 @@ public class ConnectionFactory {
     public static Connection getConnection() throws SQLException{
         
         return DriverManager.getConnection(
-                "jdbc:mariadb://localhost:3307/conecta_plus",
+                "jdbc:mariadb://localhost:3306/conecta_plus",
                 "root",
-                ""
+                "0000"
                 );
     }
 }

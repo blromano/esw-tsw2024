@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${cp}/css/cadastro-cliente/style-cadClie.css">
+    <script src="${cp}/js/cadastro-cliente/cadastroCliente.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <link rel="icon" href="${cp}/img/icon-conecta.svg" type="image/x-icon">
@@ -63,7 +64,15 @@
 
                     <div class="input-box">
                         <label for="email">E-mail</label>
-                        <input id="email" type="email" name="email" placeholder="Digite seu e-mail" required>
+                        <input id="email" type="email" 
+                               name="email" placeholder="Digite seu e-mail" 
+                               required onchange="onChangeEmail()">
+                        <div class="error" id="email-obrigatorio"> 
+                            O email é obrigatório. 
+                        </div>
+                        <div class="error" id="email-invalido">
+                            O email é inválido.
+                        </div>
                     </div>
                     
                     <div class="input-box">
@@ -83,23 +92,43 @@
 
                     <div class="input-box">
                         <label for="cpf">CPF (Cadastro de Pessoa Fisica)</label>
-                        <input id="cpf" type="text" name="cpf" placeholder="000.000.000-00" required>
+                        <input id="cpf" type="text" 
+                               name="cpf" placeholder="000.000.000-00" 
+                               required>
                     </div>
 
                     <div class="input-box">
                         <label for="password">Senha</label>
-                        <input id="password" type="password" name="password" placeholder="Digite sua senha" required>
+                        <input id="password" type="password" 
+                               name="password" placeholder="Digite sua senha" 
+                               required onchange="onChangeSenha()">
+                        <div class="error" id="senha-necessaria">
+                            A senha deve conter: 
+                            Um caractere especial;
+                            Um caractere maiúsculo;
+                            Um caractere minúsculo;
+                            Numeros e letras;
+                            Deve conter no mínimo 8 caracteres.
+                        </div>
+                        <div class="error" id="senha-obrigatoria"> 
+                            A senha é obrigatória. 
+                        </div>
                     </div>
 
 
                     <div class="input-box">
                         <label for="confirmPassword">Confirme sua Senha</label>
-                        <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Digite sua senha novamente" required>
+                        <input id="confirmPassword" type="password" 
+                               name="confirmPassword" placeholder="Digite sua senha novamente" 
+                               required onchange="onChangeConfirmarSenha()">
+                        <div class="error" id="senha-coincide">
+                            As senhas devem coincidir.
+                        </div>
                     </div>
                 </div>
 
                 <div class="continue-button">
-                    <input type="submit" value="Cadastrar-me"/>
+                    <input id="botao-submissao" type="submit" disabled="true" value="Cadastrar-me"/>
                 </div>
             </form>
         </div>

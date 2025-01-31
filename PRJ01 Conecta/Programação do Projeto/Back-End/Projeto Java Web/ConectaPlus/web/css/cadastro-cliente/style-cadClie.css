@@ -163,6 +163,14 @@ body {
     color: #fff;
 }
 
+.error{
+    
+    color: red;
+    background-color: gainsboro;
+    font-size: 8px;
+    
+}
+
 @media screen and (max-width: 1330px) {
     .form-image {
         display: none;
