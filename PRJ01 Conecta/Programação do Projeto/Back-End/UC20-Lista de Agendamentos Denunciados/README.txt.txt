@@ -1,0 +1,1 @@
+O arquivo faz parte do projeto completo situado na pasta Projeto Java Web. A criação de um novo arquivo foi realizada por conta da falta de ligação entre as funcionalidades, tendo em vista que apenas um Sprint de Desenvolvimento foi realizado.
