@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/otavi/OneDrive/Documents/NetBeansProjects/ListaDeServicosDenunciados/src/java/lista/dao/AgendamentoDAO.java</file>
-            <file>file:/C:/Users/otavi/OneDrive/Documents/NetBeansProjects/ListaDeServicosDenunciados/web/index.jsp</file>
-            <file>file:/C:/Users/otavi/OneDrive/Documents/NetBeansProjects/ListaDeServicosDenunciados/src/java/lista/controladores/DenunciaServlet.java</file>
-            <file>file:/C:/Users/otavi/OneDrive/Documents/NetBeansProjects/ListaDeServicosDenunciados/src/java/lista/dao/DenunciaDAO.java</file>
-            <file>file:/C:/Users/otavi/OneDrive/Documents/NetBeansProjects/ListaDeServicosDenunciados/src/java/lista/entidades/Denuncia.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

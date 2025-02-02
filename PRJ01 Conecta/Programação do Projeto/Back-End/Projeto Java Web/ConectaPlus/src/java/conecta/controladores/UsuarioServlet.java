@@ -26,43 +26,67 @@ import java.io.IOException;
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/tratarUsuario"})
 public class UsuarioServlet extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
      
-        /*
-        *Inicio tentativa de sistema de login
-        
         
         String acao = request.getParameter( "acao" );
         
-        UsuarioDAO daoU = null;
+        UsuarioDAO dao = null;
         RequestDispatcher disp = null;
         
-        if( acao.equals("autenticar")){
+        try{
+ 
+            dao = new UsuarioDAO();
             
-            String email = request.getParameter("emailCad");
-            String senha = request.getParameter("senhaCad");
-            
-            Usuario u = new Usuario();
-            
-            u.setEmail(email);
-            u.setSenha(senha);
-            
-            daoU.autenticar(u);
-            
-            
-            
-        
-            disp = request.getRequestDispatcher("index.jsp");
-            
+            if( acao.equals("autenticar")){
+
+                String email = request.getParameter("emailCad");
+                String senha = request.getParameter("senhaCad");
+
+                Usuario u = new Usuario();
+                u.setEmail(email);
+                u.setSenha(senha);
+                
+                boolean autenticacao = dao.autenticar(u);
+                
+                if (autenticacao){
+                    
+                    disp = request.getRequestDispatcher("/index.jsp");
+                    
+                } else {
+                    
+                    disp = request.getRequestDispatcher(
+                            "/formularios/usuario/login.jsp");
+                    
+                }
+
+            }
+
+        }catch ( SQLException exc ){
+            exc.printStackTrace();
+        }finally{ 
+
+            if( dao != null ){
+                try{
+                    dao.fecharConexao();
+                }catch (SQLException exc){
+                    exc.printStackTrace();
+                }
+            }
         }
         
-        */
+        if ( disp != null ){
+            disp.forward( request, response );
+        }
         
         
         
     }
+
+ 
+        
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -93,61 +117,7 @@ public class UsuarioServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-            String acao = request.getParameter("acao");
-
-        UsuarioDAO daoU = null;
-        try {
-            daoU = new UsuarioDAO(); // Inicialização do DAO
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        RequestDispatcher disp = null;
-
-        try {
-            if (acao.equals("autenticar")) {
-                // Obtendo os parâmetros do formulário
-                String email = request.getParameter("email");
-                String senha = request.getParameter("password");
-
-                // Criando o objeto usuário
-                Usuario u = new Usuario();
-                u.setEmail(email);
-                u.setSenha(senha);
-                boolean autenticado = false;
-
-                // Autenticando o usuário
-                
-                if (autenticado) {
-                    // Autenticação bem-sucedida
-                    request.setAttribute("mensagem", "Login realizado com sucesso!");
-                    disp = request.getRequestDispatcher("index.jsp"); // Página inicial do usuário
-                } else {
-                    // Falha na autenticação
-                    request.setAttribute("mensagem", "E-mail ou senha inválidos!");
-                    disp = request.getRequestDispatcher("login.jsp"); // Página de login
-                }
-            } else {
-                // Ação não reconhecida
-                request.setAttribute("mensagem", "Ação inválida!");
-                disp = request.getRequestDispatcher("erro.jsp");
-            }
-        } catch (Exception e) {
-            // Tratamento de exceções
-            request.setAttribute("mensagem", "Erro ao processar a solicitação: " + e.getMessage());
-            disp = request.getRequestDispatcher("erro.jsp");
-        }
-
-        // Encaminhando a requisição
-        if (disp != null) {
-            disp.forward(request, response);
-        }
-        
-        
-        
-        
-        
+            throws ServletException, IOException { 
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
