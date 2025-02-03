@@ -61,10 +61,6 @@ body {
     opacity: 0;
 }
 
-.sidebar a:hover {
-    background-color: #ffc800;
-}
-
 .toggle-btn {
     background-color: #2e2d2d;
     color: white;
