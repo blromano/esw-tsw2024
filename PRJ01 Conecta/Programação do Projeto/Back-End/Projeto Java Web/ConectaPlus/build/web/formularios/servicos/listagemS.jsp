@@ -28,7 +28,7 @@
                     <i class="fas fa-search"></i>
                     <span>Minha Agenda</span>
                 </a>
-                <a href="/Dash-Profissional/UC4.24-Historico de Agendamentos/hist-AgendProfissional.html">
+                <a href="${cp}/formularios/agendamentos/listagem.jsp">
                     <i class="fas fa-history"></i>
                     <span>Histórico de Agendamentos</span>
                 </a>
@@ -57,7 +57,7 @@
                         <button class="dropbtn">Perfil ▼</button>
                         <div class="dropdown-content">
                             <a href="/Dash-Profissional/UC4.13-Gerenciar Perfil/meuPerfil.html">Meu Perfil</a>
-                            <a href="index.jsp">Sair</a>
+                            <a href="${cp}/index.jsp">Sair</a>
                         </div>
                     </div>
                 </div>
@@ -123,5 +123,4 @@
             </footer>
         </div>
     </body>
-
 </html>

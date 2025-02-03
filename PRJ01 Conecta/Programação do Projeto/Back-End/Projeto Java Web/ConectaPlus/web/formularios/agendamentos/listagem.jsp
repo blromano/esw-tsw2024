@@ -2,23 +2,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="cp" value="${pageContext.request.contextPath}"/>
-<c:set var="prefixo" value="processaServicos?acao=preparar"/>
+<c:set var="prefixo" value="processaAgendamento?acao=preparar"/>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Conecta+ | Lista de Serviços</title>
-        <link rel="stylesheet" href="${cp}/css/servicos/style-servicos.css">
+        <title>Conecta+ | Histórico de Agendamentos</title>
+        <link rel="stylesheet" href="${cp}/css/historico-profissional/historico-profissional.css">
         <link rel="icon" href="../4.23-Agenda Profissional/img - Agenda Profissional/icon-conecta.svg" type="image/x-icon">
         <script defer src="${cp}/js/servicos-js/lista-servicos.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
     </head>
-
     <body>
-        <!-- Menu Lateral -->
+         <!-- Menu Lateral -->
         <div id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
@@ -32,7 +30,7 @@
                     <i class="fas fa-history"></i>
                     <span>Histórico de Agendamentos</span>
                 </a>
-                <a href="#">
+                <a href="${cp}/formularios/servicos/listagemS.jsp">
                     <i class="fas fa-list"></i>
                     <span>Lista de Serviços</span>
                 </a>
@@ -62,45 +60,35 @@
                     </div>
                 </div>
             </div>
+        <h2 style="margin-top: 20px; text-align:left ">Histórico de Agendamentos</h2>
 
-            <!-- Lista de Serviços -->
-            <h2 style="margin-top: 10px; position: initial">Meus Serviços Cadastrados</h2>
-            <br/>
-            <div class="button-container">
-                <a href="${cp}/formularios/servicos/novo.jsp" class="button-primary"><i class="fas fa-plus-circle"></i> Novo Serviço</a>
-            </div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <table class="tabelaListagem">
-                <thead>
+                <jsp:useBean id="servicos" scope="page" class="conecta.services.AgendamentoService"/>
+
+                <c:forEach items="${servicos.todos}" var="agendamento">
                     <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>Área</th>
-                        <th>Descrição</th>
-                        <th>Alterar</th>
-                        <th>Excluir</th>
+                        <td>${agendamento.id_agendamentos}</td>
+                        <fmt:formatDate pattern="dd/MM/yyyy" var="data" value="${agendamento.age_data}"/>
+                        <td>${data}</td>
+                        <fmt:formatDate pattern="HH:mm" var="horario" value="${agendamento.age_horario}"/>
+                        <td>${horario}</td>
+                        <td>${agendamento.age_status}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <jsp:useBean id="servicos" scope="page" class="conecta.services.ServicosServices"/>
-                    <c:forEach items="${servicos.todos}" var="servico">
-                        <tr>
-                            <td>${servico.id_servicos}</td>
-                            <td>${servico.ser_nome}</td>
-                            <td>${servico.ser_area}</td>
-                            <td>${servico.ser_descricao}</td>
-                            <td>
-                                <a href="${cp}/${prefixo}Alteracao&id=${servico.id_servicos}" class="button-secondary"><i class="fas fa-edit"></i> Alterar</a>
-                            </td>
-                            <td>
-                                <a href="${cp}/${prefixo}Exclusao&id=${servico.id_servicos}" class="button-danger"><i class="fas fa-trash"></i> Excluir</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-
-            <!-- Rodapé -->
+                </c:forEach>
+            </tbody>
+        </table>
+        <a href="${cp}/index.jsp">Tela Principal</a>
+                <!-- Rodapé -->
             <footer>
                 <div class="footer-content">
                     <div class="footer-left">
@@ -120,7 +108,6 @@
                         </div>
                     </div>
                 </div>
-            </footer>
-        </div>
+            </footer>  
     </body>
 </html>
