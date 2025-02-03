@@ -1,19 +1,16 @@
-package agenda.dao;
+package conecta.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import agenda.entidades.Agendamento;
-import agenda.entidades.Cliente;
-import agenda.entidades.Usuario;
-import agenda.utils.Utils;
+import conecta.utils.Utils;
 
 
-public class AgendamentoDAO extends DAO<Agendamento>{
+public class AgendaProfissionalDAO extends DAO<Agendamento>{
    
-    public AgendamentoDAO() throws SQLException {
+    public AgendaProfissionalDAO() throws SQLException {
         
     }
     
@@ -65,13 +62,13 @@ public class AgendamentoDAO extends DAO<Agendamento>{
             c.setId(rs.getLong("idCliente"));
             c.setUsuario(u);
             
-            a.setId(rs.getLong("idAgendamentos"));
-            a.setData(rs.getDate("ageData"));
-            a.setHorario(rs.getTime("ageHorario"));
-            a.setStatus(rs.getString("ageStatus"));
+            a.setId_agendamentos(rs.getInt("id_agendamentos"));
+            a.setAge_data(rs.getDate("age_data"));
+            a.setAge_horario(rs.getTime("age_horario"));
+            a.setAge_status(rs.getString("age_status"));
             a.setCliente(c);
             
-            if ( !"Concluido".equals(a.getStatus()) && !"Cancelado".equals(a.getStatus())){
+            if ( !"Concluido".equals(a.getAge_status()) && !"Cancelado".equals(a.getAge_status())){
                 agendamento.add(a);
             }
             

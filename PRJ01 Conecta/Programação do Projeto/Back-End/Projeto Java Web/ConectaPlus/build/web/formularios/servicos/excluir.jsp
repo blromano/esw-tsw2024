@@ -23,7 +23,7 @@
                 <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
             </div>
             <div class="menu">
-                <a href="/Dash-Profissional/UC4.23-Agenda Profissional/agendaProfissional.html">
+                <a href="${cp}/formularios/agendamentos/listagem.jsp">
                     <i class="fas fa-search"></i>
                     <span>Minha Agenda</span>
                 </a>
@@ -31,7 +31,7 @@
                     <i class="fas fa-history"></i>
                     <span>Histórico de Agendamentos</span>
                 </a>
-                <a href="#">
+                <a href="${cp}/formularios/servicos/listagemS.jsp">
                     <i class="fas fa-list"></i>
                     <span>Lista de Serviços</span>
                 </a>

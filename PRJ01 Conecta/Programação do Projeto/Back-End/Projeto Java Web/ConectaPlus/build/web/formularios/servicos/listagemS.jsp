@@ -24,7 +24,7 @@
                 <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
             </div>
             <div class="menu">
-                <a href="/Dash-Profissional/UC4.23-Agenda Profissional/agendaProfissional.html">
+                <a href="${cp}/formularios/agenda-profissional/listagem.jsp">
                     <i class="fas fa-search"></i>
                     <span>Minha Agenda</span>
                 </a>

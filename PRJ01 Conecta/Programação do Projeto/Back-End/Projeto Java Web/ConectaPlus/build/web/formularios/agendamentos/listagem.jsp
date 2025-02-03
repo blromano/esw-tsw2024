@@ -22,7 +22,7 @@
                 <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
             </div>
             <div class="menu">
-                <a href="#">
+                <a href="${cp}/formularios/agenda-profissional/listagem.jsp">
                     <i class="fas fa-search"></i>
                     <span>Minha Agenda</span>
                 </a>
