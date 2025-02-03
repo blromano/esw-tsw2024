@@ -100,7 +100,7 @@ public class ProdutoDAO extends DAO<Produto> {
                 WHERE
                     fk_usu_id = usu_id AND
                     fk_tpr_id = tpr_id
-                ORDER BY pro_id DESC;
+                ORDER BY pro_nome;
             """
         );
 
