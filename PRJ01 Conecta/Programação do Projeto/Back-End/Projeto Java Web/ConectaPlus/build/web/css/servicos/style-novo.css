@@ -19,7 +19,8 @@ body {
     color: white;
     transition: width 0.3s ease;
     position: relative;
-    overflow: hidden;}
+    overflow: hidden;
+}
 
 .sidebar.closed {
     width: 60px;
@@ -168,51 +169,166 @@ body {
     display: block;
 }
 
-/* Estilo da lista de serviços */
-.service-list {
-    list-style: none;
-    padding: 0;
+/* Estilo para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
 }
 
-.service-list li {
-    background-color: #fff;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+td {
+    padding: 10px;
+    vertical-align: middle;
 }
 
-.service-list li:hover {
-    background-color: #f8f8f8;
+.alinharDireita {
+    text-align: right;
+    font-weight: bold;
 }
 
-.service-actions {
-    display: flex;
-    gap: 15px;
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
-.service-actions i {
-    font-size: 20px;
+input[type="text"]:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+/* Estilo para os botões */
+.button-container {
+    text-align: left;
+}
+
+a.button-secondary, input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    position: relative;
+    text-decoration: none;
 }
 
-.service-actions i:hover::after {
-    content: attr(data-title);
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: white;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 12px;
-    white-space: nowrap;
+a.button-secondary:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
 }
+
+/* Espaçamento entre as células */
+td + td {
+    padding-left: 20px;
+}
+
+/* Ajuste para o título */
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Estilo para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+td {
+    padding: 10px;
+    vertical-align: middle;
+    text-align: left; /* Alinha todos os elementos à esquerda */
+}
+
+.alinharDireita {
+    text-align: left; /* Alinhando "direita" para a esquerda */
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+/* Estilo para os botões */
+.button-container {
+    text-align: left;
+}
+
+a.button-secondary {
+    background-color: #ddd; /* Cor de fundo do botão Voltar */
+    color: #000;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.button-secondary:hover {
+    background-color: #f0f0f0;
+}
+
+input[type="submit"] {
+    background-color: #e6b800; /* Cor de fundo do botão Alterar */
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    width: auto;
+    margin-top: 15px; /* Adiciona um espaço entre os campos e o botão */
+}
+
+input[type="submit"]:hover {
+    background-color: #cc9a00; /* Efeito de hover para o botão Alterar */
+}
+
+/* Espaçamento entre as células */
+td + td {
+    padding-left: 20px;
+}
+
+/* Ajuste para o título */
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Alinha o botão Alterar no final do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start; /* Alinha os itens à esquerda */
+}
+
+form .button-container {
+    align-self: flex-end; /* Coloca o botão Alterar no canto direito */
+}
+
+
 
 /* Estilo do Rodapé */
 footer {

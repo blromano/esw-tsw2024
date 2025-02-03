@@ -19,10 +19,7 @@ body {
     color: white;
     transition: width 0.3s ease;
     position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
+    overflow: hidden;}
 
 .sidebar.closed {
     width: 60px;
@@ -87,10 +84,20 @@ body {
 
 /* Centralizing the menu items */
 .menu {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content:space-around;
+    width: 100%; /* Garante que ocupe toda a largura da sidebar */
+    height: 100%; /* Faz com que a lista ocupe toda a altura da sidebar */
+}
+
+.menu a {
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente */
+    text-decoration: none;
+    color: white;
+    padding: 22px 0px; /* Espaçamento interno */
+    width: 100%;
+    margin: 20px;
 }
 
 /* Main content */
@@ -161,110 +168,6 @@ body {
     display: block;
 }
 
-/* Lista de Serviços */
-
-/* Estilo do botão de cadastrar serviço */
-.btn-add-service {
-    background-color: #000000;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 20px 0;
-}
-
-.btn-add-service:hover {
-    background-color: #e6b800;
-}
-
-/* Modal de Cadastro de Serviço */
-.modal {
-    display: none; /* Ocultar inicialmente */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro */
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 30px;
-    border-radius: 10px;
-    width: 40%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.close {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-}
-
-/* Estilo para o formulário de cadastro de serviço */
-.service-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espaçamento entre os campos */
-}
-
-.service-form label {
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.service-form input,
-.service-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.service-form button {
-    background-color: #f44336; /* Vermelho */
-    color: white;
-    padding: 10px 30px;
-    border: none;
-    border-radius: 50px; /* Forma elíptica */
-    font-size: 16px;
-    cursor: pointer;
-    align-self: flex-end; /* Alinha o botão à direita */
-    transition: background-color 0.3s ease;
-}
-
-.service-form button:hover {
-    background-color: #e53935; /* Tom mais escuro de vermelho */
-}
-
-/* Estilo para o título do formulário */
-h3 {
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: #333;
-    text-align: center;
-}
-
-
 /* Estilo da lista de serviços */
 .service-list {
     list-style: none;
@@ -316,19 +219,16 @@ footer {
     background-color: #2e2d2d;
     color: #fff;
     padding: 10px 0px; /* Tamanho da largura do Footer */
-
-    position: static ;
-    margin-top: 440px;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     text-align: center;
 }
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -484,3 +384,10 @@ footer {
     font-size: 20px;
 }
 
+/* Ajuste para quando houver muito conteúdo */
+@media (min-height: 100vh) {
+    .main-content {
+        display: flex;
+        flex-direction: column;
+    }
+}

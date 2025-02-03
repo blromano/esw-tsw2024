@@ -10,7 +10,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Conecta+ | Lista de Serviços</title>
-        <link rel="stylesheet" href="${cp}/css/style-servicos.css">
+        <link rel="stylesheet" href="${cp}/css/servicos/style-novo.css">
         <link rel="icon" href="../4.23-Agenda Profissional/img - Agenda Profissional/icon-conecta.svg" type="image/x-icon">
         <script defer src="${cp}/js/servicos-js/lista-servicos.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -62,7 +62,7 @@
             </div>
 
             <div class="container">
-                <h2>Cadastrar Novo Serviço</h2>
+                <h2 style="text-align:initial; margin-top: 10px; padding-bottom: 10px">Cadastrar Novo Serviço</h2>
 
                 <form method="post" action="${cp}/processaServicos">
                     <input type="hidden" name="acao" value="inserir" />

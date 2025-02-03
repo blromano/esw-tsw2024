@@ -64,7 +64,7 @@
             </div>
 
             <!-- Lista de Serviços -->
-            <h2 style="margin-top: 10px">Meus Serviços Cadastrados</h2>
+            <h2 style="margin-top: 10px; position: initial">Meus Serviços Cadastrados</h2>
             <br/>
             <div class="button-container">
                 <a href="${cp}/formularios/servicos/novo.jsp" class="button-primary"><i class="fas fa-plus-circle"></i> Novo Serviço</a>
