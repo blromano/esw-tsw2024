@@ -13,9 +13,15 @@ function showOtherType(value) {
     }
 }
 
-function listProducts() {
+function listProducts(page = 1) {
     let parametros = new URLSearchParams();
     parametros.append("acao", "listar");
+
+    if (page < 1) {
+        page = 1;
+    }
+
+    parametros.append("pagina", page);
 
     fetch("/RocaPlan/ProdutoServlet", {
         method: "POST",
@@ -23,7 +29,48 @@ function listProducts() {
     }).then(response => {
         return response.json();
     }).then(data => {
-        populateTable(data);
+        populateTable(data.produtos);
+
+        let tfoot = $('#tfoot-produtos');
+
+        if (data.totalProdutos <= 0) {
+            tfoot.html("");
+            tfoot.hide();
+        } else {
+            tfoot.show();
+            
+            let numberPages = Math.round(data.totalProdutos / 5);
+
+            let text = `<tr>
+                        <td colspan="4">
+                            <small>Mostrando de ${data.produtos.length} de ${data.totalProdutos} entradas</small>
+                        </td>
+                        <td colspan="3">
+                            <ul class="pagination m-0 justify-content-end">
+                                <li class="page-item">
+                                    <a class="page-link" onclick="listProducts(${page - 1})" data-bs-toggle="tooltip"
+                                       data-bs-title="Anterior">
+                                        <i class="bx bx-chevron-left"></i>
+                                    </a>
+                                </li>`;
+
+            for (let i = 1; i <= numberPages; i++) {
+                text += `<li class="page-item ${i === page ? 'active' : ''}">
+                            <a class="page-link" onclick(listProducts(${i}))>${i}</a>
+                        </li>`;
+            }
+
+            const lastPage = page + 1;
+
+            text += `<li class="page-item">
+                        <a class="page-link" onclick="listProducts(${lastPage > numberPages ? 1 : lastPage})" 
+                            data-bs-toggle="tooltip" data-bs-title="Próximo">
+                            <i class="bx bx-chevron-right"></i>
+                        </a>
+                    </li></ul></td></tr>`;
+
+            tfoot.html(text);
+        }
     }).catch(error => {
         errorRequestAlert(error);
     });
@@ -130,6 +177,7 @@ function filterProducts(e) {
     }).then(response => {
         return response.json();
     }).then(data => {
+        $('#tfoot-produtos').hide();
         populateTable(data);
     }).catch(error => {
         errorRequestAlert(error);
@@ -168,7 +216,7 @@ function populateTable(data) {
 
     data.forEach(produto => {
         tbody.append(
-            `<tr>
+                `<tr>
                 <td>${produto.proId}</td>
                 <td>${produto.proNome}</td>
                 <td>${produto.tipoProduto.tprNome}</td>
@@ -185,15 +233,15 @@ function populateTable(data) {
                     </button>
                 </td>
             </tr>`
-        );
+                );
 
         // Não tem aquele item no select de tipo ainda
         if ($(`#addTprId option[value=${produto.tipoProduto.tprId}]`).length === 0) {
             $('#addTprId, #editTprId, #filterTprId').append(
-                `<option value="${produto.tipoProduto.tprId}">
+                    `<option value="${produto.tipoProduto.tprId}">
                     ${produto.tipoProduto.tprNome}
                 </option>`
-            );
+                    );
         }
     });
 }

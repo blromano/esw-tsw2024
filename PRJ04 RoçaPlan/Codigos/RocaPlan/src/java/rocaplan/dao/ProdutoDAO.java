@@ -24,7 +24,7 @@ public class ProdutoDAO extends DAO<Produto> {
                 produtos(pro_nome, pro_valor_unitario, pro_quantidade, fk_usu_id, fk_tpr_id)
                 VALUES (?, ?, ?, ?, ?);
             """,
-                 new String[]{"insert_id"});
+                new String[]{"insert_id"});
 
         stmt.setString(1, obj.getProNome());
         stmt.setBigDecimal(2, obj.getProValorUnitario());
@@ -104,6 +104,64 @@ public class ProdutoDAO extends DAO<Produto> {
             """
         );
 
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            Produto p = new Produto();
+            Usuario u = new Usuario();
+            TipoProduto tp = new TipoProduto();
+
+            p.setProId(rs.getLong("pro_id"));
+            p.setProNome(rs.getString("pro_nome"));
+            p.setProValorUnitario(rs.getBigDecimal("pro_valor_unitario"));
+            p.setProQuantidade(rs.getBigDecimal("pro_quantidade"));
+            p.setUsuario(u);
+            p.setTipoProduto(tp);
+
+            u.setUsuId(rs.getLong("usu_id"));
+            u.setUsuNome(rs.getString("usu_nome"));
+
+            tp.setTprId(rs.getLong("tpr_id"));
+            tp.setTprNome(rs.getString("tpr_nome"));
+
+            lista.add(p);
+
+        }
+
+        rs.close();
+        stmt.close();
+
+        return lista;
+    }
+
+    public List<Produto> listarComPaginacao(int pagina) throws SQLException {
+        List<Produto> lista = new ArrayList<>();
+
+        PreparedStatement stmt = getConnection().prepareStatement(
+                """
+                SELECT
+                    pro_id,
+                    pro_nome,
+                    pro_valor_unitario,
+                    pro_quantidade,
+                    usu_id,
+                    usu_nome,
+                    tpr_id,
+                    tpr_nome
+                FROM
+                    produtos,
+                    usuarios,
+                    tipo_produtos
+                WHERE
+                    fk_usu_id = usu_id AND
+                    fk_tpr_id = tpr_id
+                ORDER BY pro_id DESC
+                LIMIT ?, 5;
+            """
+        );
+
+        stmt.setInt(1, pagina * 5);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
@@ -215,7 +273,7 @@ public class ProdutoDAO extends DAO<Produto> {
                     fk_tpr_id = tpr_id
             """ + where + " ORDER BY pro_id DESC;"
         );
-        
+
         int count = 1;
 
         if (proNome != null && !proNome.isEmpty()) {
@@ -231,7 +289,7 @@ public class ProdutoDAO extends DAO<Produto> {
         if (proValorUnitario != null) {
             stmt.setBigDecimal(count, proValorUnitario);
         }
-        
+
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
@@ -261,5 +319,23 @@ public class ProdutoDAO extends DAO<Produto> {
         stmt.close();
 
         return lista;
+    }
+
+    public int totalProdutos() throws SQLException {
+        int total = 0;
+
+        PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT COUNT(*) as total FROM produtos;");
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            total = rs.getInt("total");
+        }
+
+        rs.close();
+        stmt.close();
+
+        return total;
     }
 }
