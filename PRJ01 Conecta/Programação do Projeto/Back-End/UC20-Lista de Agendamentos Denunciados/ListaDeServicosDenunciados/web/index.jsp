@@ -7,24 +7,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle do Administrador</title>
+    <title>Conecta+ | Denuncias Recebidas</title>
     <link rel="stylesheet" href="${cp}/css/style-ListaDeServicosDenunciados.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
     <script src="${cp}/js/script-ListaDeServicosDenunciados.js"></script>
 </head>
 <body>
-    <div class="wrapper">
-        <!-- Menu Lateral -->
-        <nav class="sidebar">
-            <div class="sidebar-item" onclick="mostrarSessao('denuncias')">Lista de Denúncias</div>
-            <div class="sidebar-item" onclick="mostrarSessao('usuarios')">Lista de Usuários</div>
-        </nav>
+    <!-- Menu Lateral -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
+            </div>
+            <div class="menu">
+                </a>
+                <a href="#">
+                    <i class="fas fa-history"></i>
+                    <span>Lista de Denuncias</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-list"></i>
+                    <span>Lista de Usuarios</span>
+                </a>
+            </div>
+        </div>
 
-        <!-- Área de Conteúdo -->
-        <div class="content">
-            <!-- Top-bar -->
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top bar -->
             <div class="top-bar">
                 <div class="user-profile">
-                    <span>Administrador</span> | <a href="#">Sair</a>
+                    <span>Bem-vindo, Administrador</span>
+                    <div class="dropdown">
+                        <button class="dropbtn">Perfil ▼</button>
+                        <div class="dropdown-content">
+                            <a href="#">Meu Perfil</a>
+                            <a href="${cp}/index.jsp">Sair</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -78,39 +97,28 @@
                 </table>
             </div>
 
-            <!-- Lista de Usuários -->
-            <div id="usuarios" class="section">
-                <div class="section-title">Lista de Usuários</div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Usuário</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><div class="status resolvido-amarelo"></div></td>
-                            <td>Usuário Suspenso 1</td>
-                        </tr>
-                        <tr>
-                            <td><div class="status resolvido"></div></td>
-                            <td>Usuário Banido 1</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+           
         </div>
     </div>
-
-    <!-- Popup -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <div id="popup-title"></div>
-            <input type="text" id="searchUser" placeholder="Buscar Usuário">
-            <button>Confirmar</button>
-            <button>Fechar</button>
-        </div>
-    </div>
-</body>
+    <footer>
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 Conecta LTDA - Todos os direitos reservados.</p>
+                    </div>
+                    <div class="footer-center">
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com" target="_blank" class="social-circle"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://wa.me" target="_blank" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-right">
+                        <div class="footer-links">
+                            <a href="#">Política de Privacidade</a> |
+                            <a href="#">Termos de Uso</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>  
+    </body>
 </html>
