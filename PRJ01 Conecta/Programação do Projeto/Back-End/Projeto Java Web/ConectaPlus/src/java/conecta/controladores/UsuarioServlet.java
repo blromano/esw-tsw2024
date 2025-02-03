@@ -1,8 +1,8 @@
 package conecta.controladores;
 
-//import conecta.dao.UsuarioDAO;
-//import conecta.entidades.Usuario;
-//import jakarta.servlet.RequestDispatcher;
+import conecta.dao.UsuarioDAO;
+import conecta.entidades.Usuario;
+import jakarta.servlet.RequestDispatcher;
 import conecta.dao.UsuarioDAO;
 import conecta.entidades.Usuario;
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class UsuarioServlet extends HttpServlet {
                 
                 if (autenticacao){
                     
-                    disp = request.getRequestDispatcher("/index.jsp");
+                    disp = request.getRequestDispatcher("formularios/servicos/listagemS.jsp");
                     
                 } else {
                     

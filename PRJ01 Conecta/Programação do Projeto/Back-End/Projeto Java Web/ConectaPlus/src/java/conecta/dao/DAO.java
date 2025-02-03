@@ -30,11 +30,11 @@ public abstract class DAO<Tipo> {
     
     public abstract void salvar(Tipo obj) throws SQLException;
     
-    //public abstract void atualizar(Tipo obj) throws SQLException;
+    public abstract void atualizar(Tipo obj) throws SQLException;
     
-    //public abstract void excluir(Tipo obj) throws SQLException;
+    public abstract void excluir(Tipo obj) throws SQLException;
     
-    //public abstract List<Tipo> listarTodos() throws SQLException;
+    public abstract List<Tipo> listarTodos() throws SQLException;
     
     public abstract Tipo obterPorId( Long id) throws SQLException;
     

@@ -1,0 +1,486 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #F5F7FA;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 270px;
+    height: 650px;
+    background-color: #2e2d2d;
+    color: white;
+    transition: width 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.closed {
+    width: 60px;
+}
+
+/* Sidebar Header with Favicon */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+    background-color: #2e2d2d;
+}
+
+/* Sidebar Menu */
+.sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.sidebar a span {
+    transition: opacity 0.3s;
+}
+
+.sidebar.closed a span {
+    opacity: 0;
+}
+
+.sidebar a:hover {
+    background-color: #ffc800;
+}
+
+.toggle-btn {
+    background-color: #2e2d2d;
+    color: white;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+}
+
+.sidebar.closed a i {
+    margin-right: 0;
+}
+
+.sidebar.closed a span {
+    display: none;
+}
+
+/* Centralizing the menu items */
+.menu {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+}
+
+/* Main content */
+.main-content {
+    flex-grow: 1;
+    padding: 15px; /*Distancia do Topo*/
+    background-color: #F5F7FA;
+    overflow-x: hidden;
+    transition: margin-left 0.3s;
+}
+
+/* Top bar */
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #ffc800;
+    padding: 10px; /* Largura da barra*/
+    color: white;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile span {
+    margin-right: 480px;
+    font-size: 16px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #ffc800;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    padding-right: 30px;
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Lista de Serviços */
+
+/* Estilo do botão de cadastrar serviço */
+.btn-add-service {
+    background-color: #000000;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.btn-add-service:hover {
+    background-color: #e6b800;
+}
+
+/* Modal de Cadastro de Serviço */
+.modal {
+    display: none; /* Ocultar inicialmente */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Estilo para o formulário de cadastro de serviço */
+.service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento entre os campos */
+}
+
+.service-form label {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.service-form input,
+.service-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.service-form button {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 50px; /* Forma elíptica */
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-end; /* Alinha o botão à direita */
+    transition: background-color 0.3s ease;
+}
+
+.service-form button:hover {
+    background-color: #e53935; /* Tom mais escuro de vermelho */
+}
+
+/* Estilo para o título do formulário */
+h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+
+/* Estilo da lista de serviços */
+.service-list {
+    list-style: none;
+    padding: 0;
+}
+
+.service-list li {
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.service-list li:hover {
+    background-color: #f8f8f8;
+}
+
+.service-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.service-actions i {
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+.service-actions i:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Estilo do Rodapé */
+footer {
+    background-color: #2e2d2d;
+    color: #fff;
+    padding: 10px 0px; /* Tamanho da largura do Footer */
+
+    position: static ;
+    margin-top: 440px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+    flex: 1;
+}
+
+.footer-left {
+    text-align: left;
+    padding-top: 18px;
+}
+
+.footer-center {
+    text-align: center;
+    padding-top: 5px;
+}
+
+.footer-right {
+    text-align: right;
+    padding-top: 18px;
+}
+
+/* Estilo dos links no rodapé */
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo dos ícones sociais */
+.social-icons {
+    display: inline-block;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    margin: 0 10px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffc800;
+    line-height: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #ffffff;
+}
+
+/* Ícones Font Awesome */
+.social-icons i {
+    vertical-align: middle;
+}
+
+/* Estilização da tabela */
+.tabelaListagem {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tabelaListagem th,
+.tabelaListagem td {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabelaListagem th {
+    background-color: #2e2d2d;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.tabelaListagem td {
+    color: #333;
+}
+
+.tabelaListagem tr:hover {
+    background-color: #f8f8f8;
+}
+
+.tabelaListagem a.button-secondary,
+.tabelaListagem a.button-danger {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.tabelaListagem a.button-secondary {
+    background-color: #ffc800;
+}
+
+.tabelaListagem a.button-secondary:hover {
+    background-color: #e6b800;
+}
+
+.tabelaListagem a.button-danger {
+    background-color: #f44336;
+}
+
+.tabelaListagem a.button-danger:hover {
+    background-color: #e53935;
+}
+
+.tabelaListagem td a i {
+    margin-right: 5px;
+}
+
+/* Estilo do botão principal (alterado para o tom de amarelo) */
+.button-primary {
+    background-color: #ffc800; /* Tom de amarelo */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+    background-color: #e6b800; /* Tom mais escuro de amarelo para o hover */
+}
+
+.button-primary i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+

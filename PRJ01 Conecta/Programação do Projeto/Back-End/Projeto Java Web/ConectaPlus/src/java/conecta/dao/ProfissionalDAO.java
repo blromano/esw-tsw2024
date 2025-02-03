@@ -4,6 +4,7 @@ import conecta.entidades.Profissional;
 import java.sql.PreparedStatement;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class ProfissionalDAO extends DAO<Profissional>{
@@ -54,5 +55,20 @@ public class ProfissionalDAO extends DAO<Profissional>{
     }
     
     /*--------------------------------------------*/
+
+    @Override
+    public void atualizar(Profissional obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void excluir(Profissional obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Profissional> listarTodos() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
