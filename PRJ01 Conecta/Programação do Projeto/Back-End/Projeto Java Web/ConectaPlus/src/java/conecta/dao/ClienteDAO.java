@@ -4,6 +4,7 @@ import conecta.entidades.Cliente;
 import java.sql.PreparedStatement;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ClienteDAO extends DAO<Cliente>{
     
@@ -44,6 +45,21 @@ public class ClienteDAO extends DAO<Cliente>{
     }
     
     /*------------------------------------*/
+
+    @Override
+    public void atualizar(Cliente obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void excluir(Cliente obj) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Cliente> listarTodos() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }
 
