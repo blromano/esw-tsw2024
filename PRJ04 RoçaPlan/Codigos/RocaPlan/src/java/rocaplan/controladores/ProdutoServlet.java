@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.List;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import rocaplan.dao.ProdutoDAO;
 import rocaplan.dao.TipoProdutoDAO;
 import rocaplan.entidades.Produto;
@@ -107,10 +109,16 @@ public class ProdutoServlet extends HttpServlet {
 
             } else if (acao.equals("listar")) {
 
-                List<Produto> produtos = daoProduto.listarTodos();
+                int pagina = Integer.parseInt(request.getParameter("pagina"));
+                List<Produto> produtos = daoProduto.listarComPaginacao(pagina - 1);
+                int totalProdutos = daoProduto.totalProdutos();
+                
+                Map<String, Object> responseMap = new HashMap<>();
+                responseMap.put("produtos", produtos);
+                responseMap.put("totalProdutos", totalProdutos);
 
                 try (PrintWriter out = response.getWriter()) {
-                    out.print(jb.toJson(produtos));
+                    out.print(jb.toJson(responseMap));
                 }
 
             } else if (acao.equals("filtrar")) {

@@ -124,34 +124,7 @@
                                             </tr>
                                         </tbody>
 
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="4">
-                                                    <small>Mostrando de 1 a 5 de 15 entradas</small>
-                                                </td>
-                                                <td colspan="3">
-                                                    <ul class="pagination m-0 justify-content-end">
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" data-bs-toggle="tooltip"
-                                                               data-bs-title="Anterior">
-                                                                <i class="bx bx-chevron-left"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="page-item active">
-                                                            <a class="page-link" href="#">1</a>
-                                                        </li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" data-bs-toggle="tooltip"
-                                                               data-bs-title="Próximo">
-                                                                <i class="bx bx-chevron-right"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
+                                        <tfoot id="tfoot-produtos"></tfoot>
                                     </table>
                                 </div>
                             </div>
