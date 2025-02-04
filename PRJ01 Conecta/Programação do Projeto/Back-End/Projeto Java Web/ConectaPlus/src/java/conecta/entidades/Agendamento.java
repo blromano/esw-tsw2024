@@ -9,6 +9,8 @@ public class Agendamento {
     private Date age_data;
     private Time age_horario;
     private String age_status;
+    private Cliente cliente;
+
 
     public int getId_agendamentos() {
         return id_agendamentos;
@@ -40,5 +42,13 @@ public class Agendamento {
 
     public void setAge_status(String age_status) {
         this.age_status = age_status;
+    }
+    
+     public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

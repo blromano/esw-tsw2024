@@ -52,7 +52,7 @@ public class UsuarioServlet extends HttpServlet {
                 
                 if (autenticacao){
                     
-                    disp = request.getRequestDispatcher("formularios/servicos/listagemS.jsp");
+                    disp = request.getRequestDispatcher("formularios/agenda-profissional/listagem.jsp");
                     
                 } else {
                     

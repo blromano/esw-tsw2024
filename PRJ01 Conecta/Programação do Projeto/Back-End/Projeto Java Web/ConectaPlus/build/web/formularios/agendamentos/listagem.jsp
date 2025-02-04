@@ -22,7 +22,7 @@
                 <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
             </div>
             <div class="menu">
-                <a href="#">
+                <a href="${cp}/formularios/agenda-profissional/listagem.jsp">
                     <i class="fas fa-search"></i>
                     <span>Minha Agenda</span>
                 </a>
@@ -54,7 +54,7 @@
                     <div class="dropdown">
                         <button class="dropbtn">Perfil ▼</button>
                         <div class="dropdown-content">
-                            <a href="/Dash-Profissional/UC4.13-Gerenciar Perfil/meuPerfil.html">Meu Perfil</a>
+                            <a href="${cp}/formularios/gerenciar-perfil/gerenciar-perfil.jsp">Meu Perfil</a>
                             <a href="${cp}/index.jsp">Sair</a>
                         </div>
                     </div>
