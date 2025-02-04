@@ -111,166 +111,13 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody id="tbody-vendas">
                                             <tr>
-                                                <td>1</td>
-                                                <td>José Teixeira</td>
-                                                <td>28/08/2024</td>
-                                                <td>Pago</td>
-                                                <td>R$40,00</td>
-                                                <td data-bs-toggle="tooltip" data-bs-title="Detalhar">
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#detailsModal">
-                                                        <i class="bx bx-expand"></i>
-                                                    </button>
-                                                </td>
-                                                <td data-bs-toggle="tooltip" data-bs-title="Editar">
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#editModal">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td data-bs-toggle="tooltip" data-bs-title="Excluir">
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Carlos Teixeira Santos</td>
-                                                <td>27/08/2024</td>
-                                                <td>Não Pago</td>
-                                                <td>R$60,00</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Detalhar">
-                                                        <i class="bx bx-expand"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Mário Celso Pereira</td>
-                                                <td>26/08/2024</td>
-                                                <td>Não Pago</td>
-                                                <td>R$70,00</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Detalhar">
-                                                        <i class="bx bx-expand"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Carolina Muriel Santana</td>
-                                                <td>25/08/2024</td>
-                                                <td>Pago</td>
-                                                <td>R$55,00</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Detalhar">
-                                                        <i class="bx bx-expand"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Ana Paula Costa</td>
-                                                <td>24/08/2024</td>
-                                                <td>Pago</td>
-                                                <td>R$30,00</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Detalhar">
-                                                        <i class="bx bx-expand"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Editar">
-                                                        <i class="bx bx-edit"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
-                                                            data-bs-title="Excluir">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </td>
+                                                <td colspan="6">Não há vendas cadastradas.</td>
                                             </tr>
                                         </tbody>
 
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="5">
-                                                    <small>Mostrando de 1 a 5 de 15 entradas</small>
-                                                </td>
-                                                <td colspan="4">
-                                                    <ul class="pagination m-0">
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" data-bs-toggle="tooltip"
-                                                               data-bs-title="Anterior">
-                                                                <i class="bx bx-chevron-left"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="page-item active">
-                                                            <a class="page-link" href="#">1</a>
-                                                        </li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" data-bs-toggle="tooltip"
-                                                               data-bs-title="Próximo">
-                                                                <i class="bx bx-chevron-right"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
+                                        <tfoot id="tfoot-vendas"></tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -377,6 +224,7 @@
 
         <script src="${cp}/js/libs/jquery/jquery.min.js"></script>
         <script src="${cp}/js/libs/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="${cp}/js/libs/sweetalert/sweetalert2@11.js"></script>
         <script src="${cp}/js/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
         <script src="${cp}/js/menu.js"></script>
 

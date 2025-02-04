@@ -22,87 +22,102 @@
             </div>
 
             <div class="modal-body">
-                <form class="row g-4 align-items-center" id="rowAddModal" onsubmit="saveSale(event, ${id == 'edit'})">
+                <form onsubmit="saveSale(event, ${id == 'edit'})" id="saleForm">
                     <input type="hidden" name="usuId" value="1" />
 
                     <c:if test="${id eq 'edit'}">
                         <input type="hidden" name="venId" />
                     </c:if>
 
-                    <div class="col-12 col-lg-6">
-                        <label for="customer" class="form-label">Cliente</label>
-                        <input type="text" class="form-control" list="customerOptions"
-                               name="venNomeCliente" placeholder="Digite para buscar..." maxlength="60"
-                               required />
+                    <div class="row g-4 align-items-center" id="row${id}Modal">
+                        <div class="col-12 col-lg-6">
+                            <label for="customer" class="form-label">Cliente</label>
+                            <input type="text" class="form-control" list="${id}CustomerOptions"
+                                   name="venNomeCliente" placeholder="Digite para buscar..." maxlength="60"
+                                   required />
 
-                        <datalist id="customerOptions">
-                            <option value="José Pereira"></option>
-                            <option value="Ana Paula Santana"></option>
-                            <option value="Carlos Matias"></option>
-                            <option value="Sandra Maria Agostine"></option>
-                        </datalist>
-                    </div>
+                            <jsp:useBean
+                                id="servicos0"
+                                scope="page"
+                                class="rocaplan.servicos.ClienteServices"/>
 
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <label for="venData" class="form-label">Data</label>
-                        <input type="date" class="form-control" name="venData" required />
-                    </div>
+                            <datalist id="${id}CustomerOptions">
+                                <c:forEach items="${servicos0.todos}" var="cliente">
+                                    <option value="${cliente}">${cliente}</option>
+                                </c:forEach>
+                            </datalist>
+                        </div>
 
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <label for="venSituacaoPagamento" class="form-label">
-                            Situação de Pagamento
-                        </label>
-                        <select name="venSituacaoPagamento" class="form-select" required>
-                            <option selected disabled>Selecione...</option>
-                            <option value="true">Pago</option>
-                            <option value="false">Não Pago</option>
-                        </select>
-                    </div>
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <label for="venData" class="form-label">Data</label>
+                            <input type="date" class="form-control" name="venData" required />
+                        </div>
 
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row g-4 align-items-center">
-                                    <div class="col-12">
-                                        <h6 class="card-title mb-0">1° Produto</h6>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                        <label for="${id}ProId" class="form-label">
-                                            Produto
-                                        </label>
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <label for="venSituacaoPagamento" class="form-label">
+                                Situação de Pagamento
+                            </label>
+                            <select name="venSituacaoPagamento" class="form-select" required>
+                                <option selected disabled>Selecione...</option>
+                                <option value="true">Pago</option>
+                                <option value="false">Não Pago</option>
+                            </select>
+                        </div>
 
-                                        <jsp:useBean
-                                            id="servicos"
-                                            scope="page"
-                                            class="rocaplan.servicos.ProdutoServices"/>
+                        <div class="col-12" id="product0">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-8 col-md-10">
+                                            <h6 class="card-title mb-0">1° Produto</h6>
+                                        </div>
 
-                                        <select class="form-select" id="proId" name="proId" required>
-                                            <option selected disabled>Selecione...</option>
+                                        <div class="col-4 col-md-2 text-end">
+                                            <button class="btn btn-outline-danger btn-sm"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-title="Excluir" onclick="deleteProduct('product0')">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        </div>
 
-                                            <c:forEach items="${servicos.todos}" var="produto">
-                                                <option value="${produto.proId}" 
-                                                    data-valorUnitario="${produto.proValorUnitario}">
-                                                    ${produto.proNome}
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
+                                        <div class="col-12 col-md-8">
+                                            <label for="proId0" class="form-label">
+                                                Produto
+                                            </label>
 
-                                    <div class="col-12 col-md-4">
-                                        <label for="amount" class="form-label">Quantidade</label>
-                                        <input type="number" class="form-control" name="prvQuantidade" min="1"
-                                               required onkeyup="calculateTotalValue(0, this.value)" />
-                                    </div>
+                                            <jsp:useBean
+                                                id="servicos"
+                                                scope="page"
+                                                class="rocaplan.servicos.ProdutoServices"/>
 
-                                    <div class="col-12 col-md-6 d-none" id="unitValueProduct0">
-                                        <label for="unit_value" class="form-label">Valor Unitário</label>
-                                        <input type="text" class="form-control" name="proValorUnitario" readonly />
-                                    </div>
+                                            <select class="form-select" id="proId0" required>
+                                                <option value="" selected disabled>Selecione...</option>
 
-                                    <div class="col-12 col-md-6 d-none" id="totalValueProduct0">
-                                        <label for="total_value" class="form-label">Valor Total</label>
-                                        <input type="text" class="form-control" name="venValorTotal"
-                                               readonly />
+                                                <c:forEach items="${servicos.todos}" var="produto">
+                                                    <option value="${produto.proId}" 
+                                                            data-valor-unitario="${produto.proValorUnitario}">
+                                                        ${produto.proNome}
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-4">
+                                            <label for="prvQuantidade0" class="form-label">Quantidade</label>
+                                            <input type="number" class="form-control" id="prvQuantidade0" min="1"
+                                                   required onkeyup="calculateTotalValue(0, this.value)" />
+                                        </div>
+
+                                        <div class="col-12 col-md-6 d-none" id="unitValueProduct0">
+                                            <label for="proValorUnitario" class="form-label">Valor Unitário</label>
+                                            <input type="text" class="form-control" id="proValorUnitario" readonly />
+                                        </div>
+
+                                        <div class="col-12 col-md-6 d-none" id="totalValueProduct0">
+                                            <label for="venValorTotal" class="form-label">Valor Total</label>
+                                            <input type="text" class="form-control" id="venValorTotal"
+                                                   readonly />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -113,15 +128,12 @@
 
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-primary m-0 me-1"
-                        onclick="addProduct('rowAddModal')">
+                        onclick="addProduct('row${id}Modal')">
                     <i class="tf-icons bx-18px bx bx-plus me-2"></i>
                     Produto
                 </button>
 
-                <button type="button" class="btn btn-primary m-0 ms-1"
-                        data-bs-dismiss="modal">
-                    Salvar
-                </button>
+                <button form="saleForm" type="submit" class="btn btn-primary m-0 ms-1">Salvar</button>
             </div>
         </div>
     </div>

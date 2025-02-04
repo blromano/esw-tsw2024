@@ -19,7 +19,6 @@ public class Venda {
     @NotNull
     private Boolean venSituacaoPagamento;
     
-    @NotNull
     @PositiveOrZero
     private BigDecimal venValorTotal;
     
