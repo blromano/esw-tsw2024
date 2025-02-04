@@ -55,7 +55,7 @@
                     <div class="dropdown">
                         <button class="dropbtn">Perfil ▼</button>
                         <div class="dropdown-content">
-                            <a href="/Dash-Profissional/UC4.13-Gerenciar Perfil/meuPerfil.html">Meu Perfil</a>
+                            <a href="${cp}/formularios/gerenciar-perfil/gerenciar-perfil.jsp">Meu Perfil</a>
                             <a href="${cp}/index.jsp">Sair</a>
                         </div>
                     </div>

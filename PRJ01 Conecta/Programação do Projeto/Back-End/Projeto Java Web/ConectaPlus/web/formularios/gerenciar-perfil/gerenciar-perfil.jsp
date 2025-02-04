@@ -1,14 +1,19 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cp" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conecta+ | Minha Agenda</title>
-    <link rel="stylesheet" href="meuPerfil.css">
+    <link rel="stylesheet" href="${cp}/css/gerenciar-perfil/gerenciar-perfil.css">
     <link rel="icon" href="../4.23-Agenda Profissional/img - Agenda Profissional/icon-conecta.svg" type="image/x-icon">
-    <script defer src="meuPerfil.js"></script>
+    <script defer src="${cp}/js/agenda-profissional/agendaProfissional.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
     <!-- Navbar topo -->
@@ -31,7 +36,7 @@
         <div class="profile-container">
             <div class="profile-card">
                 <div class="profile-header">
-                    <a href="#" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                    <a href="${cp}/formularios/agenda-profissional/listagem.jsp" class="back-icon"><i class="fas fa-arrow-left"></i></a>
                     <h4 class="profile-title"><i class="fas fa-user-circle"></i> Meu Perfil</h4>
                 </div>
                 <div class="profile-body">
@@ -104,4 +109,3 @@
     </div>
 </body>
 </html>
-

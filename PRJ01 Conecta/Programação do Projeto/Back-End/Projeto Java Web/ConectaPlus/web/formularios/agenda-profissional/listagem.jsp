@@ -53,7 +53,7 @@
                 <div class="dropdown">
                     <button class="dropbtn">Perfil ▼</button>
                     <div class="dropdown-content">
-                        <a href="/${cp}#">Meu Perfil</a>
+                        <a href="${cp}/formularios/gerenciar-perfil/gerenciar-perfil.jsp">Meu Perfil</a>
                         <a href="${cp}/index.jsp">Sair</a>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                 <jsp:useBean
                     id="servicos"
                     scope="page"
-                    class="conecta.services.AgendaProfissionalService"/>
+                    class="conecta.services.AgendamentoService"/>
                     <h1>Agendamentos Pendentes</h1>
                     
                     <c:forEach items="${servicos.todos}" var="agendamentos">
