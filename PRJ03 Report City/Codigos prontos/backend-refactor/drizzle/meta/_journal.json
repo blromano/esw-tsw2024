@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1738472344223,
+      "tag": "0000_simple_oracle",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1738559260859,
+      "tag": "0001_wide_blur",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1738738374334,
+      "tag": "0002_workable_warhawk",
+      "breakpoints": true
+    }
+  ]
+}

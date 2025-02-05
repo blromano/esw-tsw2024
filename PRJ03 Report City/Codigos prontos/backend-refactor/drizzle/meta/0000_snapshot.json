@@ -1,0 +1,873 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "ADMINISTRADORES": {
+      "name": "ADMINISTRADORES",
+      "columns": {
+        "ADM_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "ADM_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ADM_ID_PUBLICO": {
+          "autoincrement": false,
+          "name": "ADM_ID_PUBLICO",
+          "type": "char(24)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ADM_NOME": {
+          "autoincrement": false,
+          "name": "ADM_NOME",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ADM_EMAIL": {
+          "autoincrement": false,
+          "name": "ADM_EMAIL",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ADM_SENHA": {
+          "autoincrement": false,
+          "name": "ADM_SENHA",
+          "type": "char(60)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "ADMINISTRADORES_ADM_ID_PRIVADO": {
+          "name": "ADMINISTRADORES_ADM_ID_PRIVADO",
+          "columns": [
+            "ADM_ID_PRIVADO"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "ADM_EMAIL": {
+          "name": "ADM_EMAIL",
+          "columns": [
+            "ADM_EMAIL",
+            "ADM_ID_PUBLICO"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "AREAS": {
+      "name": "AREAS",
+      "columns": {
+        "ARE_ID": {
+          "autoincrement": false,
+          "name": "ARE_ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ARE_NOME": {
+          "autoincrement": false,
+          "name": "ARE_NOME",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ARE_DESCRICAO": {
+          "autoincrement": false,
+          "name": "ARE_DESCRICAO",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "AREAS_ARE_ID": {
+          "name": "AREAS_ARE_ID",
+          "columns": [
+            "ARE_ID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "CIDADOES": {
+      "name": "CIDADOES",
+      "columns": {
+        "CID_ID_PUBLICO": {
+          "autoincrement": false,
+          "name": "CID_ID_PUBLICO",
+          "type": "char(24)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CID_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "CID_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_NOME": {
+          "autoincrement": false,
+          "name": "CID_NOME",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_CPF": {
+          "autoincrement": false,
+          "name": "CID_CPF",
+          "type": "char(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_CELULAR": {
+          "autoincrement": false,
+          "name": "CID_CELULAR",
+          "type": "char(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_EMAIL": {
+          "autoincrement": false,
+          "name": "CID_EMAIL",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_CEP": {
+          "autoincrement": false,
+          "name": "CID_CEP",
+          "type": "char(8)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_RUA": {
+          "autoincrement": false,
+          "name": "CID_RUA",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_NUMERO": {
+          "autoincrement": false,
+          "name": "CID_NUMERO",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_COMPLEMENTO": {
+          "autoincrement": false,
+          "name": "CID_COMPLEMENTO",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CID_BAIRRO": {
+          "autoincrement": false,
+          "name": "CID_BAIRRO",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_CIDADE": {
+          "autoincrement": false,
+          "name": "CID_CIDADE",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_ESTADO": {
+          "autoincrement": false,
+          "name": "CID_ESTADO",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_SENHA": {
+          "autoincrement": false,
+          "name": "CID_SENHA",
+          "type": "char(60)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_COD_RECUPERACAO": {
+          "autoincrement": false,
+          "name": "CID_COD_RECUPERACAO",
+          "type": "char(8)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CID_ATIVADO": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "CID_ATIVADO",
+          "type": "tinyint(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CID_MOTIVO": {
+          "autoincrement": false,
+          "name": "CID_MOTIVO",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "CIDADOES_CID_ID_PRIVADO": {
+          "name": "CIDADOES_CID_ID_PRIVADO",
+          "columns": [
+            "CID_ID_PRIVADO"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "CID_ID_PUBLICO": {
+          "name": "CID_ID_PUBLICO",
+          "columns": [
+            "CID_ID_PUBLICO",
+            "CID_EMAIL",
+            "CID_CPF",
+            "CID_COD_RECUPERACAO",
+            "CID_CELULAR"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "DENUNCIAS": {
+      "name": "DENUNCIAS",
+      "columns": {
+        "DEN_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "DEN_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEN_ID_PUBLICO": {
+          "autoincrement": false,
+          "name": "DEN_ID_PUBLICO",
+          "type": "char(24)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEN_TITULO": {
+          "autoincrement": false,
+          "name": "DEN_TITULO",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEN_DESCRICAO": {
+          "autoincrement": false,
+          "name": "DEN_DESCRICAO",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEN_COORDENADA": {
+          "autoincrement": false,
+          "name": "DEN_COORDENADA",
+          "type": "point",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEN_CREATED_AT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "DEN_CREATED_AT",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEN_UPDATED_AT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "DEN_UPDATED_AT",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "onUpdate": true
+        },
+        "DEN_FEEDBACK": {
+          "autoincrement": false,
+          "name": "DEN_FEEDBACK",
+          "type": "varchar(1024)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DEN_IMAGEM": {
+          "autoincrement": false,
+          "name": "DEN_IMAGEM",
+          "type": "varchar(1024)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEN_TIPO": {
+          "autoincrement": false,
+          "name": "DEN_TIPO",
+          "type": "enum('BURACO NA VIA','BURACO NA CALÇADA','POSTE DANIFICADO','ÁRVORE CAÍDA','REDE ELÉTRICA DANIFICADA')",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FK_CIDADOES_CID_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "FK_CIDADOES_CID_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FK_STATUS_STA_ID": {
+          "autoincrement": false,
+          "name": "FK_STATUS_STA_ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "DENUNCIAS_DEN_ID_PRIVADO": {
+          "name": "DENUNCIAS_DEN_ID_PRIVADO",
+          "columns": [
+            "DEN_ID_PRIVADO"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_DENUNCIAS_2": {
+          "name": "FK_DENUNCIAS_2",
+          "tableFrom": "DENUNCIAS",
+          "tableTo": "CIDADOES",
+          "columnsFrom": [
+            "FK_CIDADOES_CID_ID_PRIVADO"
+          ],
+          "columnsTo": [
+            "CID_ID_PRIVADO"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_DENUNCIAS_3": {
+          "name": "FK_DENUNCIAS_3",
+          "tableFrom": "DENUNCIAS",
+          "tableTo": "STATUS",
+          "columnsFrom": [
+            "FK_STATUS_STA_ID"
+          ],
+          "columnsTo": [
+            "STA_ID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {
+        "DEN_ID_PUBLICO": {
+          "name": "DEN_ID_PUBLICO",
+          "columns": [
+            "DEN_ID_PUBLICO"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "DEPARTAMENTOS": {
+      "name": "DEPARTAMENTOS",
+      "columns": {
+        "DEP_ID": {
+          "autoincrement": false,
+          "name": "DEP_ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEP_NOME": {
+          "autoincrement": false,
+          "name": "DEP_NOME",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DEP_DESCRICAO": {
+          "autoincrement": false,
+          "name": "DEP_DESCRICAO",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "DEPARTAMENTOS_DEP_ID": {
+          "name": "DEPARTAMENTOS_DEP_ID",
+          "columns": [
+            "DEP_ID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "GERENTES": {
+      "name": "GERENTES",
+      "columns": {
+        "GER_ID_PUBLICO": {
+          "autoincrement": false,
+          "name": "GER_ID_PUBLICO",
+          "type": "char(24)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "GER_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "GER_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "GER_FOTO": {
+          "autoincrement": false,
+          "name": "GER_FOTO",
+          "type": "varchar(1024)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "GER_NOME": {
+          "autoincrement": false,
+          "name": "GER_NOME",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "GER_CPF": {
+          "autoincrement": false,
+          "name": "GER_CPF",
+          "type": "char(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "GER_EMAIL": {
+          "autoincrement": false,
+          "name": "GER_EMAIL",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "GER_SENHA": {
+          "autoincrement": false,
+          "name": "GER_SENHA",
+          "type": "char(60)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FK_DEPARTAMENTOS_DEP_ID": {
+          "autoincrement": false,
+          "name": "FK_DEPARTAMENTOS_DEP_ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FK_ADMINISTRADORES_ADM_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "FK_ADMINISTRADORES_ADM_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "GERENTES_GER_ID_PRIVADO": {
+          "name": "GERENTES_GER_ID_PRIVADO",
+          "columns": [
+            "GER_ID_PRIVADO"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_GERENTES_2": {
+          "name": "FK_GERENTES_2",
+          "tableFrom": "GERENTES",
+          "tableTo": "DEPARTAMENTOS",
+          "columnsFrom": [
+            "FK_DEPARTAMENTOS_DEP_ID"
+          ],
+          "columnsTo": [
+            "DEP_ID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_GERENTES_3": {
+          "name": "FK_GERENTES_3",
+          "tableFrom": "GERENTES",
+          "tableTo": "ADMINISTRADORES",
+          "columnsFrom": [
+            "FK_ADMINISTRADORES_ADM_ID_PRIVADO"
+          ],
+          "columnsTo": [
+            "ADM_ID_PRIVADO"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {
+        "GER_ID_PUBLICO": {
+          "name": "GER_ID_PUBLICO",
+          "columns": [
+            "GER_ID_PUBLICO",
+            "GER_CPF",
+            "GER_EMAIL"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "SERVICOS_TERCEIRIZADOS": {
+      "name": "SERVICOS_TERCEIRIZADOS",
+      "columns": {
+        "SER_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "SER_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_ID_PUBLICO": {
+          "autoincrement": false,
+          "name": "SER_ID_PUBLICO",
+          "type": "char(24)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_NOME": {
+          "autoincrement": false,
+          "name": "SER_NOME",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_CPF": {
+          "autoincrement": false,
+          "name": "SER_CPF",
+          "type": "char(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_CELULAR": {
+          "autoincrement": false,
+          "name": "SER_CELULAR",
+          "type": "char(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_EMAIL": {
+          "autoincrement": false,
+          "name": "SER_EMAIL",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_SENHA": {
+          "autoincrement": false,
+          "name": "SER_SENHA",
+          "type": "char(60)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_COD_RECUPERACAO": {
+          "autoincrement": false,
+          "name": "SER_COD_RECUPERACAO",
+          "type": "char(8)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FK_AREAS_ARE_ID": {
+          "autoincrement": false,
+          "name": "FK_AREAS_ARE_ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_ATIVADO": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "SER_ATIVADO",
+          "type": "tinyint(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SER_MOTIVO": {
+          "autoincrement": false,
+          "name": "SER_MOTIVO",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "SERVICOS_TERCEIRIZADOS_SER_ID_PRIVADO": {
+          "name": "SERVICOS_TERCEIRIZADOS_SER_ID_PRIVADO",
+          "columns": [
+            "SER_ID_PRIVADO"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_SERVICOS_TERCEIRIZADOS_2": {
+          "name": "FK_SERVICOS_TERCEIRIZADOS_2",
+          "tableFrom": "SERVICOS_TERCEIRIZADOS",
+          "tableTo": "AREAS",
+          "columnsFrom": [
+            "FK_AREAS_ARE_ID"
+          ],
+          "columnsTo": [
+            "ARE_ID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {
+        "SER_ID_PUBLICO": {
+          "name": "SER_ID_PUBLICO",
+          "columns": [
+            "SER_ID_PUBLICO",
+            "SER_EMAIL",
+            "SER_COD_RECUPERACAO",
+            "SER_CPF",
+            "SER_CELULAR"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "STATUS": {
+      "name": "STATUS",
+      "columns": {
+        "STA_NOME": {
+          "autoincrement": false,
+          "name": "STA_NOME",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "STA_ID": {
+          "autoincrement": false,
+          "name": "STA_ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "STATUS_STA_ID": {
+          "name": "STATUS_STA_ID",
+          "columns": [
+            "STA_ID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "TAREFAS": {
+      "name": "TAREFAS",
+      "columns": {
+        "TAR_ID_PUBLICO": {
+          "autoincrement": false,
+          "name": "TAR_ID_PUBLICO",
+          "type": "char(24)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TAR_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "TAR_ID_PRIVADO",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TAR_NOME": {
+          "autoincrement": false,
+          "name": "TAR_NOME",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TAR_DESCRICAO": {
+          "autoincrement": false,
+          "name": "TAR_DESCRICAO",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TAR_CREATED_AT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "TAR_CREATED_AT",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TAR_CHAMADOS": {
+          "autoincrement": false,
+          "name": "TAR_CHAMADOS",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FK_DENUNCIAS_DEN_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "FK_DENUNCIAS_DEN_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FK_STATUS_STA_ID": {
+          "autoincrement": false,
+          "name": "FK_STATUS_STA_ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FK_SERVICOS_TERCEIRIZADOS_SER_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "FK_SERVICOS_TERCEIRIZADOS_SER_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FK_GERENTES_GER_ID_PRIVADO": {
+          "autoincrement": false,
+          "name": "FK_GERENTES_GER_ID_PRIVADO",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "TAREFAS_TAR_ID_PRIVADO": {
+          "name": "TAREFAS_TAR_ID_PRIVADO",
+          "columns": [
+            "TAR_ID_PRIVADO"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_TAREFAS_2": {
+          "name": "FK_TAREFAS_2",
+          "tableFrom": "TAREFAS",
+          "tableTo": "DENUNCIAS",
+          "columnsFrom": [
+            "FK_DENUNCIAS_DEN_ID_PRIVADO"
+          ],
+          "columnsTo": [
+            "DEN_ID_PRIVADO"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_TAREFAS_3": {
+          "name": "FK_TAREFAS_3",
+          "tableFrom": "TAREFAS",
+          "tableTo": "STATUS",
+          "columnsFrom": [
+            "FK_STATUS_STA_ID"
+          ],
+          "columnsTo": [
+            "STA_ID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_TAREFAS_4": {
+          "name": "FK_TAREFAS_4",
+          "tableFrom": "TAREFAS",
+          "tableTo": "SERVICOS_TERCEIRIZADOS",
+          "columnsFrom": [
+            "FK_SERVICOS_TERCEIRIZADOS_SER_ID_PRIVADO"
+          ],
+          "columnsTo": [
+            "SER_ID_PRIVADO"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_TAREFAS_5": {
+          "name": "FK_TAREFAS_5",
+          "tableFrom": "TAREFAS",
+          "tableTo": "GERENTES",
+          "columnsFrom": [
+            "FK_GERENTES_GER_ID_PRIVADO"
+          ],
+          "columnsTo": [
+            "GER_ID_PRIVADO"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {
+        "TAR_ID_PUBLICO": {
+          "name": "TAR_ID_PUBLICO",
+          "columns": [
+            "TAR_ID_PUBLICO"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {
+      "DENUNCIAS": {
+        "columns": {
+          "DEN_CREATED_AT": {
+            "isDefaultAnExpression": true
+          },
+          "DEN_UPDATED_AT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "TAREFAS": {
+        "columns": {
+          "TAR_CREATED_AT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      }
+    },
+    "indexes": {}
+  }
+}
