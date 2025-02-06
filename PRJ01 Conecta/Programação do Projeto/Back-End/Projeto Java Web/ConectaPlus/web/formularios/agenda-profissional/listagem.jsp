@@ -68,7 +68,7 @@
                 <jsp:useBean
                     id="servicos"
                     scope="page"
-                    class="conecta.services.AgendamentoService"/>
+                    class="conecta.services.AgendaProfissionalService"/>
                     <h1>Agendamentos Pendentes</h1>
                     
                     <c:forEach items="${servicos.todos}" var="agendamentos">

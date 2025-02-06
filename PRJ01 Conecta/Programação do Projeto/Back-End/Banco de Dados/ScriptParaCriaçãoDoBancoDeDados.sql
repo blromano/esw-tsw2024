@@ -1,5 +1,6 @@
-create database if not exists conectaplus;
-	use  conectaplus;
+CREATE DATABASE IF NOT EXISTS `conecta_plus`;
+USE  `conecta_plus`;
+
 CREATE TABLE IF NOT EXISTS `conecta_plus` . `usuarios`(
 	
     `id_usuarios` INT NOT NULL AUTO_INCREMENT,
@@ -24,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `conecta_plus` . `profissionais`(
     `pro_end_com` VARCHAR(100) NOT NULL,
     `pro_foto` LONGBLOB NOT NULL,
     `pro_id_usuarios` INT,
+    `pro_cpf_cnpj` VARCHAR(14),
     PRIMARY KEY (`id_profissionais`),
     FOREIGN KEY (`pro_id_usuarios`) REFERENCES usuarios(`id_usuarios`)
 
@@ -44,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `conecta_plus` . `servicos`(
 CREATE TABLE IF NOT EXISTS `conecta_plus` . `clientes`(
 
 	`id_clientes` INT NOT NULL AUTO_INCREMENT,
-    `cli_cpf` VARCHAR(11) NOT NULL,
+    `cli_cpf` VARCHAR(14) NOT NULL,
     `cli_id_usuarios` INT,
     PRIMARY KEY (`id_clientes`),
     FOREIGN KEY (`cli_id_usuarios`) REFERENCES usuarios(`id_usuarios`)
