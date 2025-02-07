@@ -1,0 +1,14 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #282828;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+span {
+  font-size: 25px;
+}
