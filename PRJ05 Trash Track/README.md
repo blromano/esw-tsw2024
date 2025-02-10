@@ -43,3 +43,8 @@ public class ConnectionFactory {
 ## ☕ Usando TrashTrack
 
 Após isso, basta executar o projeto em sua Máquina!
+
+## 🎥 Link da apresentação do projeto
+
+https://www.youtube.com/watch?v=t3MrM54t1vY
+
